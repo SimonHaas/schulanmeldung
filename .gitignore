@@ -46,10 +46,9 @@
 
 # Embedded web-server pid file
 /.web-server-pid
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/schulanmeldung.iml
-.idea/workspace.xml
-.idea/vcs.xml
+.idea
 .env
+
+# Log und cache
+/var/log/
+/var/cache/
