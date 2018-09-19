@@ -1,6 +1,13 @@
 # Schulanmeldung
 
-What's next? 
+## Install project
+
+1.  Clone git repo
+2.  Run `composer install`
+3.  Start working!
+
+
+## What's next? 
               
 
   * Run your application:
