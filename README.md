@@ -6,6 +6,26 @@
 2.  Run `composer install`
 3.  Start working!
 
+## Apache virtual host config
+
+```
+<VirtualHost *>
+   DocumentRoot "<Projekt-Verzeichnis>/public"
+   ServerName <URL>
+   DirectoryIndex index.php
+   <Directory "<Projekt-Verzeichnis>/public">
+     AllowOverride All
+     Allow from All
+ 	
+ 	<IfModule mod_rewrite.c>
+         Options -MultiViews
+         RewriteEngine On
+         RewriteCond %{REQUEST_FILENAME} !-f
+         RewriteRule ^(.*)$ index.php [QSA,L]
+     </IfModule>
+   </Directory>
+</VirtualHost>
+```
 
 ## What's next? 
               
