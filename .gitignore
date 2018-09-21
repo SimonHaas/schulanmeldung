@@ -50,5 +50,4 @@
 .env
 
 # Log und cache
-/var/
-*.log
+/var/*
