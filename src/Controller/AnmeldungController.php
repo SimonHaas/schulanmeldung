@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Herkunftsschule;
 use App\Form\BasicInfosType;
 use App\Form\BetriebSelectType;
+use App\Repository\HerkunftsschuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,12 @@ class AnmeldungController extends AbstractController
      */
     public function index(Request $request)
     {
+        $pastSchools = $this->getDoctrine()
+            ->getRepository(Herkunftsschule::class)
+            ->findAll();
+
+        dd($pastSchools);
+
         $form = $this->createForm(BasicInfosType::class);
 
 

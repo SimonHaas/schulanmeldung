@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Herkunftsschule;
+use App\Repository\HerkunftsschuleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
