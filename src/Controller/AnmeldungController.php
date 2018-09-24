@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Betrieb;
 use App\Entity\Herkunftsschule;
 use App\Form\BasicInfosType;
 use App\Form\BetriebSelectType;
@@ -64,7 +65,21 @@ class AnmeldungController extends AbstractController
      */
     public function betriebSelect(Request $request)
     {
-        $form = $this->createForm(BetriebSelectType::class);
+        /**
+         * @var $companies Betrieb[]
+         */
+        $companies = $this->getDoctrine()
+            ->getRepository(Betrieb::class)
+            ->findAll();
+
+        $selectOptions = array();
+        foreach($companies as $company) {
+            $selectString = $company->getName1().' '.$company->getName2().' '.$company->getName3().', '.$company->getStrasse().', '.$company->getPlz().' '.$company->getOrt();
+            $selectValue = $company->getSchluessel();
+            $selectOptions[$selectString] = $selectValue;
+        }
+
+        $form = $this->createForm(BetriebSelectType::class, $selectOptions);
 
 
         $form->handleRequest($request);

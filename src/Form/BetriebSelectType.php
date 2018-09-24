@@ -14,10 +14,7 @@ class BetriebSelectType extends AbstractType
     {
         $builder
             ->add('Ausbildungsbetrieb', ChoiceType::class, array(
-                'choices'  => array(
-                    'VEMA' => 'test',
-                    //TODO Datenbank
-                ),
+                'choices'  => $options['data'],
             ))
             ->add('submit', SubmitType::class)
         ;

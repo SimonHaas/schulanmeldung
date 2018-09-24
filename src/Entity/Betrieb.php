@@ -5,87 +5,91 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="betriebedaten")
  * @ORM\Entity(repositoryClass="App\Repository\BetriebRepository")
  */
 class Betrieb
 {
     /**
+     * TODO wird des benötigt
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    //private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Id()
+     * @ORM\Column(type="string", length=255, nullable=false, name="B_SCHLUESSEL")
      */
     private $schluessel;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME1")
      */
     private $name1;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME2")
      */
     private $name2;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME4")
      */
     private $name3;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, name="B_PLZ")
      */
     private $plz;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_STRASSE")
      */
     private $strasse;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_ORT")
      */
     private $ort;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON1")
      */
     private $telefon1;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON2")
      */
     private $telefon2;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON3")
      */
     private $telefon3;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_E_MAIL")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false, name="B_GEMEINDEKZ")
      */
     private $gemeinde;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="B_BBIG")
      */
     private $bbig;
 
+    /**
     public function getId(): ?int
     {
         return $this->id;
     }
-
+*/
     public function getSchluessel(): ?string
     {
         return $this->schluessel;
