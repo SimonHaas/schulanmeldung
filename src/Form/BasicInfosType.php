@@ -30,11 +30,15 @@ class BasicInfosType extends AbstractType
             ->add('letzteSchule', ChoiceType::class, array(
                 'label' => 'Zuletzt besuchte Schule',
                 'choices' => array(
-                    //TODO
+                    //TODO Datenbank
+                    'test' => 'das hier'
                 )
             ))
             ->add('ausbildungsberuf', ChoiceType::class, array(
-                //TODO
+                //TODO Datenbank
+                'choices' => array(
+                    'test' => 'das hier'
+                )
             ))
             ->add('submit', SubmitType::class)
         ;
