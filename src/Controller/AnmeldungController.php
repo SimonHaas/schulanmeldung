@@ -24,6 +24,7 @@ class AnmeldungController extends AbstractController
 
         $form->handleRequest($request);
 
+        //TODO for isValid add Annotations in Entity
         if ($form->isSubmitted() && $form->isValid()) {
             //$entityManager = $this->getDoctrine()->getManager();
             //$entityManager->persist($post);
