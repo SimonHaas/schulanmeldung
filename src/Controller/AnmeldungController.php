@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\BasicInfosType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,8 +13,10 @@ class AnmeldungController extends AbstractController
      */
     public function index()
     {
-        return $this->render('anmeldung/index.html.twig', [
-            'controller_name' => 'AnmeldungController',
-        ]);
+        $form = $this->createForm(BasicInfosType::class);
+
+        return $this->render('anmeldung/index.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 }
