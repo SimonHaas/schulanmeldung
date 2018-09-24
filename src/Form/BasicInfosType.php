@@ -31,10 +31,7 @@ class BasicInfosType extends AbstractType
             ))
             ->add('letzteSchule', ChoiceType::class, array(
                 'label' => 'Zuletzt besuchte Schule',
-                'choices' => array(
-                    //TODO Datenbank
-                    'test' => 'das hier'
-                )
+                'choices' => $options['data']
             ))
             ->add('ausbildungsberuf', ChoiceType::class, array(
                 //TODO Datenbank

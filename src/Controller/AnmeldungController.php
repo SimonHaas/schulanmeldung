@@ -21,15 +21,21 @@ class AnmeldungController extends AbstractController
      */
     public function index(Request $request)
     {
+        /**
+         * @var $pastSchools Herkunftsschule[]
+         */
         $pastSchools = $this->getDoctrine()
             ->getRepository(Herkunftsschule::class)
             ->findAll();
 
-        dd($pastSchools);
+        $selectOptions = array();
+        foreach($pastSchools as $pastSchool) {
+            $selectString = $pastSchool->getOrt().': '.$pastSchool->getName().', '.$pastSchool->getStrasse();
+            $selectValue = $pastSchool->getId();
+            $selectOptions[$selectString] = $selectValue;
+        }
 
-        $form = $this->createForm(BasicInfosType::class);
-
-
+        $form = $this->createForm(BasicInfosType::class, $selectOptions);
         $form->handleRequest($request);
 
         //TODO for isValid add Annotations in Entity
