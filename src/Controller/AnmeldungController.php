@@ -14,6 +14,8 @@ class AnmeldungController extends AbstractController
 {
     /**
      * @Route("/anmeldung", name="anmeldung")
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function index(Request $request)
     {
@@ -96,6 +98,16 @@ class AnmeldungController extends AbstractController
         return $this->render('anmeldung/schuelerdaten.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("betrieb", name="betrieb")
+     * @param Request $request
+     * @return Response
+     */
+    public function newBetrieb(Request $request)
+    {
+        return $this->render('anmeldung/newBetrieb.html.twig');
     }
 
 }
