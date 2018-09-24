@@ -33,6 +33,9 @@ class BasicInfosType extends AbstractType
                     //TODO
                 )
             ))
+            ->add('ausbildungsberuf', ChoiceType::class, array(
+                //TODO
+            ))
             ->add('submit', SubmitType::class)
         ;
     }
