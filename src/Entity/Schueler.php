@@ -104,7 +104,7 @@ class Schueler
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $anschr1_fuer2; /**ToDo: Funktion unbekannt */;
+    private $anschr1_fuer2; /**ToDo: Funktion unbekannt */
 
     /**
      * @ORM\Column(type="string", length=255)
