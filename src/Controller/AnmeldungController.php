@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Betrieb;
 use App\Entity\Herkunftsschule;
+use App\Entity\Schueler;
 use App\Form\BasicInfosType;
 use App\Form\BetriebSelectType;
-use App\Repository\HerkunftsschuleRepository;
+use App\Form\BetriebType;
+use App\Form\SchuelerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,39 +95,10 @@ class AnmeldungController extends AbstractController
             //    'id' => $post->getId()
             //]);
 
-            return $this->redirectToRoute('schuelerdaten');
+            return $this->redirectToRoute('schueler');
         }
 
         return $this->render('anmeldung/betriebSelect.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * @Route("schuelerdaten", name="schuelerdaten")
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function schuelerdaten(Request $request)
-    {
-        $form = $this->createForm(BetriebSelectType::class);
-
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($post);
-            //$entityManager->flush();
-
-            //return $this->redirectToRoute('admin_post_show', [
-            //    'id' => $post->getId()
-            //]);
-
-            return $this->redirectToRoute('betrieb.select');
-        }
-
-        return $this->render('anmeldung/schuelerdaten.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -135,9 +108,57 @@ class AnmeldungController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function newBetrieb(Request $request)
+    public function betrieb(Request $request)
     {
-        return $this->render('anmeldung/newBetrieb.html.twig');
+        $form = $this->createForm(BetriebType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var $betrieb Betrieb
+             */
+            $betrieb = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($betrieb);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('schueler');
+        }
+
+        return $this->render('anmeldung/betrieb.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("schueler", name="schueler")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function schueler(Request $request)
+    {
+        $form = $this->createForm(SchuelerType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var $schueler Schueler
+             */
+            $schueler = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($schueler);
+            $entityManager->flush();
+
+            //TODO CSV generieren
+
+            return $this->redirectToRoute('datenschutz');
+        }
+
+        return $this->render('anmeldung/schueler.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
 }
