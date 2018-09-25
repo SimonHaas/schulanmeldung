@@ -4,6 +4,13 @@ namespace App\Form;
 
 use App\Entity\Schueler;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -11,27 +18,26 @@ class SchuelerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //dd($options);
-        //echo($options['vorname']);
         $builder
-            ->add('anrede')
-            ->add('familienname')
-            ->add('vorname', ChoiceType::class, $options['vorname'])
-            ->add('rufname')
-            ->add('geschlecht')
-            ->add('geburtsdatum')
-            ->add('geburtsort')
-            ->add('geburtsland')
-            ->add('staat')
-            ->add('bekenntnis')
-            ->add('familienstand')
-            ->add('email1')
-            ->add('strasse')
-            ->add('plz')
-            ->add('ort')
-            ->add('telefon')
-            ->add('anschr1_fuer1')
-            ->add('anschr1_fuer2')
+            ->add('anrede', ChoiceType::class, $options['anrede'])
+            ->add('familienname', TextType::class, $options['familienname'])
+            ->add('vorname', TextType::class, $options['vorname'])
+            ->add('rufname', TextType::class, $options['rufname'])
+            ->add('geschlecht', ChoiceType::class, $options['geschlecht'])
+            ->add('geburtsdatum', BirthdayType::class, $options['geburtsdatum'])
+            ->add('geburtsort', TextType::class, $options['geburtsort'])
+            ->add('geburtsland', CountryType::class, $options['geburtsland'])
+            ->add('zuzug_art', ChoiceType::class, $options['zuzug_art'])
+            ->add('zuzug_datum', DateType::class, $options['zuzug_datum'])
+            ->add('staat', CountryType::class, $options['staat'])
+            ->add('bekenntnis', ChoiceType::class, $options['bekenntnis'])
+            ->add('email1', EmailType::class, $options['email'])
+            ->add('strasse', TextType::class, $options['strasse'])
+            ->add('plz', IntegerType::class, $options['plz'])
+            ->add('ort', TextType::class, $options['ort'])
+            ->add('telefon', TextType::class, $options['telefon'])
+            ->add('anschr1_fuer1', ChoiceType::class, $options['anschr1_fuer1'])
+            ->add('anschr1_fuer2', ChoiceType::class, $options['anschr1_fuer2'])
             ->add('erziehungsberechtigter1_art')
             ->add('erziehungsberechtigter1_anrede')
             ->add('erziehungsberechtigter1_familienname')
@@ -92,8 +98,6 @@ class SchuelerType extends AbstractType
             ->add('sv_slbschule4')
             ->add('sv_slbschule4eintritt')
             ->add('sv_slbschule4austritt')
-            ->add('zuzug_art')
-            ->add('zuzug_datum')
             ->add('kommentar')
             ->add('anmeldedatum')
             ->add('anmeldezeit')
@@ -105,11 +109,137 @@ class SchuelerType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Schueler::class,
-            'vorname' => array(
+            'anrede' => array(
                 'choices' => array(
-                    'Ja' => 1,
-                    'Nein' => 0
-                )
+                    'Herr' => 'h',
+                    'Frau' => 'f',
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Anrede',
+                'required' => true
+            ),
+            'familienname' => array(
+                'label' => 'Familienname',
+                'required' => true
+            ),
+            'vorname' => array(
+                'label' => 'Vorname',
+                'required' => true
+            ),
+            'rufname' => array(
+                'label' => 'Rufname',
+                'required' => true
+            ),
+            'geschlecht' => array(
+                'choices' => array(
+                    'männlich' => 'm',
+                    'weiblich' => 'w',
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Geschlecht',
+                'required' => true
+            ),
+            'geburtsdatum' => array(
+                'format' => 'dd MM yyyy',
+                'widget' => 'choice',
+                'years' => range(date('Y')-70, date('Y')),
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'label' => 'Geburtsdatum',
+                'required' => true
+            ),
+            'geburtsort' => array(
+                'label' => 'Geburtsort',
+                'required' => true
+            ),
+            'geburtsland' => array(
+                'placeholder' => 'auswählen...',
+                'label' => 'Geburtsland',
+                'required' => true,
+            ),
+            'zuzug_art' => array(
+                'choices' => array(
+                    'Aussiedler' => 'AU',
+                    'Asylbewerber' => 'AB',
+                    'Kriegsflüchtling' => 'KF',
+                    'Ausländer' => 'AS',
+                    'sonstiger Zuzug' => 'SO'
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Zuzugsart',
+                'required' => false
+            ),
+            'zuzug_datum' => array(
+                'format' => 'dd MM yyyy',
+                'html5' => true,
+                'years' => range(date('Y')-70, date('Y')),
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'label' => 'Zuzugsdatum',
+                'required' => false
+            ),
+            'staat' => array(
+                'placeholder' => 'auswählen...',
+                'label' => 'Staatsangehörigkeit',
+                'required' => true,
+            ),
+            'bekenntnis' => array(
+                'choices' => array(
+                    'römisch-katholisch' => 'RK',
+                    'evangelisch' => 'EV',
+                    'evangelisch-methodistisch' => 'EM',
+                    'freie evangelische Gemeinde' => 'FE',
+                    'evangelisch-freikirchlich' => 'EF',
+                    'evangelisch-reformiert' => 'ER',
+                    'islamisch' => 'IS',
+                    'russisch-orthodox' => 'RU',
+                    'griechisch-orthodox' => 'GO',
+                    'serbisch-orthodox' => 'SE',
+                    'rumänisch-orthodox' => 'RM',
+                    'syrisch-orthodox' => 'SY',
+                    'Zeugen Jehova' => 'ZJ',
+                    'israelisch' => 'IE',
+                    'neuapostolisch' => 'NA',
+                    'Sieben Tags-Adventisten' => 'SA',
+                    'altkatholisch' => 'AK',
+                    'bekenntnislos' => 'BL',
+                    'sonstige' => 'SO'
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Bekenntnis',
+                'required' => true
+            ),
+            'email' => array(
+                'label' => 'E-Mail Adresse',
+                'required' => true
+            ),
+            'strasse' => array(
+                'label' => 'Straße, Hausnummer',
+                'required' => true
+            ),
+            'plz' => array(
+                'label' => 'PLZ',
+                'required' => true
+            ),
+            'ort' => array(
+                'label' => 'Ort',
+                'required' => true
+            ),
+            'telefon' => array(
+                'label' => 'Telefon-/Handynummer',
+                'required' => true
+            ),
+            'anschr1_fuer1' => array(
+                'choices' => array(
+                    'Schüler(in)' => 0
+                ),
+                'label' => 'Adresse gilt für ',
+                'required' => true
+            ),
+            'anschr1_fuer2' => array(
+
             )
         ]);
     }
