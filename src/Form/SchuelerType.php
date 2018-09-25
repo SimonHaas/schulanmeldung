@@ -11,10 +11,12 @@ class SchuelerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //dd($options);
+        //echo($options['vorname']);
         $builder
             ->add('anrede')
             ->add('familienname')
-            ->add('vorname')
+            ->add('vorname', ChoiceType::class, $options['vorname'])
             ->add('rufname')
             ->add('geschlecht')
             ->add('geburtsdatum')
@@ -103,6 +105,12 @@ class SchuelerType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Schueler::class,
+            'vorname' => array(
+                'choices' => array(
+                    'Ja' => 1,
+                    'Nein' => 0
+                )
+            )
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\SchuelerType;
 
 class SchuelerTestController extends AbstractController
 {
@@ -12,8 +13,10 @@ class SchuelerTestController extends AbstractController
      */
     public function index()
     {
+        $form = $this->createForm(SchuelerType::class);
+
         return $this->render('schueler_test/index.html.twig', [
-            'controller_name' => 'SchuelerTestController',
+            'form' => $form->createView()
         ]);
     }
 }
