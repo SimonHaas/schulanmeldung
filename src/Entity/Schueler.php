@@ -12,422 +12,422 @@ class Schueler
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name = "SID")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANREDE")
      */
     private $anrede;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "FAMILIENNAME")
      */
     private $familienname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "VORNAMEN")
      */
     private $vorname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "RUFNAME")
      */
     private $rufname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "GESCHLECHT")
      */
     private $geschlecht;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "GEBURTSDATUM")
      */
     private $geburtsdatum;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "GEBURTSORT")
      */
     private $geburtsort;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "GEBURTSLAND")
      */
     private $geburtsland;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "STAAT")
      */
     private $staat;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "BEKENNTNIS")
      */
     private $bekenntnis;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "FAMILIENSTAND")
      */
     private $familienstand;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "E_MAIL1")
      */
     private $email1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR1_STR")
      */
     private $strasse;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=5, name = "ANSCHR1_PLZ")
      */
     private $plz;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR1_ORT")
      */
     private $ort;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR1_TEL")
      */
     private $telefon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR1_FUER1")
      */
     private $anschr1_fuer1; /**ToDo: Funktion unbekannt */
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR1_FUER2")
      */
     private $anschr1_fuer2; /**ToDo: Funktion unbekannt */
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB1_ART")
      */
     private $erziehungsberechtigter1_art;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB1_ANREDE")
      */
     private $erziehungsberechtigter1_anrede;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB1_FAMNAME")
      */
     private $erziehungsberechtigter1_familienname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB1_RUFNAME")
      */
     private $erziehungsberechtigter1_rufname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB1_TELEFON")
      */
     private $erziehungsberechtigter1_telefon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "E_MAIL2")
      */
     private $email2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB2_ART")
      */
     private $erziehungsberechtigter2_art;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB2_ANREDE")
      */
     private $erziehungsberechtigter2_anrede;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB2_FAMNAME")
      */
     private $erziehungsberechtigter2_familienname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB2_RUFNAME")
      */
     private $erziehungsberechtigter2_rufname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ERZB2_TELEFON")
      */
     private $erziehungsberechtigter2_telefon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR2_STR")
      */
     private $anschrift2_strasse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR2_PLZ")
      */
     private $anschrift2_plz;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=5, name = "ANSCHR2_ORT")
      */
     private $anschrift2_ort;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR2_TEL")
      */
     private $anschrift2_telefon;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR2_FUER1")
      */
     private $anschrift2_fuer1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANSCHR2_FUER2")
      */
     private $anschrift2_fuer2;
 
     /**
-     * @ORM\Column(type="boolean", length=1)
+     * @ORM\Column(type="boolean", length=1, name = "GASTSCHUELER")
      */
     private $gastschueler;
 
     /**
-     * @ORM\Column(type="boolean", length=1)
+     * @ORM\Column(type="boolean", length=1, name = "UMSCHUELER")
      */
     private $umschueler;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "KOSTENTRAEGER")
      */
     private $kostentraeger;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "TRAEGERSITZ")
      */
     private $traegersitz;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "FOERDERUNGSNR")
      */
     private $foerderungsnummer;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", length=1, name = "SCHULPFLICHT")
      */
     private $schulpflicht;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="boolean", length=1, name = "TAGESHEIM")
      */
     private $tagesheim;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "AUSB_BEGINN")
      */
     private $ausbildung_beginn;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "AUSB_ENDE")
      */
     private $ausbildung_ende;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "AUSB_DAUER")
      */
     private $ausbildung_dauer;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "AUSB_ART")
      */
     private $ausbildung_art;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "AUSB_BERUF")
      */
     private $ausbildung_beruf;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "AUSB_BETRIEB")
      */
     private $ausbildung_betrieb;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_NAME1")
      */
     private $betrieb_name1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_NAME4")
      */
     private $betrieb_name2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_STRASSE")
      */
     private $betrieb_strasse;
 
     /**
-     * @ORM\Column(type="string", length=5)
+     * @ORM\Column(type="string", length=5, name = "B_PLZ")
      */
     private $betrieb_plz;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_ORT")
      */
     private $betrieb_ort;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_TELEFON1")
      */
     private $betrieb_telefon1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_TELEFON2")
      */
     private $betrieb_telefon2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_TELEFON3")
      */
     private $betrieb_telefon3;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_E_MAIL")
      */
     private $betrieb_email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "B_BBIG")
      */
     private $betrieb_bbig;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "KAMMER")
      */
     private $kammer;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "EINTRITTSDATUM")
      */
     private $eintrittsdatum;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "KLASSE")
      */
     private $klasse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "EINTR_JGST")
      */
     private $eintritt_jgst;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "VON_SCHULART")
      */
     private $von_schulart;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "VON_SCHULNR")
      */
     private $von_schulnummer;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "SCHUL_VORBILD")
      */
     private $schul_vorbild;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "VORBILD_SCHUL")
      */
     private $vorbild_schul;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule1")
      */
     private $sv_slbschule1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule1eintritt")
      */
     private $sv_slbschule1eintritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule1austritt")
      */
     private $sv_slbschule1austritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule2")
      */
     private $sv_slbschule2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule2eintritt")
      */
     private $sv_slbschule2eintritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule2austritt")
      */
     private $sv_slbschule2austritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule3")
      */
     private $sv_slbschule3;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule3eintritt")
      */
     private $sv_slbschule3eintritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule3austritt")
      */
     private $sv_slbschule3austritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule4")
      */
     private $sv_slbschule4;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule4eintritt")
      */
     private $sv_slbschule4eintritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "sv_slbschule4austritt")
      */
     private $sv_slbschule4austritt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ZUZUG_ART")
      */
     private $zuzug_art;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "ZUZUG_DATUM")
      */
     private $zuzug_datum;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "KOMMENTAR")
      */
     private $kommentar;
 
     /**
-     * @ORM\Column(type="date", length=255)
+     * @ORM\Column(type="date", length=255, name = "ANMELDEDATUM")
      */
     private $anmeldedatum;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name = "ANMELDEZEIT")
      */
     private $anmeldezeit;
 
@@ -1890,7 +1890,7 @@ class Schueler
     }
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255, name = "DEUTSCH")
      */
     private $deutsch;
 
