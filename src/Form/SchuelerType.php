@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Schueler;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +13,6 @@ class SchuelerType extends AbstractType
     {
         $builder
             ->add('anrede')
-            ->add('familienname')
             ->add('vorname')
             ->add('rufname')
             ->add('geschlecht')
@@ -23,6 +21,7 @@ class SchuelerType extends AbstractType
             ->add('geburtsland')
             ->add('staat')
             ->add('bekenntnis')
+            ->add('familienstand')
             ->add('email1')
             ->add('strasse')
             ->add('plz')
@@ -60,17 +59,6 @@ class SchuelerType extends AbstractType
             ->add('ausbildung_art')
             ->add('ausbildung_beruf')
             ->add('ausbildung_betrieb')
-            ->add('betrieb_name1')
-            ->add('betrieb_name2')
-            ->add('betrieb_strasse')
-            ->add('betrieb_plz')
-            ->add('betrieb_ort')
-            ->add('betrieb_telefon1')
-            ->add('betrieb_telefon2')
-            ->add('betrieb_telefon3')
-            ->add('betrieb_email')
-            ->add('betrieb_bbig')
-            ->add('kammer')
             ->add('eintrittsdatum')
             ->add('klasse')
             ->add('eintritt_jgst')
@@ -96,7 +84,6 @@ class SchuelerType extends AbstractType
             ->add('anmeldedatum')
             ->add('anmeldezeit')
             ->add('deutsch')
-            ->add('submit', SubmitType::class)
         ;
     }
 
