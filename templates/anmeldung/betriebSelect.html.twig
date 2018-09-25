@@ -1,5 +1,11 @@
-{{ form_start(form) }}
+{% extends "base.html.twig" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
     {{ form_widget(form) }}
-{{ form_end(form) }}
-//TODO button um neuen Betrieb anzulegen
-<a href="{{ path('betrieb') }}">neuen Betrieb anlegen</a>
+    {{ form_end(form) }}
+    //TODO button um neuen Betrieb anzulegen
+    <a href="{{ path('betrieb') }}">neuen Betrieb anlegen</a>
+{% endblock %}
