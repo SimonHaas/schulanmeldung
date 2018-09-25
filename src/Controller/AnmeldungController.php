@@ -24,6 +24,7 @@ class AnmeldungController extends AbstractController
      */
     public function index(Request $request)
     {
+        //TODO als Startseite umbauen
         /**
          * @var $pastSchools Herkunftsschule[]
          */
@@ -74,6 +75,7 @@ class AnmeldungController extends AbstractController
             ->getRepository(Betrieb::class)
             ->findAll();
 
+        //TODO Auswahl in SchuelerType
         $selectOptions = array();
         foreach($companies as $company) {
             $selectString = $company->getName1().' '.$company->getName2().' '.$company->getName3().', '.$company->getStrasse().', '.$company->getPlz().' '.$company->getOrt();
@@ -87,6 +89,7 @@ class AnmeldungController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //TODO Betrieb vielleicht in Session speicher oder irgendwie mit Schueler verknüpfen
             //$entityManager = $this->getDoctrine()->getManager();
             //$entityManager->persist($post);
             //$entityManager->flush();
