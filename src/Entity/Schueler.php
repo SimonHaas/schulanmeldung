@@ -22,11 +22,6 @@ class Schueler
     private $anrede;
 
     /**
-     * @ORM\Column(type="string", length=255, name = "FAMILIENNAME")
-     */
-    private $familienname;
-
-    /**
      * @ORM\Column(type="string", length=255, name = "VORNAMEN")
      */
     private $vorname;

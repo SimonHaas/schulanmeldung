@@ -22,7 +22,6 @@ class SchuelerType extends AbstractType
             ->add('geburtsland')
             ->add('staat')
             ->add('bekenntnis')
-            ->add('familienstand')
             ->add('email1')
             ->add('strasse')
             ->add('plz')
