@@ -17,7 +17,7 @@ class Schueler
     private $id;
 
     /**
-     * @ORM\Column(type="char", length=1, name = "ANREDE")
+     * @ORM\Column(type="string", length=1, name = "ANREDE")
      */
     private $anrede;
 
@@ -32,7 +32,7 @@ class Schueler
     private $rufname;
 
     /**
-     * @ORM\Column(type="char", length=1, name = "GESCHLECHT")
+     * @ORM\Column(type="string", length=1, name = "GESCHLECHT")
      */
     private $geschlecht;
 
@@ -370,6 +370,11 @@ class Schueler
      * @ORM\Column(type="string", length=255, name = "ANMELDEZEIT")
      */
     private $anmeldezeit;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BesuchteSchule", mappedBy="schuelerId")
+     */
+    private $besuchteSchulen;
 
     /**
      * @return mixed
