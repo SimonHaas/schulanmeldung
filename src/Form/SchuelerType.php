@@ -113,8 +113,7 @@ class SchuelerType extends AbstractType
             ->add('sv_slbschule4austritt', DateType::class, $options['sv_slbschuleaustritt'])
         )
             ->add('kommentar', TextareaType::class, $options['kommentar'])
-            ->add('submit', SubmitType::class)
-        ;
+            ->add('submit', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
