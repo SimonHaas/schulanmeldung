@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -20,7 +21,8 @@ class SchuelerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+        $builder->add(
+            $builder->create('schueler', FormType::class, ['label' => '1. Daten des Schülers'])
             ->add('anrede', ChoiceType::class, $options['anrede'])
             ->add('familienname', TextType::class, $options['familienname'])
             ->add('vorname', TextType::class, $options['vorname'])
@@ -33,27 +35,40 @@ class SchuelerType extends AbstractType
             ->add('zuzug_datum', DateType::class, $options['zuzug_datum'])
             ->add('staat', CountryType::class, $options['staat'])
             ->add('bekenntnis', ChoiceType::class, $options['bekenntnis'])
+        )->add(
+            $builder->create('adresse', FormType::class, ['label' => '2. Adresse des Schülers'])
             ->add('email1', EmailType::class, $options['email'])
             ->add('strasse', TextType::class, $options['strasse'])
             ->add('plz', IntegerType::class, $options['plz'])
             ->add('ort', TextType::class, $options['ort'])
             ->add('telefon', TextType::class, $options['telefon'])
-            ->add('erziehungsberechtigter1_art', ChoiceType::class, $options['eltern_art'])
-            ->add('erziehungsberechtigter1_anrede', ChoiceType::class, $options['anrede'])
-            ->add('erziehungsberechtigter1_familienname', TextType::class, $options['familienname'])
-            ->add('erziehungsberechtigter1_rufname', TextType::class, $options['rufname'])
-            ->add('erziehungsberechtigter1_telefon', TextType::class, $options['telefon'])
-            ->add('email2', EmailType::class, $options['email'])
-            ->add('erziehungsberechtigter2_art', ChoiceType::class, $options['eltern_art'])
-            ->add('erziehungsberechtigter2_anrede', ChoiceType::class, $options['anrede'])
-            ->add('erziehungsberechtigter2_familienname', TextType::class, $options['familienname'])
-            ->add('erziehungsberechtigter2_rufname', TextType::class, $options['rufname'])
-            ->add('erziehungsberechtigter2_telefon', TextType::class, $options['telefon'])
-            ->add('anschrift_eltern_gleich_schueler', CheckboxType::class, $options['anschrift_eltern_gleich_schueler'])
-            ->add('anschrift2_strasse', TextType::class, $options['strasse'])
-            ->add('anschrift2_plz', IntegerType::class, $options['plz'])
-            ->add('anschrift2_ort', TextType::class, $options['ort'])
-            ->add('anschrift2_telefon', TextType::class, $options['telefon'])
+        )->add(
+            $builder->create('erziehungsberechtigte', FormType::class, ['label' => '3. Erziehungsberechtigte / Vormund'])
+                ->add(
+                    $builder->create('erzberech1', FormType::class, ['label' => 'Erster Erziehungsberechtigter'])
+                    ->add('erziehungsberechtigter1_art', ChoiceType::class, $options['eltern_art'])
+                    ->add('erziehungsberechtigter1_anrede', ChoiceType::class, $options['anrede'])
+                    ->add('erziehungsberechtigter1_familienname', TextType::class, $options['familienname'])
+                    ->add('erziehungsberechtigter1_rufname', TextType::class, $options['rufname'])
+                    ->add('erziehungsberechtigter1_telefon', TextType::class, $options['telefon'])
+                )->add(
+                    $builder->create('erzberech2', FormType::class, ['label' => 'Zweiter Erziehungsberechtigter'])
+                    ->add('erziehungsberechtigter2_art', ChoiceType::class, $options['eltern_art'])
+                    ->add('erziehungsberechtigter2_anrede', ChoiceType::class, $options['anrede'])
+                    ->add('erziehungsberechtigter2_familienname', TextType::class, $options['familienname'])
+                    ->add('erziehungsberechtigter2_rufname', TextType::class, $options['rufname'])
+                    ->add('erziehungsberechtigter2_telefon', TextType::class, $options['telefon'])
+                )->add(
+                    $builder->create('anschrift_erzberech', FormType::class, ['label' => 'Anschrift des/der Erziehungsberechtigten'])
+                    ->add('anschrift_eltern_gleich_schueler', CheckboxType::class, $options['anschrift_eltern_gleich_schueler'])
+                    ->add('anschrift2_strasse', TextType::class, $options['strasse'])
+                    ->add('anschrift2_plz', IntegerType::class, $options['plz'])
+                    ->add('anschrift2_ort', TextType::class, $options['ort'])
+                    ->add('anschrift2_telefon', TextType::class, $options['telefon'])
+                    ->add('email2', EmailType::class, $options['email'])
+                )
+        )->add(
+            $builder->create('gastschueler', FormType::class, ['label' => '4. Gast-/Umschüler'])
             ->add('gastschueler', CheckboxType::class, $options['gastschueler'])
             ->add('umschueler', CheckboxType::class, $options['umschueler'])
             ->add('kostentraeger', TextType::class, $options['kostentraeger'])
@@ -61,6 +76,8 @@ class SchuelerType extends AbstractType
             ->add('foerderungsnummer', TextType::class, $options['foerderungsnummer'])
             ->add('schulpflicht', CheckboxType::class, $options['schulpflicht'])
             ->add('tagesheim', CheckboxType::class, $options['tagesheim'])
+        )->add(
+            $builder->create('ausbildung', FormType::class, ['label' => '5. Berufsausbildung/-tätigkeit'])
             ->add('ausbildung_beginn', DateType::class, $options['ausbildung_beginn'])
             ->add('ausbildung_ende', DateType::class, $options['ausbildung_ende'])
             ->add('ausbildung_dauer', ChoiceType::class, $options['ausbildung_dauer'])
@@ -74,6 +91,8 @@ class SchuelerType extends AbstractType
             ->add('betrieb_telefon3', TextType::class, $options['betrieb_telefon3'])
             ->add('betrieb_email', EmailType::class, $options['email'])
             ->add('kammer', TextType::class, $options['kammer'])
+        )->add(
+            $builder->create('vorbildung', FormType::class, ['label' => '6. Schulische Vorbildung'])
             ->add('eintrittsdatum', DateType::class, $options['eintrittsdatum'])
             ->add('von_schulart', ChoiceType::class, $options['von_schulart'])
             ->add('von_schulnummer', IntegerType::class, $options['von_schulnummer'])
@@ -91,6 +110,7 @@ class SchuelerType extends AbstractType
             ->add('sv_slbschule4', TextType::class, $options['sv_slbschule'])
             ->add('sv_slbschule4eintritt', DateType::class, $options['sv_slbschuleeintritt'])
             ->add('sv_slbschule4austritt', DateType::class, $options['sv_slbschuleaustritt'])
+        )
             ->add('kommentar', TextareaType::class, $options['kommentar'])
             ->add('anmeldedatum', TextType::class, $options['anmeldedatum'])
             ->add('anmeldezeit', TextType::class, $options['anmeldezeit'])
