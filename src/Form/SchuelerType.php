@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -112,8 +113,7 @@ class SchuelerType extends AbstractType
             ->add('sv_slbschule4austritt', DateType::class, $options['sv_slbschuleaustritt'])
         )
             ->add('kommentar', TextareaType::class, $options['kommentar'])
-            ->add('anmeldedatum', TextType::class, $options['anmeldedatum'])
-            ->add('anmeldezeit', TextType::class, $options['anmeldezeit'])
+            ->add('submit', SubmitType::class)
         ;
     }
 
@@ -422,14 +422,6 @@ class SchuelerType extends AbstractType
             'kommentar' => array(
                 'label' => 'Mitteilung an die Schule allgemein: (Mitteilung zu Flüchtlingen: Bitte geben Sie den Namen der anmeldenden Stelle, Ansprechpartner und Ihre Telefonnummer ein!)',
                 'required' => false
-            ),
-            'anmeldedatum' => array(
-                'disabled' => true,
-                'data' => date('d.m.Y')
-            ),
-            'anmeldezeit' => array(
-                'disabled' => true,
-                'data' => date('G:i')
             )
         ]);
     }
