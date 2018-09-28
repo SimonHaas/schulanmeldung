@@ -4,12 +4,14 @@ namespace App\Form;
 
 use App\Entity\Schueler;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,72 +38,62 @@ class SchuelerType extends AbstractType
             ->add('plz', IntegerType::class, $options['plz'])
             ->add('ort', TextType::class, $options['ort'])
             ->add('telefon', TextType::class, $options['telefon'])
-            ->add('anschr1_fuer1', ChoiceType::class, $options['anschr1_fuer1'])
-            ->add('anschr1_fuer2', ChoiceType::class, $options['anschr1_fuer2'])
-            ->add('erziehungsberechtigter1_art')
-            ->add('erziehungsberechtigter1_anrede')
-            ->add('erziehungsberechtigter1_familienname')
-            ->add('erziehungsberechtigter1_rufname')
-            ->add('erziehungsberechtigter1_telefon')
-            ->add('email2')
-            ->add('erziehungsberechtigter2_art')
-            ->add('erziehungsberechtigter2_anrede')
-            ->add('erziehungsberechtigter2_familienname')
-            ->add('erziehungsberechtigter2_rufname')
-            ->add('erziehungsberechtigter2_telefon')
-            ->add('anschrift2_strasse')
-            ->add('anschrift2_plz')
-            ->add('anschrift2_ort')
-            ->add('anschrift2_telefon')
-            ->add('anschrift2_fuer1')
-            ->add('anschrift2_fuer2')
-            ->add('gastschueler')
-            ->add('umschueler')
-            ->add('kostentraeger')
-            ->add('traegersitz')
-            ->add('foerderungsnummer')
-            ->add('schulpflicht')
-            ->add('tagesheim')
-            ->add('ausbildung_beginn')
-            ->add('ausbildung_ende')
-            ->add('ausbildung_dauer')
-            ->add('ausbildung_art')
-            ->add('ausbildung_beruf')
-            ->add('ausbildung_betrieb')
-            ->add('betrieb_name1')
-            ->add('betrieb_name2')
-            ->add('betrieb_strasse')
-            ->add('betrieb_plz')
-            ->add('betrieb_ort')
-            ->add('betrieb_telefon1')
-            ->add('betrieb_telefon2')
-            ->add('betrieb_telefon3')
-            ->add('betrieb_email')
-            ->add('betrieb_bbig')
-            ->add('kammer')
-            ->add('eintrittsdatum')
-            ->add('klasse')
-            ->add('eintritt_jgst')
-            ->add('von_schulart')
-            ->add('von_schulnummer')
-            ->add('schul_vorbild')
-            ->add('vorbild_schul')
-            ->add('sv_slbschule1')
-            ->add('sv_slbschule1eintritt')
-            ->add('sv_slbschule1austritt')
-            ->add('sv_slbschule2')
-            ->add('sv_slbschule2eintritt')
-            ->add('sv_slbschule2austritt')
-            ->add('sv_slbschule3')
-            ->add('sv_slbschule3eintritt')
-            ->add('sv_slbschule3austritt')
-            ->add('sv_slbschule4')
-            ->add('sv_slbschule4eintritt')
-            ->add('sv_slbschule4austritt')
-            ->add('kommentar')
-            ->add('anmeldedatum')
-            ->add('anmeldezeit')
-            ->add('deutsch')
+            ->add('erziehungsberechtigter1_art', ChoiceType::class, $options['eltern_art'])
+            ->add('erziehungsberechtigter1_anrede', ChoiceType::class, $options['anrede'])
+            ->add('erziehungsberechtigter1_familienname', TextType::class, $options['familienname'])
+            ->add('erziehungsberechtigter1_rufname', TextType::class, $options['rufname'])
+            ->add('erziehungsberechtigter1_telefon', TextType::class, $options['telefon'])
+            ->add('email2', EmailType::class, $options['email'])
+            ->add('erziehungsberechtigter2_art', ChoiceType::class, $options['eltern_art'])
+            ->add('erziehungsberechtigter2_anrede', ChoiceType::class, $options['anrede'])
+            ->add('erziehungsberechtigter2_familienname', TextType::class, $options['familienname'])
+            ->add('erziehungsberechtigter2_rufname', TextType::class, $options['rufname'])
+            ->add('erziehungsberechtigter2_telefon', TextType::class, $options['telefon'])
+            ->add('anschrift_eltern_gleich_schueler', CheckboxType::class, $options['anschrift_eltern_gleich_schueler'])
+            ->add('anschrift2_strasse', TextType::class, $options['strasse'])
+            ->add('anschrift2_plz', IntegerType::class, $options['plz'])
+            ->add('anschrift2_ort', TextType::class, $options['ort'])
+            ->add('anschrift2_telefon', TextType::class, $options['telefon'])
+            ->add('gastschueler', CheckboxType::class, $options['gastschueler'])
+            ->add('umschueler', CheckboxType::class, $options['umschueler'])
+            ->add('kostentraeger', TextType::class, $options['kostentraeger'])
+            ->add('traegersitz', TextType::class, $options['traegersitz'])
+            ->add('foerderungsnummer', TextType::class, $options['foerderungsnummer'])
+            ->add('schulpflicht', CheckboxType::class, $options['schulpflicht'])
+            ->add('tagesheim', CheckboxType::class, $options['tagesheim'])
+            ->add('ausbildung_beginn', DateType::class, $options['ausbildung_beginn'])
+            ->add('ausbildung_ende', DateType::class, $options['ausbildung_ende'])
+            ->add('ausbildung_dauer', ChoiceType::class, $options['ausbildung_dauer'])
+            ->add('betrieb_name1', TextType::class, $options['betrieb_name1'])
+            ->add('betrieb_name2', TextType::class, $options['betrieb_name2'])
+            ->add('betrieb_strasse', TextType::class, $options['strasse'])
+            ->add('betrieb_plz', IntegerType::class, $options['plz'])
+            ->add('betrieb_ort', TextType::class, $options['ort'])
+            ->add('betrieb_telefon1', TextType::class, $options['betrieb_telefon1'])
+            ->add('betrieb_telefon2', TextType::class, $options['betrieb_telefon2'])
+            ->add('betrieb_telefon3', TextType::class, $options['betrieb_telefon3'])
+            ->add('betrieb_email', EmailType::class, $options['email'])
+            ->add('kammer', TextType::class, $options['kammer'])
+            ->add('eintrittsdatum', DateType::class, $options['eintrittsdatum'])
+            ->add('von_schulart', ChoiceType::class, $options['von_schulart'])
+            ->add('von_schulnummer', IntegerType::class, $options['von_schulnummer'])
+            ->add('schul_vorbild', ChoiceType::class, $options['schul_vorbild'])
+            ->add('vorbild_schul', ChoiceType::class, $options['vorbild_schul'])
+            ->add('sv_slbschule1', TextType::class, $options['sv_slbschule'])
+            ->add('sv_slbschule1eintritt', DateType::class, $options['sv_slbschuleeintritt'])
+            ->add('sv_slbschule1austritt', DateType::class, $options['sv_slbschuleaustritt'])
+            ->add('sv_slbschule2', TextType::class, $options['sv_slbschule'])
+            ->add('sv_slbschule2eintritt', DateType::class, $options['sv_slbschuleeintritt'])
+            ->add('sv_slbschule2austritt', DateType::class, $options['sv_slbschuleaustritt'])
+            ->add('sv_slbschule3', TextType::class, $options['sv_slbschule'])
+            ->add('sv_slbschule3eintritt', DateType::class, $options['sv_slbschuleeintritt'])
+            ->add('sv_slbschule3austritt', DateType::class, $options['sv_slbschuleaustritt'])
+            ->add('sv_slbschule4', TextType::class, $options['sv_slbschule'])
+            ->add('sv_slbschule4eintritt', DateType::class, $options['sv_slbschuleeintritt'])
+            ->add('sv_slbschule4austritt', DateType::class, $options['sv_slbschuleaustritt'])
+            ->add('kommentar', TextareaType::class, $options['kommentar'])
+            ->add('anmeldedatum', TextType::class, $options['anmeldedatum'])
+            ->add('anmeldezeit', TextType::class, $options['anmeldezeit'])
         ;
     }
 
@@ -231,15 +223,193 @@ class SchuelerType extends AbstractType
                 'label' => 'Telefon-/Handynummer',
                 'required' => true
             ),
-            'anschr1_fuer1' => array(
+            'eltern_art' => array(
                 'choices' => array(
-                    'Schüler(in)' => 0
+                    'Eltern' => 1,
+                    'Vater' => 2,
+                    'Mutter' => 3,
+                    'Vormund' => 4,
+                    'Verwandter' => 5,
+                    'Pflegeeltern' => 6,
+                    'sonstige Unterkunft' => 7
                 ),
-                'label' => 'Adresse gilt für ',
+                'placeholder' => 'auswählen...',
+                'label' => 'Art',
                 'required' => true
             ),
-            'anschr1_fuer2' => array(
+            'anschrift_eltern_gleich_schueler' => array(
+                'label' => 'Adresse stimmt mit der des Schülers überein'
+            ),
+            'gastschueler' => array(
+                'label' => "Gast-/Sprengelschüler"
+            ),
+            'umschueler' => array(
+                'label' => 'Umschüler'
+            ),
+            'kostentraeger' => array(
+                'label' => "Kostenträger",
+                'required' => true
+            ),
+            'traegersitz' => array(
+                'label' => "Trägersitz",
+                'required' => true
+            ),
+            'foerderungsnummer' => array(
+                'label' => "Förderungsnummer",
+                'required' => true
+            ),
+            'schulpflicht' => array(
+                'label' => 'Schulpflicht erfüllt'
+            ),
+            'tagesheim' => array(
+                'label' => 'Unterbringung in Wohnheim gewünscht'
+            ),
+            'ausbildung_beginn' => array(
+                'format' => 'dd MM yyyy',
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'years' => range(date('Y')-2, date('Y')+6),
+                'label' => 'Ausbildungsbeginn (lt. Vertrag)',
+                'required' => true
+            ),
+            'ausbildung_ende' => array(
+                'format' => 'dd MM yyyy',
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'years' => range(date('Y'), date('Y')+5),
+                'label' => 'Ausbildungsende (lt. Vertrag)',
+                'required' => true
+            ),
+            'ausbildung_dauer' => array(
+                'choices' => array(
+                    '1' => 1,
+                    '1,5' => 1.5,
+                    '2' => 2,
+                    '2,5' => 2.5,
+                    '3' => 3,
+                    '3.5' => 3.5
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Ausbildungsdauer (in Jahren)',
+                'required' => true
+            ),
+            'betrieb_name1' => array(
+                'label' => 'Name des Betriebes',
+                'required' => false
+            ),
+            'betrieb_name2' => array(
+                'label' => 'Ansprechpartner (Ausbilder, Meister, ...)',
+                'required' => false
+            ),
+            'betrieb_telefon1' => array(
+                'label' => 'Telefon Zentrale',
+                'required' => true
+            ),
+            'betrieb_telefon2' => array(
+                'label' => 'Telefon mit Durchwahl',
+                'required' => false
+            ),
+            'betrieb_telefon3' => array(
+                'label' => 'Faxnummer'
+            ),
+            'kammer' => array(
+                'label' => 'Kammer',
+                'required' => false
+            ),
+            'eintrittsdatum' => array(
+                'format' => 'dd MM yyyy',
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'years' => range(date('Y')-4, date('Y')+3),
+                'label' => 'Eintritt in die Berufsschule I Bayreuth am',
+                'required' => true
+            ),
+            'von_schulart' => array(
+                'choices' => array(
+                    'allgemeinbildende Schule' => 1,
+                    'Berufsschule' => 2,
+                    'Wirtschaftsschule' => 3,
+                    'Fachoberschule' => 4,
+                    'BVJ der BS' => 5,
+                    'Berufsfachschule' => 6,
+                    'sonstige Schule' => 7,
+                    'Maßnahme der Agentur für Arbeit' => 8,
+                    'keine Schule' => 9
 
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Am 20.10 des Vorjahres besuchte Schulart',
+                'required' => true
+            ),
+            'von_schulnummer' => array(
+                'label' => 'Nummer der zuletzt besuchten Schule/Ort',
+                'disabled' => true
+            ),
+            'schul_vorbild' => array(
+                'choices' => array(
+                    'erfüllte Schulpflicht ohne Abschluss' => 1,
+                    'erfolgreicher Hauptschulabschluss (ohne Quali)' => 2,
+                    'qualifizierter Hauptschulabschluss (mit Quali)' => 3,
+                    'mittlerer Bildungsabschluss' => 4,
+                    'Fachhochschulreife' => 5,
+                    'Allgemeine Hochschulreife' => 6,
+                    'Fachgebundene Hochschulreife' => 7,
+                    'Abschluss der Schule zur indiv. Lernförderung' => 8,
+                    'sonstiger Abschluss' => 9
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Höchster bisher erreichter Schulabschluss',
+                'required' => true
+            ),
+            'vorbild_schul' => array(
+                'choices' => array(
+                    'Hauptschule oder Mittelschule' => 1,
+                    'Volksschule zur sonderpäd. Förderung' => 2,
+                    'Realschule' => 3,
+                    'Wirtschaftsschule' => 4,
+                    'Gymnasium' => 5,
+                    'Berufsschule' => 6,
+                    'Berufsschule zur sonderpäd. Förderung' => 7,
+                    'Fachoberschule' => 8,
+                    'sonstige Schule' => 9
+                ),
+                'placeholder' => 'auswählen...',
+                'label' => 'Der Abschluss wurde absolviert an',
+                'required' => true
+            ),
+            'sv_slbschule' => array(
+                'label' => 'Schulname und Ort'
+            ),
+            'sv_slbschuleeintritt' => array(
+                'format' => 'dd MM yyyy',
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'years' => range(date('Y')-40, date('Y')),
+                'label' => 'Eintritt'
+            ),
+            'sv_slbschuleaustritt' => array(
+                'format' => 'dd MM yyyy',
+                'placeholder' => array(
+                    'year' => 'Jahr', 'month' => 'Monat', 'day' => 'Tag'
+                ),
+                'years' => range(date('Y')-40, date('Y')),
+                'label' => 'Austritt'
+            ),
+            'kommentar' => array(
+                'label' => 'Mitteilung an die Schule allgemein: (Mitteilung zu Flüchtlingen: Bitte geben Sie den Namen der anmeldenden Stelle, Ansprechpartner und Ihre Telefonnummer ein!)',
+                'required' => false
+            ),
+            'anmeldedatum' => array(
+                'disabled' => true,
+                'data' => date('d.m.Y')
+            ),
+            'anmeldezeit' => array(
+                'disabled' => true,
+                'data' => date('G:i')
             )
         ]);
     }
