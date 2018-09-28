@@ -47,6 +47,24 @@ class Schueler
     private $geburtsort;
 
     /**
+     * @return mixed
+     */
+    public function getBesuchteSchulen()
+    {
+        return $this->besuchteSchulen;
+    }
+
+    /**
+     * @param mixed $besuchteSchulen
+     * @return Schueler
+     */
+    public function setBesuchteSchulen($besuchteSchulen)
+    {
+        $this->besuchteSchulen = $besuchteSchulen;
+        return $this;
+    }
+
+    /**
      * @ORM\Column(type="string", length=255, name = "GEBURTSLAND")
      */
     private $geburtsland;
