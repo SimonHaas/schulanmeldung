@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="herkunftsschulen")
  * @ORM\Entity(repositoryClass="App\Repository\HerkunftsschuleRepository")
  */
 class Herkunftsschule
@@ -12,27 +13,27 @@ class Herkunftsschule
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="HKS_NUMMER")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name="HKS_NAME")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name="HKS_STRASSE")
      */
     private $strasse;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="HKS_PLZ")
      */
     private $plz;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, name="HKS_ORT")
      */
     private $ort;
 
