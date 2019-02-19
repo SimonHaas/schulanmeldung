@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Beruf;
 use App\Entity\Betrieb;
-use App\Entity\Herkunftsschule;
 use App\Entity\Kontaktperson;
 use App\Entity\Schueler;
 use App\Entity\Schulbesuch;
+use App\Entity\Schule;
 use App\Form\BasicInfosType;
+use App\Form\BerufType;
 use App\Form\BetriebSelectType;
 use App\Form\BetriebType;
 use App\Form\KontaktpersonType;
 use App\Form\SchuelerType;
+use App\Form\SchulbesuchType;
+use App\Form\SchuleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,9 +124,7 @@ class AnmeldungController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var $betrieb Betrieb
-             */
+            /** @var Betrieb $betrieb */
             $betrieb = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -148,16 +150,12 @@ class AnmeldungController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var $schueler Schueler
-             */
+            /** @var Schueler $schueler */
             $schueler = $form->getData();
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($schueler);
             $entityManager->flush();
-
-            //TODO CSV generieren
 
             return $this->redirectToRoute('datenschutz');
         }
@@ -165,18 +163,6 @@ class AnmeldungController extends AbstractController
         return $this->render('anmeldung/schueler.html.twig', array(
             'form' => $form->createView(),
         ));
-    }
-
-
-
-    /**
-     * @Route("datenschutz", name="datenschutz")
-     * @param Request $request
-     * @return Response
-     */
-    public function datenschutz(Request $request)
-    {
-        return $this->render('anmeldung/datenschutz.html.twig');
     }
 
     /**
@@ -191,20 +177,105 @@ class AnmeldungController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
+            /** @var Kontaktperson $kontaktperson */
             $kontaktperson = $form->getData();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($kontaktperson);
+            $entityManager->flush();
             return $this->redirectToRoute('test'); //TODO sinnvolle Route
         }
 
         return $this->render('anmeldung/kontaktperson.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/peruf", name="beruf")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function beruf(Request $request)
+    {
+        $beruf = new Beruf();
+        $form = $this->createForm(BerufType::class, $beruf);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            /** @var Beruf $beruf */
+            $beruf = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($beruf);
+            $entityManager->flush();
+            return $this->redirectToRoute('test'); //TODO sinnvolle Route
+        }
+
+        return $this->render('anmeldung/beruf.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/peruf", name="beruf")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function schule(Request $request)
+    {
+        $schule = new Schule();
+        $form = $this->createForm(SchuleType::class, $schule);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            /** @var Schule $schule */
+            $schule = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($schule);
+            $entityManager->flush();
+            return $this->redirectToRoute('test'); //TODO sinnvolle Route
+        }
+
+        return $this->render('anmeldung/schule.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/schulbesuch", name="schulbesuch")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function schulbesuch(Request $request)
+    {
+        $schulbesuch = new Schulbesuch();
+        $form = $this->createForm(SchulbesuchType::class, $schulbesuch);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            /** @var Schulbesuch $schulbesuch */
+            $schulbesuch = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($schulbesuch);
+            $entityManager->flush();
+            return $this->redirectToRoute('test'); //TODO sinnvolle Route
+        }
+
+        return $this->render('anmeldung/schulbesuch.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("datenschutz", name="datenschutz")
+     * @param Request $request
+     * @return Response
+     */
+    public function datenschutz(Request $request)
+    {
+        return $this->render('anmeldung/datenschutz.html.twig');
     }
 }
