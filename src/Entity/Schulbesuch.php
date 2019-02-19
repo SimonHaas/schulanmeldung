@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SchuelerSchuleRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SchulbesuchRepository")
  */
-class SchuelerSchule
+class Schulbesuch
 {
     /**
      * @ORM\Id()
@@ -16,16 +16,17 @@ class SchuelerSchule
      */
     private $id;
 
-    //TODO Doctrine Relationship-Type verwenden
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $schule;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schueler", inversedBy="schulbesuche")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $schueler;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schule")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $schule;
 
     /**
      * @ORM\Column(type="date")
@@ -42,26 +43,14 @@ class SchuelerSchule
         return $this->id;
     }
 
-    public function getSchule(): ?int
+    public function getSchule(): ?Schule
     {
         return $this->schule;
     }
 
-    public function setSchule(int $schule): self
+    public function setSchule(?Schule $schule): self
     {
         $this->schule = $schule;
-
-        return $this;
-    }
-
-    public function getSchueler(): ?int
-    {
-        return $this->schueler;
-    }
-
-    public function setSchueler(int $schueler): self
-    {
-        $this->schueler = $schueler;
 
         return $this;
     }
@@ -86,6 +75,18 @@ class SchuelerSchule
     public function setAustritt(\DateTimeInterface $austritt): self
     {
         $this->austritt = $austritt;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Betrieb;
 use App\Entity\Herkunftsschule;
 use App\Entity\Kontaktperson;
 use App\Entity\Schueler;
+use App\Entity\Schulbesuch;
 use App\Form\BasicInfosType;
 use App\Form\BetriebSelectType;
 use App\Form\BetriebType;

@@ -61,6 +61,12 @@ class Kontaktperson
      */
     private $email;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schueler", inversedBy="kontaktpersonen")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $schueler;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -170,6 +176,18 @@ class Kontaktperson
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
 
         return $this;
     }
