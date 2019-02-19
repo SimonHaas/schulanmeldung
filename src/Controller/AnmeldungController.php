@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Betrieb;
 use App\Entity\Herkunftsschule;
+use App\Entity\Kontaktperson;
 use App\Entity\Schueler;
 use App\Form\BasicInfosType;
 use App\Form\BetriebSelectType;
 use App\Form\BetriebType;
+use App\Form\KontaktpersonType;
 use App\Form\SchuelerType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -174,5 +176,34 @@ class AnmeldungController extends AbstractController
     public function datenschutz(Request $request)
     {
         return $this->render('anmeldung/datenschutz.html.twig');
+    }
+
+    /**
+     * @Route("/kontaktperson", name="kontaktperson")
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function kontaktperson(Request $request)
+    {
+        $kontaktperson = new Kontaktperson();
+        $form = $this->createForm(KontaktpersonType::class, $kontaktperson);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $kontaktperson = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+            // for example, if Task is a Doctrine entity, save it!
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->persist($task);
+            // $entityManager->flush();
+            return $this->redirectToRoute('test'); //TODO sinnvolle Route
+        }
+
+        return $this->render('anmeldung/kontaktperson.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
