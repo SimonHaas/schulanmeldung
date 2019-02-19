@@ -23,6 +23,7 @@ CREATE TABLE `stammdaten_herkunftsschule`
   `nr`      int         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `name`    varchar(50) NOT NULL DEFAULT '',
   `strasse` varchar(30) NOT NULL DEFAULT '',
+  `hausnr`  char(5)     NOT NULL 0,
   `plz`     varchar(5)  NOT NULL DEFAULT '',
   `ort`     varchar(30) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE =utf8_general_ci;
@@ -35,15 +36,16 @@ CREATE TABLE `stammdaten_betrieb`
   `name2`       varchar(50) NOT NULL DEFAULT '',
   `name3`       varchar(45) NOT NULL DEFAULT '',
   `name4`       varchar(45) NOT NULL DEFAULT '',
+  `strasse`     varchar(30) NOT NULL DEFAULT '',
+  `hausnr`      char(5)     NOT NULL 0,
   `plz`         varchar(5)  NOT NULL DEFAULT '',
   `ort`         varchar(30) NOT NULL DEFAULT '',
-  `strasse`     varchar(30) NOT NULL DEFAULT '',
   `telefon1`    varchar(18) NOT NULL DEFAULT '',
   `telefon2`    varchar(18) NOT NULL DEFAULT '',
   `telefon3`    varchar(18) NOT NULL DEFAULT '',
   `email`       varchar(45) NOT NULL DEFAULT '',
   `gemeinde_kz` varchar(6)  NOT NULL DEFAULT '',
-  `bbig`        varchar(6)  NOT NULL DEFAULT '',
+  `bbig`        varchar(6)  NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE =utf8_unicode_ci;
 
 
