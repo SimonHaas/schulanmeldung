@@ -3,9 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Kontaktperson;
-use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -31,6 +31,10 @@ class KontaktpersonType extends AbstractType
             ->add('ort', TextType::class)
             ->add('telefonnummer', NumberType::class)
             ->add('email', EmailType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Create',
+                'attr' => ['class' => 'btn btn-primary pull-right'],
+            ])
         ;
     }
 
