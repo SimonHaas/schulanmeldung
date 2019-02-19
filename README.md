@@ -3,6 +3,7 @@
 ## Install project
 
 1.  Clone git repo
+2. If you want to use docker: `docker-compose up -d`
 2.  Run `composer install`
 3.  Start working!
 
