@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="fluechtlingdaten")
- * @ORM\Entity(repositoryClass="App\Repository\FluechtlingInfoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\FluechtlingDatenRepository")
  */
 class FluechtlingDaten
 {

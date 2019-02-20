@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Beruf;
-use App\Form\Beruf1Type;
+use App\Form\BerufType;
 use App\Repository\BerufRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class BerufController extends AbstractController
     public function new(Request $request): Response
     {
         $beruf = new Beruf();
-        $form = $this->createForm(Beruf1Type::class, $beruf);
+        $form = $this->createForm(BerufType::class, $beruf);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -59,7 +59,7 @@ class BerufController extends AbstractController
      */
     public function edit(Request $request, Beruf $beruf): Response
     {
-        $form = $this->createForm(Beruf1Type::class, $beruf);
+        $form = $this->createForm(BerufType::class, $beruf);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

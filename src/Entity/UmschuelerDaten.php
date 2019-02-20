@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="umschuelerdaten")
- * @ORM\Entity(repositoryClass="App\Repository\UmschuelerInfoRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UmschuelerDatenRepository")
  */
 class UmschuelerDaten
 {

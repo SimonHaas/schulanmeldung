@@ -28,11 +28,6 @@ class Ausbildung
     private $ende;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $relation;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb", inversedBy="ausbildungen")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -74,18 +69,6 @@ class Ausbildung
     public function setEnde(\DateTimeInterface $ende): self
     {
         $this->ende = $ende;
-
-        return $this;
-    }
-
-    public function getRelation(): ?string
-    {
-        return $this->relation;
-    }
-
-    public function setRelation(string $relation): self
-    {
-        $this->relation = $relation;
 
         return $this;
     }
