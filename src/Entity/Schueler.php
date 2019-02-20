@@ -67,16 +67,6 @@ class Schueler
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\FluechtlingDaten", inversedBy="schueler", cascade={"persist", "remove"})
      */
-    private $fluechtlingInfo;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UmschuelerDaten", inversedBy="schueler", cascade={"persist", "remove"})
-     */
-    private $umschuelerInfo;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\FluechtlingDaten", inversedBy="schueler", cascade={"persist", "remove"})
-     */
     private $fluechtlingDaten;
 
     /**

@@ -39,12 +39,6 @@ class Ausbildung
     private $betrieb;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $betriebId;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -104,18 +98,6 @@ class Ausbildung
     public function setBetrieb(?Betrieb $betrieb): self
     {
         $this->betrieb = $betrieb;
-
-        return $this;
-    }
-
-    public function getBetriebId(): ?Betrieb
-    {
-        return $this->betriebId;
-    }
-
-    public function setBetriebId(?Betrieb $betriebId): self
-    {
-        $this->betriebId = $betriebId;
 
         return $this;
     }

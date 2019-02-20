@@ -84,7 +84,7 @@ class Betrieb
      * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $kammerId;
+    private $kammer;
 
     public function __construct()
     {
@@ -260,14 +260,14 @@ class Betrieb
         return $this;
     }
 
-    public function getKammerId(): ?Kammer
+    public function getKammer(): ?Kammer
     {
-        return $this->kammerId;
+        return $this->kammer;
     }
 
-    public function setKammerId(?Kammer $kammerId): self
+    public function setKammer(?Kammer $kammer): self
     {
-        $this->kammerId = $kammerId;
+        $this->kammer = $kammer;
 
         return $this;
     }
