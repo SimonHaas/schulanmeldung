@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Betrieb{% endblock %}
+
+{% block body %}
+    <h1>Edit Betrieb</h1>
+
+    {{ include('betrieb/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('betrieb_index') }}">back to list</a>
+
+    {{ include('betrieb/_delete_form.html.twig') }}
+{% endblock %}
