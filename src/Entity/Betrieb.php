@@ -80,6 +80,12 @@ class Betrieb
      */
     private $ausbildungen;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $kammerId;
+
     public function __construct()
     {
         $this->schueler = new ArrayCollection();
@@ -250,6 +256,18 @@ class Betrieb
                 $ausbildungen->setBetrieb(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getKammerId(): ?Kammer
+    {
+        return $this->kammerId;
+    }
+
+    public function setKammerId(?Kammer $kammerId): self
+    {
+        $this->kammerId = $kammerId;
 
         return $this;
     }
