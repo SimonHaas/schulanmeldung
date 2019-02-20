@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Registrierung;
+use App\Form\RegistrierungType;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,14 +31,24 @@ class AnmeldungController extends AbstractController
     }
 
     /**
-     * @Route("/daten-pruefen/{Registrierung}", name="daten_pruefen")
-     * @param Registrierung $registrierung
+     * @Route("/daten-pruefen", name="daten_pruefen")
+     * @param Request $request
      * @return Response
      */
-    public function check(Registrierung $registrierung)
+    public function check(Request $request)
     {
         //TODO daten zusammensammeln und ans Template weitergeben
+        //TODO Objekte validieren und ggf Fehlermeldungen anzeigen
+        $session = $request->getSession();
 
-        return $this->render('anmeldung/check.html.twig');
+        $registrierung = $session->get('registrierung');
+
+        $registrierungsForm = $this->createForm(RegistrierungType::class, $registrierung);
+
+
+        $templateOptions = [
+            'registrierungsForm' => $registrierungsForm->createView(),
+        ];
+        return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
 }

@@ -9,4 +9,9 @@
     <div class="example-wrapper">
         <h1>Hier können die eingegebenen Daten nochmal überprüft und bestätigt werden ✅</h1>
     </div>
+
+    <h1>Daten der Registrierung</h1>
+
+    {{ include('registrierung/_form.html.twig', { 'form': registrierungsForm }) }}
+
 {% endblock %}
