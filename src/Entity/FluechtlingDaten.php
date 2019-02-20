@@ -5,10 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="fluechtling")
- * @ORM\Entity(repositoryClass="App\Repository\FluechtlingRepository")
+ * @ORM\Table(name="fluechtlingdaten")
+ * @ORM\Entity(repositoryClass="App\Repository\FluechtlingInfoRepository")
  */
-class Fluechtling
+class FluechtlingDaten
 {
     /**
      * @ORM\Id()
@@ -36,6 +36,11 @@ class Fluechtling
      * @ORM\Column(type="string", length=255)
      */
     private $tel;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="fluechtlingDaten", cascade={"persist", "remove"})
+     */
+    private $schueler;
 
     public function getId(): ?int
     {
@@ -89,4 +94,23 @@ class Fluechtling
 
         return $this;
     }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newFluechtlingDaten = $schueler === null ? null : $this;
+        if ($newFluechtlingDaten !== $schueler->getFluechtlingDaten()) {
+            $schueler->setFluechtlingDaten($newFluechtlingDaten);
+        }
+
+        return $this;
+    }
+
 }

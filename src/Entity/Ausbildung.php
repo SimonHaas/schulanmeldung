@@ -39,16 +39,15 @@ class Ausbildung
     private $betrieb;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $betriebId;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
      * @ORM\JoinColumn(nullable=false)
      */
     private $beruf;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="ausbildung", cascade={"persist", "remove"})
+     */
+    private $schueler;
 
     public function getId(): ?int
     {
@@ -103,18 +102,6 @@ class Ausbildung
         return $this;
     }
 
-    public function getBetriebId(): ?Betrieb
-    {
-        return $this->betriebId;
-    }
-
-    public function setBetriebId(?Betrieb $betriebId): self
-    {
-        $this->betriebId = $betriebId;
-
-        return $this;
-    }
-
     public function getBeruf(): ?Beruf
     {
         return $this->beruf;
@@ -123,6 +110,24 @@ class Ausbildung
     public function setBeruf(?Beruf $beruf): self
     {
         $this->beruf = $beruf;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAusbildung = $schueler === null ? null : $this;
+        if ($newAusbildung !== $schueler->getAusbildung()) {
+            $schueler->setAusbildung($newAusbildung);
+        }
 
         return $this;
     }

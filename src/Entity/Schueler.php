@@ -59,6 +59,21 @@ class Schueler
      */
     private $registrierung;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Ausbildung", inversedBy="schueler", cascade={"persist", "remove"})
+     */
+    private $ausbildung;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\FluechtlingDaten", inversedBy="schueler", cascade={"persist", "remove"})
+     */
+    private $fluechtlingDaten;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UmschuelerDaten", inversedBy="schueler", cascade={"persist", "remove"})
+     */
+    private $umschuelerDaten;
+
     public function __construct()
     {
         $this->kontaktpersonen = new ArrayCollection();
@@ -208,4 +223,41 @@ class Schueler
 
         return $this;
     }
+
+    public function getAusbildung(): ?Ausbildung
+    {
+        return $this->ausbildung;
+    }
+
+    public function setAusbildung(?Ausbildung $ausbildung): self
+    {
+        $this->ausbildung = $ausbildung;
+
+        return $this;
+    }
+
+    public function getFluechtlingDaten(): ?FluechtlingDaten
+    {
+        return $this->fluechtlingDaten;
+    }
+
+    public function setFluechtlingDaten(?FluechtlingDaten $fluechtlingDaten): self
+    {
+        $this->fluechtlingDaten = $fluechtlingDaten;
+
+        return $this;
+    }
+
+    public function getUmschuelerDaten(): ?UmschuelerDaten
+    {
+        return $this->umschuelerDaten;
+    }
+
+    public function setUmschuelerDaten(?UmschuelerDaten $umschuelerDaten): self
+    {
+        $this->umschuelerDaten = $umschuelerDaten;
+
+        return $this;
+    }
+
 }
