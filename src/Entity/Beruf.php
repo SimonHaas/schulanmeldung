@@ -20,19 +20,9 @@ class Beruf
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Schueler", mappedBy="beruf")
-     */
-    private $schueler;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $bezeichnung;
-
-    public function __construct()
-    {
-        $this->schueler = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
