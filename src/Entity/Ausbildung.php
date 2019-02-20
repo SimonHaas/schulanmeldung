@@ -50,6 +50,11 @@ class Ausbildung
      */
     private $beruf;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="ausbildung", cascade={"persist", "remove"})
+     */
+    private $schueler;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +128,24 @@ class Ausbildung
     public function setBeruf(?Beruf $beruf): self
     {
         $this->beruf = $beruf;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAusbildung = $schueler === null ? null : $this;
+        if ($newAusbildung !== $schueler->getAusbildung()) {
+            $schueler->setAusbildung($newAusbildung);
+        }
 
         return $this;
     }
