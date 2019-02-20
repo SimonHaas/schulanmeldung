@@ -86,9 +86,13 @@ class Betrieb
      */
     private $kammer;
 
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $gemeindeschluessel;
+
     public function __construct()
     {
-        $this->schueler = new ArrayCollection();
         $this->ausbildungen = new ArrayCollection();
     }
 
@@ -268,6 +272,18 @@ class Betrieb
     public function setKammer(?Kammer $kammer): self
     {
         $this->kammer = $kammer;
+
+        return $this;
+    }
+
+    public function getGemeindeschluessel(): ?string
+    {
+        return $this->gemeindeschluessel;
+    }
+
+    public function setGemeindeschluessel(string $gemeindeschluessel): self
+    {
+        $this->gemeindeschluessel = $gemeindeschluessel;
 
         return $this;
     }
