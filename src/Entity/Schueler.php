@@ -63,6 +63,11 @@ class Schueler
      */
     private $beruf;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Registrierung", mappedBy="schueler", cascade={"persist", "remove"})
+     */
+    private $registrierung;
+
     public function __construct()
     {
         $this->kontaktpersonen = new ArrayCollection();
@@ -216,6 +221,23 @@ class Schueler
     public function setBeruf(?Beruf $beruf): self
     {
         $this->beruf = $beruf;
+
+        return $this;
+    }
+
+    public function getRegistrierung(): ?Registrierung
+    {
+        return $this->registrierung;
+    }
+
+    public function setRegistrierung(Registrierung $registrierung): self
+    {
+        $this->registrierung = $registrierung;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $registrierung->getSchueler()) {
+            $registrierung->setSchueler($this);
+        }
 
         return $this;
     }
