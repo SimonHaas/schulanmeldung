@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Schueler;
+use App\Entity\Schulbesuch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Schueler|null find($id, $lockMode = null, $lockVersion = null)
- * @method Schueler|null findOneBy(array $criteria, array $orderBy = null)
- * @method Schueler[]    findAll()
- * @method Schueler[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Schulbesuch|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Schulbesuch|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Schulbesuch[]    findAll()
+ * @method Schulbesuch[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SchuelerRepository extends ServiceEntityRepository
+class SchulbesuchRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Schueler::class);
+        parent::__construct($registry, Schulbesuch::class);
     }
 
 //    /**
-//     * @return Schueler[] Returns an array of Schueler objects
+//     * @return Schulbesuch[] Returns an array of Schulbesuch objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class SchuelerRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Schueler
+    public function findOneBySomeField($value): ?Schulbesuch
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

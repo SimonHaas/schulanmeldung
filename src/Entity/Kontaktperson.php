@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(name="kontaktperson")
  * @ORM\Entity(repositoryClass="App\Repository\KontaktpersonRepository")
  */
 class Kontaktperson
@@ -60,6 +61,12 @@ class Kontaktperson
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Schueler", inversedBy="kontaktpersonen")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $schueler;
 
     public function getId(): ?int
     {
@@ -170,6 +177,18 @@ class Kontaktperson
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
 
         return $this;
     }

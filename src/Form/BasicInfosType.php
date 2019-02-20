@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BasicInfosType extends AbstractType
 {
+    //TODO refactor
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

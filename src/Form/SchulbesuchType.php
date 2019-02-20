@@ -2,29 +2,27 @@
 
 namespace App\Form;
 
+use App\Entity\Schulbesuch;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BetriebSelectType extends AbstractType
+class SchulbesuchType extends AbstractType
 {
-    //TODO refactor
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Ausbildungsbetrieb', ChoiceType::class, array(
-                'choices'  => $options['data'],
-            ))
-            ->add('submit', SubmitType::class)
+            ->add('eintritt')
+            ->add('austritt')
+            ->add('schueler')
+            ->add('schule')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Schulbesuch::class,
         ]);
     }
 }
