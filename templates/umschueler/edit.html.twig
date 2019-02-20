@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Umschueler{% endblock %}
+
+{% block body %}
+    <h1>Edit Umschueler</h1>
+
+    {{ include('umschueler/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('umschueler_index') }}">back to list</a>
+
+    {{ include('umschueler/_delete_form.html.twig') }}
+{% endblock %}
