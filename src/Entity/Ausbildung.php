@@ -39,12 +39,6 @@ class Ausbildung
     private $betrieb;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $betriebId;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
      * @ORM\JoinColumn(nullable=false)
      */
