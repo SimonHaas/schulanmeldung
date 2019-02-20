@@ -75,9 +75,15 @@ class Betrieb
     private $istVerifiziert;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ausbildung", mappedBy="betrieb")
+     */
+    private $ausbildungen;
+
     public function __construct()
     {
         $this->schueler = new ArrayCollection();
+        $this->ausbildungen = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +219,37 @@ class Betrieb
     public function setIstVerifiziert(bool $istVerifiziert): self
     {
         $this->istVerifiziert = $istVerifiziert;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ausbildung[]
+     */
+    public function getAusbildungen(): Collection
+    {
+        return $this->ausbildungen;
+    }
+
+    public function addAusbildungen(Ausbildung $ausbildungen): self
+    {
+        if (!$this->ausbildungen->contains($ausbildungen)) {
+            $this->ausbildungen[] = $ausbildungen;
+            $ausbildungen->setBetrieb($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAusbildungen(Ausbildung $ausbildungen): self
+    {
+        if ($this->ausbildungen->contains($ausbildungen)) {
+            $this->ausbildungen->removeElement($ausbildungen);
+            // set the owning side to null (unless already changed)
+            if ($ausbildungen->getBetrieb() === $this) {
+                $ausbildungen->setBetrieb(null);
+            }
+        }
 
         return $this;
     }
