@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Schulbesuch index{% endblock %}
+
+{% block body %}
+    <h1>Schulbesuch index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Eintritt</th>
+                <th>Austritt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for schulbesuch in schulbesuches %}
+            <tr>
+                <td>{{ schulbesuch.id }}</td>
+                <td>{{ schulbesuch.eintritt ? schulbesuch.eintritt|date('Y-m-d') : '' }}</td>
+                <td>{{ schulbesuch.austritt ? schulbesuch.austritt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('schulbesuch_show', {'id': schulbesuch.id}) }}">show</a>
+                    <a href="{{ path('schulbesuch_edit', {'id': schulbesuch.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('schulbesuch_new') }}">Create new</a>
+{% endblock %}
