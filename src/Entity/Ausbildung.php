@@ -44,6 +44,12 @@ class Ausbildung
      */
     private $betriebId;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $beruf;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +111,18 @@ class Ausbildung
     public function setBetriebId(?Betrieb $betriebId): self
     {
         $this->betriebId = $betriebId;
+
+        return $this;
+    }
+
+    public function getBeruf(): ?Beruf
+    {
+        return $this->beruf;
+    }
+
+    public function setBeruf(?Beruf $beruf): self
+    {
+        $this->beruf = $beruf;
 
         return $this;
     }

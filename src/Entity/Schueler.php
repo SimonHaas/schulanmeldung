@@ -54,12 +54,6 @@ class Schueler
      */
     private $schulbesuche;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf", inversedBy="schueler")
-     */
-    private $beruf;
-
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Registrierung", mappedBy="schueler", cascade={"persist", "remove"})
      */
@@ -194,18 +188,6 @@ class Schueler
                 $schulbesuche->setSchueler(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getBeruf(): ?Beruf
-    {
-        return $this->beruf;
-    }
-
-    public function setBeruf(?Beruf $beruf): self
-    {
-        $this->beruf = $beruf;
 
         return $this;
     }

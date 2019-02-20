@@ -24,6 +24,11 @@ class Beruf
      */
     private $schueler;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bezeichnung;
+
     public function __construct()
     {
         $this->schueler = new ArrayCollection();
@@ -34,33 +39,14 @@ class Beruf
         return $this->id;
     }
 
-    /**
-     * @return Collection|Schueler[]
-     */
-    public function getSchueler(): Collection
+    public function getBezeichnung(): ?string
     {
-        return $this->schueler;
+        return $this->bezeichnung;
     }
 
-    public function addSchueler(Schueler $schueler): self
+    public function setBezeichnung(string $bezeichnung): self
     {
-        if (!$this->schueler->contains($schueler)) {
-            $this->schueler[] = $schueler;
-            $schueler->setBeruf($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSchueler(Schueler $schueler): self
-    {
-        if ($this->schueler->contains($schueler)) {
-            $this->schueler->removeElement($schueler);
-            // set the owning side to null (unless already changed)
-            if ($schueler->getBeruf() === $this) {
-                $schueler->setBeruf(null);
-            }
-        }
+        $this->bezeichnung = $bezeichnung;
 
         return $this;
     }
