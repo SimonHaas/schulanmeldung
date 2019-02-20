@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ausbildung{% endblock %}
+
+{% block body %}
+    <h1>Edit Ausbildung</h1>
+
+    {{ include('ausbildung/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ausbildung_index') }}">back to list</a>
+
+    {{ include('ausbildung/_delete_form.html.twig') }}
+{% endblock %}
