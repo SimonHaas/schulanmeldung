@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Schueler{% endblock %}
+
+{% block body %}
+    <h1>Create new Schueler</h1>
+
+    {{ include('schueler/_form.html.twig') }}
+
+    <a href="{{ path('schueler_index') }}">back to list</a>
+{% endblock %}

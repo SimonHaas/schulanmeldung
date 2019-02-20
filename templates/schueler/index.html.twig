@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Schueler index{% endblock %}
+
+{% block body %}
+    <h1>Schueler index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Rufname</th>
+                <th>Geburtsdatum</th>
+                <th>Geburtsort</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for schueler in schuelers %}
+            <tr>
+                <td>{{ schueler.id }}</td>
+                <td>{{ schueler.vorname }}</td>
+                <td>{{ schueler.nachname }}</td>
+                <td>{{ schueler.rufname }}</td>
+                <td>{{ schueler.geburtsdatum ? schueler.geburtsdatum|date('Y-m-d') : '' }}</td>
+                <td>{{ schueler.geburtsort }}</td>
+                <td>
+                    <a href="{{ path('schueler_show', {'id': schueler.id}) }}">show</a>
+                    <a href="{{ path('schueler_edit', {'id': schueler.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('schueler_new') }}">Create new</a>
+{% endblock %}
