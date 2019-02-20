@@ -97,18 +97,6 @@ class Ausbildung
         return $this;
     }
 
-    public function getBetriebId(): ?Betrieb
-    {
-        return $this->betriebId;
-    }
-
-    public function setBetriebId(?Betrieb $betriebId): self
-    {
-        $this->betriebId = $betriebId;
-
-        return $this;
-    }
-
     public function getBeruf(): ?Beruf
     {
         return $this->beruf;
