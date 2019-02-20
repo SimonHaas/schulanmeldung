@@ -53,10 +53,6 @@ class Schueler
      */
     private $schulbesuche;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb", inversedBy="schueler")
-     */
-    private $betrieb;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Beruf", inversedBy="schueler")
@@ -192,18 +188,6 @@ class Schueler
                 $schulbesuche->setSchueler(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getBetrieb(): ?Betrieb
-    {
-        return $this->betrieb;
-    }
-
-    public function setBetrieb(?Betrieb $betrieb): self
-    {
-        $this->betrieb = $betrieb;
 
         return $this;
     }

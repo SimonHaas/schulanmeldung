@@ -20,9 +20,60 @@ class Betrieb
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Schueler", mappedBy="betrieb")
+     * @ORM\Column(type="string", length=255)
      */
-    private $schueler;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ansprPartner;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $strasse;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $hsnr;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $plz;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ort;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $telZentrale;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telDurchwahl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $istVerifiziert;
+
 
     public function __construct()
     {
@@ -34,33 +85,134 @@ class Betrieb
         return $this->id;
     }
 
-    /**
-     * @return Collection|Schueler[]
-     */
-    public function getSchueler(): Collection
+    public function getName(): ?string
     {
-        return $this->schueler;
+        return $this->name;
     }
 
-    public function addSchueler(Schueler $schueler): self
+    public function setName(string $name): self
     {
-        if (!$this->schueler->contains($schueler)) {
-            $this->schueler[] = $schueler;
-            $schueler->setBetrieb($this);
-        }
+        $this->name = $name;
 
         return $this;
     }
 
-    public function removeSchueler(Schueler $schueler): self
+    public function getAnsprPartner(): ?string
     {
-        if ($this->schueler->contains($schueler)) {
-            $this->schueler->removeElement($schueler);
-            // set the owning side to null (unless already changed)
-            if ($schueler->getBetrieb() === $this) {
-                $schueler->setBetrieb(null);
-            }
-        }
+        return $this->ansprPartner;
+    }
+
+    public function setAnsprPartner(?string $ansprPartner): self
+    {
+        $this->ansprPartner = $ansprPartner;
+
+        return $this;
+    }
+
+    public function getStrasse(): ?string
+    {
+        return $this->strasse;
+    }
+
+    public function setStrasse(string $strasse): self
+    {
+        $this->strasse = $strasse;
+
+        return $this;
+    }
+
+    public function getHsnr(): ?string
+    {
+        return $this->hsnr;
+    }
+
+    public function setHsnr(string $hsnr): self
+    {
+        $this->hsnr = $hsnr;
+
+        return $this;
+    }
+
+    public function getPlz(): ?string
+    {
+        return $this->plz;
+    }
+
+    public function setPlz(string $plz): self
+    {
+        $this->plz = $plz;
+
+        return $this;
+    }
+
+    public function getOrt(): ?string
+    {
+        return $this->ort;
+    }
+
+    public function setOrt(string $ort): self
+    {
+        $this->ort = $ort;
+
+        return $this;
+    }
+
+    public function getTelZentrale(): ?string
+    {
+        return $this->telZentrale;
+    }
+
+    public function setTelZentrale(string $telZentrale): self
+    {
+        $this->telZentrale = $telZentrale;
+
+        return $this;
+    }
+
+    public function getTelDurchwahl(): ?string
+    {
+        return $this->telDurchwahl;
+    }
+
+    public function setTelDurchwahl(?string $telDurchwahl): self
+    {
+        $this->telDurchwahl = $telDurchwahl;
+
+        return $this;
+    }
+
+    public function getFax(): ?string
+    {
+        return $this->fax;
+    }
+
+    public function setFax(?string $fax): self
+    {
+        $this->fax = $fax;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getIstVerifiziert(): ?bool
+    {
+        return $this->istVerifiziert;
+    }
+
+    public function setIstVerifiziert(bool $istVerifiziert): self
+    {
+        $this->istVerifiziert = $istVerifiziert;
 
         return $this;
     }
