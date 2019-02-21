@@ -3,8 +3,58 @@
 {% block title %}Kontaktperson{% endblock %}
 
 {% block content %}
-    Neue Kontaktperson anlegen
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+                <div class="form-group">
+                <br>
+                <h2>Neue Kontaktperson anlegen</h2>
+                <br>
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Anrede</label>
+                            {{ form_widget(form.anrede, {'attr': {'placeholder': 'Vorname', 'class': 'form-control',}}) }}
+                        </div>
+                        <div class="col-lg-6">
+
+                        </div>
+                    </div>
+
+                    <label>Vorname</label>
+                    {{ form_widget(form.vorname, {'attr': {'placeholder': 'Vorname', 'class': 'form-control',}}) }}
+                    <label>Nachname</label>
+                    {{ form_widget(form.nachname, {'attr': {'placeholder': 'Nachname', 'class': 'form-control',}}) }}
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label>Straße</label>
+                            {{ form_widget(form.strasse, {'attr': {'placeholder': 'Straße', 'class': 'form-control',}}) }}
+                            <label>Postleitzahl</label>
+                            {{ form_widget(form.plz, {'attr': {'placeholder': 'Postleitzahl', 'class': 'form-control',}}) }}
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Hausunmmer</label>
+                            {{ form_widget(form.hausnummer, {'attr': {'placeholder': 'Hausnummer', 'class': 'form-control',}}) }}
+                            <label>Ort</label>
+                            {{ form_widget(form.ort, {'attr': {'placeholder': 'Ort', 'class': 'form-control',}}) }}
+                        </div>
+                    </div>
+
+                    <label>Telefonnummer</label>
+                    {{ form_widget(form.telefonnummer, {'attr': {'placeholder': 'Telefonnummer', 'class': 'form-control',}}) }}
+                    <label>Email</label>
+                    {{ form_widget(form.email, {'attr': {'placeholder': 'Email', 'class': 'form-control',}}) }}
+
+                    <br>
+
+                    {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
 {% endblock %}

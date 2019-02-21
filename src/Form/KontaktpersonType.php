@@ -22,6 +22,7 @@ class KontaktpersonType extends AbstractType
                     'Herr' => 'Herr',
                     'Frau' => 'Frau',
                 ],
+                'attr' => ['class' => 'custom-select'],
             ])
             ->add('vorname', TextType::class)
             ->add('nachname', TextType::class)
@@ -33,7 +34,7 @@ class KontaktpersonType extends AbstractType
             ->add('email', EmailType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Create',
-                'attr' => ['class' => 'btn btn-primary pull-right'],
+                'attr' => ['class' => 'btn btn-info btn-block pull-right'],
             ])
         ;
     }
