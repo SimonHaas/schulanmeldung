@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fluechtling{% endblock %}
+
+{% block body %}
+    <h1>Fluechtling</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ fluechtling.id }}</td>
+            </tr>
+            <tr>
+                <th>DeutschKenntnis</th>
+                <td>{{ fluechtling.deutschKenntnis ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>AnmeldeStelle</th>
+                <td>{{ fluechtling.anmeldeStelle }}</td>
+            </tr>
+            <tr>
+                <th>AnsprechPartner</th>
+                <td>{{ fluechtling.ansprechPartner }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ fluechtling.tel }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('fluechtling_index') }}">back to list</a>
+
+    <a href="{{ path('fluechtling_edit', {'id': fluechtling.id}) }}">edit</a>
+
+    {{ include('fluechtling/_delete_form.html.twig') }}
+{% endblock %}

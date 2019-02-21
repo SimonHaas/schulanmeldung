@@ -16,7 +16,7 @@ class AusbildungType extends AbstractType
             ->add('ende')
             ->add('relation')
             ->add('betrieb')
-            ->add('betriebId')
+            ->add('beruf')
         ;
     }
 

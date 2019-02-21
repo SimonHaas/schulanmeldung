@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Betrieb index{% endblock %}
+
+{% block body %}
+    <h1>Betrieb index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>AnsprPartner</th>
+                <th>Strasse</th>
+                <th>Hsnr</th>
+                <th>Plz</th>
+                <th>Ort</th>
+                <th>TelZentrale</th>
+                <th>TelDurchwahl</th>
+                <th>Fax</th>
+                <th>Email</th>
+                <th>IstVerifiziert</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for betrieb in betriebs %}
+            <tr>
+                <td>{{ betrieb.id }}</td>
+                <td>{{ betrieb.name }}</td>
+                <td>{{ betrieb.ansprPartner }}</td>
+                <td>{{ betrieb.strasse }}</td>
+                <td>{{ betrieb.hsnr }}</td>
+                <td>{{ betrieb.plz }}</td>
+                <td>{{ betrieb.ort }}</td>
+                <td>{{ betrieb.telZentrale }}</td>
+                <td>{{ betrieb.telDurchwahl }}</td>
+                <td>{{ betrieb.fax }}</td>
+                <td>{{ betrieb.email }}</td>
+                <td>{{ betrieb.istVerifiziert ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('betrieb_show', {'id': betrieb.id}) }}">show</a>
+                    <a href="{{ path('betrieb_edit', {'id': betrieb.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('betrieb_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fluechtling index{% endblock %}
+
+{% block body %}
+    <h1>Fluechtling index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DeutschKenntnis</th>
+                <th>AnmeldeStelle</th>
+                <th>AnsprechPartner</th>
+                <th>Tel</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fluechtling in fluechtlings %}
+            <tr>
+                <td>{{ fluechtling.id }}</td>
+                <td>{{ fluechtling.deutschKenntnis ? 'Yes' : 'No' }}</td>
+                <td>{{ fluechtling.anmeldeStelle }}</td>
+                <td>{{ fluechtling.ansprechPartner }}</td>
+                <td>{{ fluechtling.tel }}</td>
+                <td>
+                    <a href="{{ path('fluechtling_show', {'id': fluechtling.id}) }}">show</a>
+                    <a href="{{ path('fluechtling_edit', {'id': fluechtling.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('fluechtling_new') }}">Create new</a>
+{% endblock %}

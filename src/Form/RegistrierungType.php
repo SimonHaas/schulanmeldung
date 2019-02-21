@@ -2,25 +2,23 @@
 
 namespace App\Form;
 
-use App\Entity\Kontaktperson;
+use App\Entity\Registrierung;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class KontaktpersonType extends AbstractType
+class RegistrierungType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('anrede')
-            ->add('vorname')
-            ->add('nachname')
-            ->add('strasse')
-            ->add('hausnummer')
-            ->add('plz')
-            ->add('ort')
-            ->add('telefonnummer')
-            ->add('email')
+            ->add('datum')
+            ->add('mitteilung')
+            ->add('wohnheim')
+            ->add('eintrittAm')
+            ->add('ip')
+            ->add('typ')
+            ->add('istEQMassnahme')
             ->add('schueler')
         ;
     }
@@ -28,7 +26,7 @@ class KontaktpersonType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Kontaktperson::class,
+            'data_class' => Registrierung::class,
         ]);
     }
 }
