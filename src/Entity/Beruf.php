@@ -40,4 +40,9 @@ class Beruf
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getBezeichnung();
+    }
 }
