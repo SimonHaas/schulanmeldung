@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FluechtlingDaten{% endblock %}
+
+{% block body %}
+    <h1>Edit FluechtlingDaten</h1>
+
+    {{ include('fluechtling_daten/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('fluechtling_daten_index') }}">back to list</a>
+
+    {{ include('fluechtling_daten/_delete_form.html.twig') }}
+{% endblock %}

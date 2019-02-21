@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ausbildung{% endblock %}
+
+{% block body %}
+    <h1>Ausbildung</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ausbildung.id }}</td>
+            </tr>
+            <tr>
+                <th>Beginn</th>
+                <td>{{ ausbildung.beginn ? ausbildung.beginn|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Ende</th>
+                <td>{{ ausbildung.ende ? ausbildung.ende|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ausbildung_index') }}">back to list</a>
+
+    <a href="{{ path('ausbildung_edit', {'id': ausbildung.id}) }}">edit</a>
+
+    {{ include('ausbildung/_delete_form.html.twig') }}
+{% endblock %}

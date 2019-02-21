@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FluechtlingDaten{% endblock %}
+
+{% block body %}
+    <h1>Create new FluechtlingDaten</h1>
+
+    {{ include('fluechtling_daten/_form.html.twig') }}
+
+    <a href="{{ path('fluechtling_daten_index') }}">back to list</a>
+{% endblock %}

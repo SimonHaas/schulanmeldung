@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Kammer{% endblock %}
+
+{% block body %}
+    <h1>Edit Kammer</h1>
+
+    {{ include('kammer/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('kammer_index') }}">back to list</a>
+
+    {{ include('kammer/_delete_form.html.twig') }}
+{% endblock %}

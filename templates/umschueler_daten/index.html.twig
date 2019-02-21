@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UmschuelerDaten index{% endblock %}
+
+{% block body %}
+    <h1>UmschuelerDaten index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Traeger</th>
+                <th>TraegerSitz</th>
+                <th>FoerdererNr</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for umschueler_daten in umschueler_datens %}
+            <tr>
+                <td>{{ umschueler_daten.id }}</td>
+                <td>{{ umschueler_daten.traeger }}</td>
+                <td>{{ umschueler_daten.traegerSitz }}</td>
+                <td>{{ umschueler_daten.foerdererNr }}</td>
+                <td>
+                    <a href="{{ path('umschueler_daten_show', {'id': umschueler_daten.id}) }}">show</a>
+                    <a href="{{ path('umschueler_daten_edit', {'id': umschueler_daten.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('umschueler_daten_new') }}">Create new</a>
+{% endblock %}
