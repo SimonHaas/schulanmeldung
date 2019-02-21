@@ -74,12 +74,6 @@ class Betrieb
      */
     private $istVerifiziert;
 
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ausbildung", mappedBy="betrieb")
-     */
-    private $ausbildungen;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
      * @ORM\JoinColumn(nullable=false)
@@ -233,37 +227,6 @@ class Betrieb
         return $this;
     }
 
-    /**
-     * @return Collection|Ausbildung[]
-     */
-    public function getAusbildungen(): Collection
-    {
-        return $this->ausbildungen;
-    }
-
-    public function addAusbildungen(Ausbildung $ausbildungen): self
-    {
-        if (!$this->ausbildungen->contains($ausbildungen)) {
-            $this->ausbildungen[] = $ausbildungen;
-            $ausbildungen->setBetrieb($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAusbildungen(Ausbildung $ausbildungen): self
-    {
-        if ($this->ausbildungen->contains($ausbildungen)) {
-            $this->ausbildungen->removeElement($ausbildungen);
-            // set the owning side to null (unless already changed)
-            if ($ausbildungen->getBetrieb() === $this) {
-                $ausbildungen->setBetrieb(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getKammer(): ?Kammer
     {
         return $this->kammer;
@@ -290,6 +253,6 @@ class Betrieb
 
     public function __toString()
     {
-        return $this->getName() . ', ' . $this->getPlz() . ' ' . $this->getOrt();
+        return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHsnr();
     }
 }
