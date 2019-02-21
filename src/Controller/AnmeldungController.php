@@ -27,7 +27,14 @@ class AnmeldungController extends AbstractController
         $registrierung->setIp($request->getClientIp());
         $registrierung->setDatum(new DateTime());
         $registrierung->setMitteilung('das ist eine Test-Mitteilung');
-        $schueler = $this->getDoctrine()->getRepository(Schueler::class)->find(1);
+
+        $schueler = new Schueler();
+        $schueler->setGeburtsdatum(new DateTime());
+        $schueler->setGeburtsort('Berlin');
+        $schueler->setNachname('Haas');
+        $schueler->setVorname('Simon');
+        $schueler->setRufname('Simon');
+
         $registrierung->setSchueler($schueler);
         $session->set('registrierung', $registrierung);
 
@@ -52,5 +59,22 @@ class AnmeldungController extends AbstractController
             'registrierung' => $registrierung,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
+    }
+
+    /**
+     * @Route("/beenden", name="anmeldung_beenden")
+     * @param Request $request
+     * @return string
+     */
+    public function beenden(Request $request)
+    {
+        $session = $request->getSession();
+        $registrierung = $session->get('registrierung');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($registrierung);
+        $em->flush();
+
+        return $this->render('anmeldung/beendet.html.twig');
     }
 }
