@@ -23,15 +23,24 @@ class AdminUser implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @var array
+     * @ORM\Column(name="roles", type="string", nullable=true)
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * AdminUser constructor.
+     * @param $id
+     */
+    public function __construct($id) {
+        $this->id = $id;
+    }
 
     public function getId(): ?int
     {
@@ -65,17 +74,12 @@ class AdminUser implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return array('ROLE_USER', 'ROLE_ADMIN');
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = $roles;
-
+        $this->roles = json_encode($roles);
         return $this;
     }
 
