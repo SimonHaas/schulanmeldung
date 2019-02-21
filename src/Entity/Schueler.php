@@ -208,4 +208,12 @@ class Schueler
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getVorname() . ' ' . $this->getNachname();
+    }
 }

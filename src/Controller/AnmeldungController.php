@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Registrierung;
-use App\Form\RegistrierungType;
+use App\Entity\Schueler;
+use App\Repository\SchuelerRepository;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnmeldungController extends AbstractController
 {
     /**
-     * @Route("/anmeldung", name="anmeldung")
+     * @Route("/", name="anmeldung")
      * @throws Exception
      */
     public function index(Request $request)
@@ -25,6 +26,9 @@ class AnmeldungController extends AbstractController
         $registrierung = new Registrierung();
         $registrierung->setIp($request->getClientIp());
         $registrierung->setDatum(new DateTime());
+        $registrierung->setMitteilung('das ist eine Test-Mitteilung');
+        $schueler = $this->getDoctrine()->getRepository(Schueler::class)->find(1);
+        $registrierung->setSchueler($schueler);
         $session->set('registrierung', $registrierung);
 
         return $this->render('anmeldung/index.html.twig');
@@ -43,11 +47,9 @@ class AnmeldungController extends AbstractController
 
         $registrierung = $session->get('registrierung');
 
-        $registrierungsForm = $this->createForm(RegistrierungType::class, $registrierung);
-
 
         $templateOptions = [
-            'registrierungsForm' => $registrierungsForm->createView(),
+            'registrierung' => $registrierung,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }

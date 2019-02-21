@@ -3,13 +3,6 @@
 {% endif %}
 
 {{ form_start(form) }}
-    {% if check %}
-        {% for field in form %}
-            {{ form_row(field, {'attr': {'disabled': 'disabled'} }) }}
-        {% endfor %}
-        <p>Hier soll ein Button hin um die Daten der Registrierung nochmal bearbeiten zu können. An dieser Stelle sollte kein 'richtiges' Formular sein, nur eine Übersicht.</p>
-    {% else %}
-        {{ form_widget(form) }}
-        <button class="btn">{{ button_label|default('Save') }}</button>
-    {% endif %}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
