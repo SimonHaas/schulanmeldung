@@ -12,6 +12,7 @@ class Kammer
 {
     /**
      * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -20,6 +21,11 @@ class Kammer
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $kammernummer;
 
     public function getId(): ?int
     {
@@ -48,5 +54,17 @@ class Kammer
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getKammernummer(): ?int
+    {
+        return $this->kammernummer;
+    }
+
+    public function setKammernummer(int $kammernummer): self
+    {
+        $this->kammernummer = $kammernummer;
+
+        return $this;
     }
 }
