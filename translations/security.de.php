@@ -1,4 +1,4 @@
 <?php
 return [
-    'Invalid credentials.' => 'The password you entered was invalid!',
+    'Invalid credentials.' => 'Zugangsdaten falsch!',
 ];
