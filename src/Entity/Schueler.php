@@ -74,6 +74,71 @@ class Schueler
      */
     private $umschuelerDaten;
 
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    private $geschlecht;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $strasse;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $hsnr;
+
+    /**
+     * @ORM\Column(type="string", length=5)
+     */
+    private $plz;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $ort;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tel;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $geburtsland;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $staatsangehoerigkeit;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $bekenntnis;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $letzteSchulart;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $hoechsterAbschluss;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $hoechAbschlAm;
+
     public function __construct()
     {
         $this->kontaktpersonen = new ArrayCollection();
@@ -256,6 +321,162 @@ class Schueler
     public function setUmschuelerDaten(?UmschuelerDaten $umschuelerDaten): self
     {
         $this->umschuelerDaten = $umschuelerDaten;
+
+        return $this;
+    }
+
+    public function getGeschlecht(): ?string
+    {
+        return $this->geschlecht;
+    }
+
+    public function setGeschlecht(string $geschlecht): self
+    {
+        $this->geschlecht = $geschlecht;
+
+        return $this;
+    }
+
+    public function getStrasse(): ?string
+    {
+        return $this->strasse;
+    }
+
+    public function setStrasse(string $strasse): self
+    {
+        $this->strasse = $strasse;
+
+        return $this;
+    }
+
+    public function getHsnr(): ?string
+    {
+        return $this->hsnr;
+    }
+
+    public function setHsnr(string $hsnr): self
+    {
+        $this->hsnr = $hsnr;
+
+        return $this;
+    }
+
+    public function getPlz(): ?string
+    {
+        return $this->plz;
+    }
+
+    public function setPlz(string $plz): self
+    {
+        $this->plz = $plz;
+
+        return $this;
+    }
+
+    public function getOrt(): ?string
+    {
+        return $this->ort;
+    }
+
+    public function setOrt(string $ort): self
+    {
+        $this->ort = $ort;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getGeburtsland(): ?string
+    {
+        return $this->geburtsland;
+    }
+
+    public function setGeburtsland(string $geburtsland): self
+    {
+        $this->geburtsland = $geburtsland;
+
+        return $this;
+    }
+
+    public function getStaatsangehoerigkeit(): ?string
+    {
+        return $this->staatsangehoerigkeit;
+    }
+
+    public function setStaatsangehoerigkeit(string $staatsangehoerigkeit): self
+    {
+        $this->staatsangehoerigkeit = $staatsangehoerigkeit;
+
+        return $this;
+    }
+
+    public function getBekenntnis(): ?string
+    {
+        return $this->bekenntnis;
+    }
+
+    public function setBekenntnis(string $bekenntnis): self
+    {
+        $this->bekenntnis = $bekenntnis;
+
+        return $this;
+    }
+
+    public function getLetzteSchulart(): ?string
+    {
+        return $this->letzteSchulart;
+    }
+
+    public function setLetzteSchulart(string $letzteSchulart): self
+    {
+        $this->letzteSchulart = $letzteSchulart;
+
+        return $this;
+    }
+
+    public function getHoechsterAbschluss(): ?string
+    {
+        return $this->hoechsterAbschluss;
+    }
+
+    public function setHoechsterAbschluss(string $hoechsterAbschluss): self
+    {
+        $this->hoechsterAbschluss = $hoechsterAbschluss;
+
+        return $this;
+    }
+
+    public function getHoechAbschlAm(): ?\DateTimeInterface
+    {
+        return $this->hoechAbschlAm;
+    }
+
+    public function setHoechAbschlAm(\DateTimeInterface $hoechAbschlAm): self
+    {
+        $this->hoechAbschlAm = $hoechAbschlAm;
 
         return $this;
     }

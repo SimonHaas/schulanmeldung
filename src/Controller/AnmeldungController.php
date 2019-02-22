@@ -7,6 +7,7 @@ use App\Entity\Betrieb;
 use App\Entity\Kammer;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
+use App\Form\SchuelerType;
 use App\Form\StartType;
 use App\Form\AusbildungType;
 use DateTime;
@@ -16,20 +17,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Validator\ConstraintViolation;
-use App\Entity\Registrierung;
 use App\Form\RegistrierungType;
-use DateTime;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class AnmeldungController
+ * @package App\Controller
+ * @Route("/anmeldung")
+ */
 class AnmeldungController extends AbstractController
 {
     /**
-     * @Route("/start", name="start")
+     * @Route("/start", name="anmeldung_start")
      */
     public function start(Request $request)
     {
@@ -52,9 +51,9 @@ class AnmeldungController extends AbstractController
             $session->set('schueler', $schueler);
             switch($data['typ']) {
                 case "AUAU":
-                    return $this->redirectToRoute('ausbildung');
+                    return $this->redirectToRoute('anmeldung_ausbildung');
                 case "UM":
-                    return $this->redirectToRoute('umschulung');
+                    return $this->redirectToRoute('anmeldung_umschulung');
                 default:
                     $this->redirectToRoute('error');
             }
@@ -66,13 +65,13 @@ class AnmeldungController extends AbstractController
     }
 
     /**
-     * @Route("/ausbildung", name="ausbildung")
+     * @Route("/ausbildung", name="anmeldung_ausbildung")
      */
     public function ausbildung(Request $request) {
         $session = new Session();
         if(!($session->has('registrierung') && $session->has('schueler'))) {
             $session->invalidate();
-            return $this->redirectToRoute('start');
+            return $this->redirectToRoute('anmeldung_start');
         }
 
 
@@ -97,10 +96,14 @@ class AnmeldungController extends AbstractController
                 //die(var_dump($form));
                 //die($betrieb->getName());
                 $ausbildung->setBetrieb($betrieb);
+                $schueler->setAusbildung($ausbildung);
+
                 $session->set('betrieb', $betrieb);
                 $session->set('beruf', $form->get('beruf')->getData());
                 $session->set('ausbildung', $form->getData());
-                return $this->redirectToRoute('success');
+                $session->set('schueler', $schueler);
+
+                return $this->redirectToRoute('anmeldung_schueler');
             }
         } else {
             $form = $this->createForm(AusbildungType::class, $ausbildung, ['betriebe' => $betriebe, 'betriebNeu' => null]);
@@ -113,45 +116,57 @@ class AnmeldungController extends AbstractController
                     'betriebe' => $betriebe,
                     'betriebNeu' => $betrieb]);
                 $ausbildung->setBetrieb($betrieb);
+                $betrieb->setAusbildung($form->getData());
                 $session->set('betrieb', $betrieb);
                 $session->set('ausbildung', $ausbildung);
             } else {
                 if ($form->isSubmitted() && $form->isValid()) {
                     $betrieb = $form->get('betrieb')->getData();
+                    $ausbildung = $form->getData();
+
+                    $schueler->setAusbildung($ausbildung);
+
+
                     $session->set('betrieb', $betrieb);
                     $session->set('beruf', $form->get('beruf')->getData());
-                    $session->set('ausbildung', $form->getData());
-                    return $this->redirectToRoute('success');
+                    $session->set('ausbildung', $ausbildung);
+                    $session->set('schueler', $schueler);
+                    return $this->redirectToRoute('anmeldung_schueler');
                 }
             }
         }
-        /*
-        if($session->has('betrieb')) {
-            $betrieb = $session->get('betrieb');
-            $this->getDoctrine()->getManager()->persist($betrieb);
-            $betriebe[] = $betrieb;
-            $form = $this->createForm(AusbildungType::class, $ausbildung, [
-                'betriebe' => $betriebe,
-                'betriebNeu' => $betrieb]);
-        } else {
-            $form = $this->createForm(AusbildungType::class, $ausbildung, [
-                'betriebe' => $betriebe, 'betriebNeu' => null]);
-        }
-
-*/
-
-
-            //$this->getDoctrine()->getManager()->flush();
-
-
-
         return $this->render('anmeldung/ausbildung.html.twig', [
            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/success", name="success")
+     * @Route("/schueler", name="anmeldung_schueler")
+     */
+    public function schueler(Request $request) {
+        $session = new Session();
+        if($session->has('ausbildung')) {
+            $schueler = $session->get('schueler');
+            $this->getDoctrine()->getManager()->persist($schueler->getAusbildung());
+            $form = $this->createForm(SchuelerType::class, $schueler);
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                $schueler = $form->getData();
+                $session->set('schueler', $schueler);
+                return $this->render('anmeldung/success.html.twig');
+            }
+            return $this->render('anmeldung/schueler.html.twig', [
+                'form' => $form->createView()
+            ]);
+        } else {
+            $session->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+    }
+
+    /**
+     * @Route("/success", name="anmeldung_success")
      */
     public function success(Request $request) {
         $session = new Session();
@@ -162,7 +177,7 @@ class AnmeldungController extends AbstractController
             ]);
         } else {
             $session->invalidate();
-            return $this->redirectToRoute('start');
+            return $this->redirectToRoute('anmeldung_start');
         }
 
     }
