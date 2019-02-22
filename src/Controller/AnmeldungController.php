@@ -3,31 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Ausbildung;
-use App\Entity\Beruf;
 use App\Entity\Betrieb;
 use App\Entity\Fluechtling;
-use App\Entity\Kammer;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
 use App\Entity\Umschueler;
-use App\Form\BetriebType;
 use App\Form\FluechtlingType;
 use App\Form\SchuelerType;
 use App\Form\StartType;
 use App\Form\AusbildungType;
-use App\Form\UmschuelerDatenType;
 use App\Form\UmschuelerType;
 use DateTime;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Psr\Log\LoggerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
-use App\Form\RegistrierungType;
 use Exception;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class AnmeldungController
@@ -39,13 +31,11 @@ class AnmeldungController extends AbstractController
     /**
      * @Route("/start", name="anmeldung_start")
      */
-    public function start(Request $request, LoggerInterface $logger)
+    public function start(Request $request)
     {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
-            $logger->info('resuming session');
             $session = $request->getSession();
         } else {
-            $logger->info('New session');
             $session = new Session();
         }
 
