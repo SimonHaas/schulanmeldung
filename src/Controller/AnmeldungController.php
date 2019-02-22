@@ -3,22 +3,31 @@
 namespace App\Controller;
 
 use App\Entity\Ausbildung;
+use App\Entity\Beruf;
 use App\Entity\Betrieb;
+use App\Entity\Fluechtling;
 use App\Entity\Kammer;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
+use App\Entity\Umschueler;
+use App\Form\BetriebType;
+use App\Form\FluechtlingType;
 use App\Form\SchuelerType;
 use App\Form\StartType;
 use App\Form\AusbildungType;
+use App\Form\UmschuelerDatenType;
+use App\Form\UmschuelerType;
 use DateTime;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Validator\ConstraintViolation;
 use App\Form\RegistrierungType;
 use Exception;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class AnmeldungController
@@ -30,35 +39,48 @@ class AnmeldungController extends AbstractController
     /**
      * @Route("/start", name="anmeldung_start")
      */
-    public function start(Request $request)
+    public function start(Request $request, LoggerInterface $logger)
     {
-        $session = new Session();
-        $schueler = new Schueler();
-        $registrierung = new Registrierung();
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $logger->info('resuming session');
+            $session = $request->getSession();
+        } else {
+            $logger->info('New session');
+            $session = new Session();
+        }
 
-        $registrierung->setIp($request->getClientIp());
-        $registrierung->setDatum(new DateTime());
-        $registrierung->setSchueler($schueler);
+        if($session->has('registrierung')) {
+            $registrierung = $session->get('registrierung');
+        } else {
+            $schueler = new Schueler();
+            $registrierung = new Registrierung();
+            $registrierung->setSchueler($schueler);
+            $registrierung->setIp($request->getClientIp());
+            try {
+                $registrierung->setDatum(new DateTime());
+            } catch (Exception $e) {
+            }
+        }
 
-        $form = $this->createForm(StartType::class);
+        $form = $this->createForm(StartType::class, $registrierung);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $registrierung->setIstEQMassnahme($data['istEQMassnahme']);
-            $registrierung->setTyp($data['typ']);
+            $registrierung = $form->getData();
+            $schueler = $registrierung->getSchueler();
             $session->set('registrierung', $registrierung);
             $session->set('schueler', $schueler);
-            switch($data['typ']) {
+            switch($registrierung->getTyp()) {
                 case "AUAU":
                     return $this->redirectToRoute('anmeldung_ausbildung');
                 case "UM":
                     return $this->redirectToRoute('anmeldung_umschulung');
+                case "BIK":
+                    return $this->redirectToRoute('anmeldung_fluechtling');
                 default:
                     $this->redirectToRoute('error');
             }
         }
-        $session->set('registrierung', $registrierung);
         return $this->render('anmeldung/start.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -68,19 +90,19 @@ class AnmeldungController extends AbstractController
      * @Route("/ausbildung", name="anmeldung_ausbildung")
      */
     public function ausbildung(Request $request) {
-        $session = new Session();
-        if(!($session->has('registrierung') && $session->has('schueler'))) {
-            $session->invalidate();
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
             return $this->redirectToRoute('anmeldung_start');
         }
-
-
 
         $ausbildung = new Ausbildung();
         $schueler = $session->get('schueler');
         $schueler->setAusbildung($ausbildung);
         $ausbildung->setSchueler($schueler);
-
         $betriebe[] = $this->getDoctrine()->getRepository(Betrieb::class)->findBy(['istVerifiziert'=>true]);
         if($session->has('betrieb')) {
             $betrieb = $session->get('betrieb');
@@ -93,16 +115,10 @@ class AnmeldungController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $betrieb = $form->get('betrieb')->getData();
-                //die(var_dump($form));
-                //die($betrieb->getName());
                 $ausbildung->setBetrieb($betrieb);
-                $schueler->setAusbildung($ausbildung);
-
                 $session->set('betrieb', $betrieb);
                 $session->set('beruf', $form->get('beruf')->getData());
                 $session->set('ausbildung', $form->getData());
-                $session->set('schueler', $schueler);
-
                 return $this->redirectToRoute('anmeldung_schueler');
             }
         } else {
@@ -116,27 +132,94 @@ class AnmeldungController extends AbstractController
                     'betriebe' => $betriebe,
                     'betriebNeu' => $betrieb]);
                 $ausbildung->setBetrieb($betrieb);
-                $betrieb->setAusbildung($form->getData());
                 $session->set('betrieb', $betrieb);
                 $session->set('ausbildung', $ausbildung);
             } else {
                 if ($form->isSubmitted() && $form->isValid()) {
                     $betrieb = $form->get('betrieb')->getData();
-                    $ausbildung = $form->getData();
-
-                    $schueler->setAusbildung($ausbildung);
-
-
                     $session->set('betrieb', $betrieb);
                     $session->set('beruf', $form->get('beruf')->getData());
-                    $session->set('ausbildung', $ausbildung);
-                    $session->set('schueler', $schueler);
+                    $session->set('ausbildung', $form->getData());
                     return $this->redirectToRoute('anmeldung_schueler');
                 }
             }
         }
         return $this->render('anmeldung/ausbildung.html.twig', [
-           'form' => $form->createView()
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/umschulung", name="anmeldung_umschulung")
+     */
+    public function umschulung(Request $request) {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if($session->has('umschueler')) {
+            $umschueler = $session->get('umschueler');
+        } else {
+            $umschueler = new Umschueler();
+        }
+
+        $form = $this->createForm(UmschuelerType::class, $umschueler);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schueler = $session->get('schueler');
+            $umschueler = $form->getData();
+
+            $schueler->setUmschueler($umschueler);
+            $umschueler->setSchueler($schueler);
+
+            $session->set('schueler', $schueler);
+            $session->set('umschueler', $umschueler);
+            return $this->redirectToRoute('anmeldung_schueler');
+        }
+        return $this->render('anmeldung/umschulung.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/fluechtling", name="anmeldung_fluechtling")
+     */
+    public function fluechtling(Request $request) {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if($session->has('fluechtling')) {
+            $fluechtling = $session->get('fluechtling');
+        } else {
+            $fluechtling = new Fluechtling();
+        }
+
+        $form = $this->createForm(FluechtlingType::class, $fluechtling);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schueler = $session->get('schueler');
+            $fluechtling = $form->getData();
+
+            $schueler->setFluechtling($fluechtling);
+            $fluechtling->setSchueler($schueler);
+
+            $session->set('schueler', $schueler);
+            $session->set('fluechtling', $fluechtling);
+            return $this->redirectToRoute('anmeldung_schueler');
+        }
+        return $this->render('anmeldung/fluechtling.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
@@ -144,16 +227,16 @@ class AnmeldungController extends AbstractController
      * @Route("/schueler", name="anmeldung_schueler")
      */
     public function schueler(Request $request) {
-        $session = new Session();
-        if($session->has('ausbildung')) {
+        $session = $request->getSession();
+        if($session->has('registrierung')) {
             $schueler = $session->get('schueler');
-            $this->getDoctrine()->getManager()->persist($schueler->getAusbildung());
+            //$this->getDoctrine()->getManager()->persist($schueler->getAusbildung());
             $form = $this->createForm(SchuelerType::class, $schueler);
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
                 $schueler = $form->getData();
                 $session->set('schueler', $schueler);
-                return $this->render('anmeldung/success.html.twig');
+                return $this->redirectToRoute('daten_pruefen');
             }
             return $this->render('anmeldung/schueler.html.twig', [
                 'form' => $form->createView()
@@ -169,7 +252,7 @@ class AnmeldungController extends AbstractController
      * @Route("/success", name="anmeldung_success")
      */
     public function success(Request $request) {
-        $session = new Session();
+        $session = $request->getSession();
         if($session->has('ausbildung')) {
             return $this->render('anmeldung/success.html.twig', [
                 'betrieb' => $session->get('betrieb')->getName(),
@@ -205,18 +288,12 @@ class AnmeldungController extends AbstractController
      */
     public function check(Request $request)
     {
-        //TODO daten zusammensammeln und ans Template weitergeben
-        //TODO Objekte validieren und ggf Fehlermeldungen anzeigen
+        /*
         $session = $request->getSession();
-
-        $registrierung = $session->get('registrierung');
-
-        $registrierungsForm = $this->createForm(RegistrierungType::class, $registrierung);
-
-
-        $templateOptions = [
-            'registrierungsForm' => $registrierungsForm->createView(),
-        ];
-        return $this->render('anmeldung/check.html.twig', $templateOptions);
+        if($session->has('registrierung')) {
+            $session->invalidate();
+        }
+        */
+        return $this->render('anmeldung/check.html.twig');
     }
 }

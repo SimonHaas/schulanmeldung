@@ -5,10 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="umschuelerdaten")
- * @ORM\Entity(repositoryClass="App\Repository\UmschuelerDatenRepository")
+ * @ORM\Table(name="umschueler")
+ * @ORM\Entity(repositoryClass="App\Repository\UmschuelerRepository")
  */
-class UmschuelerDaten
+class Umschueler
 {
     /**
      * @ORM\Id()
@@ -33,7 +33,7 @@ class UmschuelerDaten
     private $foerdererNr;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="umschuelerDaten", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="umschueler", cascade={"persist", "remove"})
      */
     private $schueler;
 
@@ -89,8 +89,8 @@ class UmschuelerDaten
 
         // set (or unset) the owning side of the relation if necessary
         $newUmschuelerDaten = $schueler === null ? null : $this;
-        if ($newUmschuelerDaten !== $schueler->getUmschuelerDaten()) {
-            $schueler->setUmschuelerDaten($newUmschuelerDaten);
+        if ($newUmschuelerDaten !== $schueler->getUmschueler()) {
+            $schueler->setUmschueler($newUmschuelerDaten);
         }
 
         return $this;

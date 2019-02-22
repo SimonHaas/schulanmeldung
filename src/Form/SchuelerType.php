@@ -15,10 +15,14 @@ class SchuelerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vorname')
-            ->add('nachname')
+            ->add('vorname', null, [
+                'label' => 'Vornamen',
+                'help' => 'Alle Vornamen'
+            ])
             ->add('rufname')
+            ->add('nachname')
             ->add('geschlecht', ChoiceType::class, [
+                'placeholder' => 'Auswählen...',
                 'choices' => [
                     'männlich' => 'M',
                     'weiblich' => 'W',
@@ -33,12 +37,15 @@ class SchuelerType extends AbstractType
             ->add('tel')
             ->add('email', EmailType::class)
             ->add('geburtsdatum')
+            ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
                 'placeholder' => 'Auswählen...',
-                'choice_translation_locale' => 'de'
+                'choice_translation_locale' => 'de',
+                'preferred_choices' => ['Deutschland' => "DE"]
             ])
             ->add('staatsangehoerigkeit')
             ->add('bekenntnis', ChoiceType::class, [
+                'placeholder' => 'Auswählen...',
                 'choices' => [
                     'römisch-katholisch' => 'RK',
                     'evangelisch' => 'RV',
@@ -61,7 +68,6 @@ class SchuelerType extends AbstractType
                     'sonstige' => 'SO'
                 ]
             ])
-            ->add('geburtsort')
         ;
     }
 

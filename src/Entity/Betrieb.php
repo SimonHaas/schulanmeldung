@@ -251,6 +251,25 @@ class Betrieb
         return $this;
     }
 
+    public function set($array): self
+    {
+        $this->name = $array['name'];
+        $this->ansprPartner = $array['ansprPartner'];
+        $this->strasse = $array['strasse'];
+        $this->hsnr = $array['hsnr'];
+        $this->plz = $array['plz'];
+        $this->ort = $array['ort'];
+        $this->telZentrale = $array['telZentrale'];
+        $this->telDurchwahl = $array['telDurchwahl'];
+        $this->fax = $array['fax'];
+        $this->email = $array['email'];
+        $this->gemeindeschluessel = $array['gemeindeschluessel'];
+        $this->kammer = $array['kammer'];
+        $this->istVerifiziert = false;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHsnr();

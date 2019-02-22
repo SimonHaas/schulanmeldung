@@ -31,8 +31,6 @@ class StartType extends AbstractType
             ])->add('istEQMassnahme', CheckboxType::class, [
                 'label' => 'EQ-Maßnahme',
                 'required' => false
-            ])->add('submit', SubmitType::class, [
-                'label' => 'Weiter'
             ]);
     }
 

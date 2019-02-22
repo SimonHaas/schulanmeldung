@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
- * @ORM\Table(name="fluechtlingdaten")
- * @ORM\Entity(repositoryClass="App\Repository\FluechtlingDatenRepository")
+ * @ORM\Table(name="fluechtling")
+ * @ORM\Entity(repositoryClass="App\Repository\FluechtlingRepository")
  */
-class FluechtlingDaten
+class Fluechtling
 {
     /**
      * @ORM\Id()
@@ -16,11 +17,6 @@ class FluechtlingDaten
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $deutschKenntnis;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -38,25 +34,18 @@ class FluechtlingDaten
     private $tel;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="fluechtlingDaten", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="fluechtling", cascade={"persist", "remove"})
      */
     private $schueler;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $deutschKenntnis;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDeutschKenntnis(): ?bool
-    {
-        return $this->deutschKenntnis;
-    }
-
-    public function setDeutschKenntnis(bool $deutschKenntnis): self
-    {
-        $this->deutschKenntnis = $deutschKenntnis;
-
-        return $this;
     }
 
     public function getAnmeldeStelle(): ?string
@@ -106,9 +95,21 @@ class FluechtlingDaten
 
         // set (or unset) the owning side of the relation if necessary
         $newFluechtlingDaten = $schueler === null ? null : $this;
-        if ($newFluechtlingDaten !== $schueler->getFluechtlingDaten()) {
-            $schueler->setFluechtlingDaten($newFluechtlingDaten);
+        if ($newFluechtlingDaten !== $schueler->getFluechtling()) {
+            $schueler->setFluechtling($newFluechtlingDaten);
         }
+
+        return $this;
+    }
+
+    public function getDeutschKenntnis(): ?int
+    {
+        return $this->deutschKenntnis;
+    }
+
+    public function setDeutschKenntnis(int $deutschKenntnis): self
+    {
+        $this->deutschKenntnis = $deutschKenntnis;
 
         return $this;
     }

@@ -65,14 +65,14 @@ class Schueler
     private $ausbildung;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\FluechtlingDaten", inversedBy="schueler", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Fluechtling", inversedBy="schueler", cascade={"persist", "remove"})
      */
-    private $fluechtlingDaten;
+    private $fluechtling;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UmschuelerDaten", inversedBy="schueler", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Umschueler", inversedBy="schueler", cascade={"persist", "remove"})
      */
-    private $umschuelerDaten;
+    private $umschueler;
 
     /**
      * @ORM\Column(type="string", length=1)
@@ -301,26 +301,26 @@ class Schueler
         return $this;
     }
 
-    public function getFluechtlingDaten(): ?FluechtlingDaten
+    public function getFluechtling(): ?Fluechtling
     {
-        return $this->fluechtlingDaten;
+        return $this->fluechtling;
     }
 
-    public function setFluechtlingDaten(?FluechtlingDaten $fluechtlingDaten): self
+    public function setFluechtling(?Fluechtling $fluechtling): self
     {
-        $this->fluechtlingDaten = $fluechtlingDaten;
+        $this->fluechtling = $fluechtling;
 
         return $this;
     }
 
-    public function getUmschuelerDaten(): ?UmschuelerDaten
+    public function getUmschueler(): ?Umschueler
     {
-        return $this->umschuelerDaten;
+        return $this->umschueler;
     }
 
-    public function setUmschuelerDaten(?UmschuelerDaten $umschuelerDaten): self
+    public function setUmschueler(?Umschueler $umschueler): self
     {
-        $this->umschuelerDaten = $umschuelerDaten;
+        $this->umschueler = $umschueler;
 
         return $this;
     }

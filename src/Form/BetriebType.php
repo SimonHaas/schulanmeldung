@@ -49,14 +49,14 @@ class BetriebType extends AbstractType
             ->add('kammer', null, [
                 'attr' => ['class' => 'betrieb_item']
             ])
-            ->add('istVerifiziert')
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Betrieb::class,
+            'data_class' => Betrieb::class
         ]);
     }
 }

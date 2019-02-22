@@ -61,7 +61,6 @@ class AusbildungType extends AbstractType
             ->add('beruf', null, [
                 'placeholder' => 'Auswählen...'
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Weiter'])
         ;
     }
 
@@ -69,12 +68,14 @@ class AusbildungType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Ausbildung::class,
-        ])->setRequired(["betriebe", "betriebNeu"]);
+        ])
+            ->setRequired(["betriebe", "betriebNeu"])
+        ;
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $newChoice = new ChoiceView(new Betrieb(), '0', 'Neuen Betrieb anlegen'); // <- new option
+        $newChoice = new ChoiceView(new Betrieb(), '-1', 'Neuen Betrieb anlegen'); // <- new option
         $view->children['betrieb']->vars['choices'][] = $newChoice;//<- adding the new option
     }
 

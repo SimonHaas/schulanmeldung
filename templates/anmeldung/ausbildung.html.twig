@@ -8,7 +8,7 @@
             var choice = document.getElementById("ausbildung_betrieb");
             var vis = "none";
             var betriebItems = document.getElementsByClassName("betrieb_item");
-            if(choice.value == 0){
+            if(choice.value == -1){
                 vis = "block";
                 [].forEach.call(betriebItems, function(item) {
                     if(!(item.id.includes("telDurchwahl") || item.id.includes("fax") || item.id.includes("partner"))) {
@@ -25,6 +25,7 @@
     </script>
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    <input type="submit" />
     {{ form_end(form) }}
 {% endblock %}
 
