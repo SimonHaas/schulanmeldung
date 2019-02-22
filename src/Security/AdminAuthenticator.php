@@ -87,8 +87,7 @@ class AdminAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        //TODO: Redirect updaten, wenn erste Admin-Seite vorhanden ist
-        return new RedirectResponse($this->router->generate('beruf_index'));
+        return new RedirectResponse($this->router->generate('admin'));
     }
 
     protected function getLoginUrl()
