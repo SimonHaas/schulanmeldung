@@ -3,11 +3,24 @@ body{
     background-color: rgba(102, 155, 204, 0.05) !important;
 }
 
-.lateralDistance{
-
-
+.SpacingSides{
+    padding: inherit;
 }
 
 .containerColor{
     background-color: white;
 }
+
+.containerFooter{
+    background-color: #00377B;
+    color: #FFFFFF;
+}
+
+.copyright{
+    background-color: #222222;
+}
+
+.SpacingTop{
+    padding-top: 4%;
+}
+
