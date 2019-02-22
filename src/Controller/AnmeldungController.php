@@ -37,6 +37,7 @@ class AnmeldungController extends AbstractController
 
         $registrierung->setSchueler($schueler);
         $session->set('registrierung', $registrierung);
+        $session->set('schueler', $schueler);
 
         return $this->render('anmeldung/index.html.twig');
     }
@@ -53,10 +54,11 @@ class AnmeldungController extends AbstractController
         $session = $request->getSession();
 
         $registrierung = $session->get('registrierung');
-
+        $schueler = $session->get('schueler');
 
         $templateOptions = [
             'registrierung' => $registrierung,
+            'schueler' => $schueler,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
@@ -70,6 +72,7 @@ class AnmeldungController extends AbstractController
     {
         $session = $request->getSession();
         $registrierung = $session->get('registrierung');
+        $schueler = $session->get('schueler');
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($registrierung);
