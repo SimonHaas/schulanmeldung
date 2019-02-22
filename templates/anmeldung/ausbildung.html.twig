@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ausbildung{% endblock %}
+
+{% block body %}
+    <script>
+        function toggle() {
+            var choice = document.getElementById("ausbildung_betrieb");
+            var vis = "none";
+            var betriebItems = document.getElementsByClassName("betrieb_item");
+            if(choice.value == 0){
+                vis = "block";
+                [].forEach.call(betriebItems, function(item) {
+                    if(!(item.id.includes("telDurchwahl") || item.id.includes("fax") || item.id.includes("partner"))) {
+                        item.required = true;
+                    }
+                });
+            } else {
+                [].forEach.call(betriebItems, function (item) {
+                    item.required = false;
+                });
+            }
+            document.getElementById("ausbildung_betriebNeu").style.display = vis;
+        }
+    </script>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}
+
