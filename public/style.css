@@ -1,6 +1,22 @@
 
 body{
     background-color: rgba(102, 155, 204, 0.05) !important;
+    font-family: "Gill Sans MT V1" !important;
+    font-size: 18px;
+}
+
+.labelFont{
+    font-size: 22px;
+    margin-top: 2%;
+}
+
+.headlineFont{
+    font-weight: bold;
+}
+
+.buttonFont{
+    font-weight: bolder!important;
+    font-size: 20px!important;
 }
 
 .SpacingSides{
@@ -22,5 +38,24 @@ body{
 
 .SpacingTop{
     padding-top: 4%;
+}
+
+.blankLink{
+    text-decoration: none!important;
+    color: #FFFFFF;
+}
+
+a:hover{
+    color: #FFFFFF!important;
+}
+
+.BayreuthButton{
+    border-color: #00377B!important;
+    color: #00377B!important;
+}
+
+.BayreuthButton:hover{
+    background-color: #00377B!important;
+    color: #FFFFFF!important;
 }
 

@@ -9,13 +9,13 @@
         <div class="col-lg-12">
                 <div class="form-group">
                 <br>
-                <h2 class="">Neue Kontaktperson anlegen</h2>
+                <h2 class="headlineFont">Neue Kontaktperson anlegen</h2>
                 <br>
                     {{ form_start(form) }}
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <label>Anrede</label>
+                            <label class="labelFont">Anrede</label>
                             {{ form_widget(form.anrede, {'attr': {'placeholder': 'Vorname', 'class': 'form-control',}}) }}
                         </div>
                         <div class="col-lg-6">
@@ -23,29 +23,29 @@
                         </div>
                     </div>
 
-                    <label>Vorname</label>
+                    <label class="labelFont">Vorname</label>
                     {{ form_widget(form.vorname, {'attr': {'placeholder': 'Vorname', 'class': 'form-control',}}) }}
-                    <label>Nachname</label>
+                    <label class="labelFont">Nachname</label>
                     {{ form_widget(form.nachname, {'attr': {'placeholder': 'Nachname', 'class': 'form-control',}}) }}
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <label>Straße</label>
+                            <label class="labelFont">Straße</label>
                             {{ form_widget(form.strasse, {'attr': {'placeholder': 'Straße', 'class': 'form-control',}}) }}
-                            <label>Postleitzahl</label>
+                            <label class="labelFont">Postleitzahl</label>
                             {{ form_widget(form.plz, {'attr': {'placeholder': 'Postleitzahl', 'class': 'form-control',}}) }}
                         </div>
                         <div class="col-lg-6">
-                            <label>Hausunmmer</label>
+                            <label class="labelFont">Hausunmmer</label>
                             {{ form_widget(form.hausnummer, {'attr': {'placeholder': 'Hausnummer', 'class': 'form-control',}}) }}
-                            <label>Ort</label>
+                            <label class="labelFont">Ort</label>
                             {{ form_widget(form.ort, {'attr': {'placeholder': 'Ort', 'class': 'form-control',}}) }}
                         </div>
                     </div>
 
-                    <label>Telefonnummer</label>
+                    <label class="labelFont">Telefonnummer</label>
                     {{ form_widget(form.telefonnummer, {'attr': {'placeholder': 'Telefonnummer', 'class': 'form-control',}}) }}
-                    <label>Email</label>
+                    <label class="labelFont">Email</label>
                     {{ form_widget(form.email, {'attr': {'placeholder': 'Email', 'class': 'form-control',}}) }}
 
                     <br>

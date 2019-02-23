@@ -34,7 +34,7 @@ class KontaktpersonType extends AbstractType
             ->add('email', EmailType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Create',
-                'attr' => ['class' => 'btn btn-info btn-block pull-right'],
+                'attr' => ['class' => 'btn btn-outline-primary BayreuthButton buttonFont btn-block pull-right'],
             ])
         ;
     }
