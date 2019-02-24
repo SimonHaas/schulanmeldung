@@ -3,24 +3,7 @@
 {% block title %}Schulbesuch{% endblock %}
 
 {% block body %}
-    <h1>Schulbesuch</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ schulbesuch.id }}</td>
-            </tr>
-            <tr>
-                <th>Eintritt</th>
-                <td>{{ schulbesuch.eintritt ? schulbesuch.eintritt|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Austritt</th>
-                <td>{{ schulbesuch.austritt ? schulbesuch.austritt|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ include('schulbesuch/_show.html.twig') }}
 
     <a href="{{ path('schulbesuch_index') }}">back to list</a>
 

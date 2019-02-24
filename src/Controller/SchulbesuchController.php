@@ -47,6 +47,28 @@ class SchulbesuchController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="schulbesuch_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $schulbesuch = $session->get('schulbesuch');
+        $form = $this->createForm(SchulbesuchType::class, $schulbesuch);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('schulbesuch/update.html.twig', [
+            'schulbesuch' => $schulbesuch,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="schulbesuch_show", methods="GET")
      */
     public function show(Schulbesuch $schulbesuch): Response

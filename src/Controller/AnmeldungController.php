@@ -64,11 +64,14 @@ class AnmeldungController extends AbstractController
         //TODO Objekte validieren und ggf Fehlermeldungen anzeigen
         $session = $request->getSession();
 
+        /** @var Registrierung $registrierung */
         $registrierung = $session->get('registrierung');
         $kontaktperson = $session->get('kontaktperson');
         $betrieb = $session->get('betrieb');
         $fluechtling = $session->get('fluechtling', false);
         $umschueler = $session->get('umschueler', false);
+
+        $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
 
         $templateOptions = [
@@ -77,6 +80,7 @@ class AnmeldungController extends AbstractController
             'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
+            'schulbesuche' => $schulbesuche,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }

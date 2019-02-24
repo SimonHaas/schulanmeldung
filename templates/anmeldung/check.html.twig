@@ -23,6 +23,12 @@
         <button><a href="{{ path('umschueler_update') }}">Bearbeiten</a></button>
     {% endif %}
 
+    {% for schulbesuch in schulbesuche %}
+        {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
+        <button><a href="{{ path('schulbesuch_update') }}">Bearbeiten</a></button>
+    {% endfor %}
+    {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
+
     {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
     <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
 
