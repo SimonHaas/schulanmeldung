@@ -67,11 +67,14 @@ class AnmeldungController extends AbstractController
         $registrierung = $session->get('registrierung');
         $kontaktperson = $session->get('kontaktperson');
         $betrieb = $session->get('betrieb');
+        $fluechtling = $session->get('fluechtling', false);
+
 
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktperson' => $kontaktperson,
             'betrieb' => $betrieb,
+            'fluechtling' => $fluechtling,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }

@@ -13,6 +13,11 @@
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
     <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
 
+    {% if fluechtling %}
+    {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
+    <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
+    {% endif %}
+
     {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
     <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
 
