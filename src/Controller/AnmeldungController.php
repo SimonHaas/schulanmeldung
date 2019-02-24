@@ -64,8 +64,9 @@ class AnmeldungController extends AbstractController
         //TODO Objekte validieren und ggf Fehlermeldungen anzeigen
         $session = $request->getSession();
 
+        //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
-        $kontaktperson = $session->get('kontaktperson');
+        $kontaktpersonen = $session->get('kontaktpersonen');
         $betrieb = $session->get('betrieb');
         $fluechtling = $session->get('fluechtling', false);
         $umschueler = $session->get('umschueler', false);
@@ -73,7 +74,7 @@ class AnmeldungController extends AbstractController
 
         $templateOptions = [
             'registrierung' => $registrierung,
-            'kontaktperson' => $kontaktperson,
+            'kontaktpersonen' => $kontaktpersonen,
             'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
@@ -90,13 +91,14 @@ class AnmeldungController extends AbstractController
     {
         $session = $request->getSession();
         $registrierung = $session->get('registrierung');
-        //TODO auch noch alles andere aus der Session holen und speichern
+        //TODO auch noch alles andere aus der Session holen und speichern (vielleicht wird das automatisch mit gespeichert)
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($registrierung);
         $em->flush();
+        //TODO wird hier der Schueler und alles was an der Registrierung hängt auch gespeicher?!
 
-        //TODO Session zerstören
+        $session->invalidate();
 
         return $this->render('anmeldung/beendet.html.twig');
     }
