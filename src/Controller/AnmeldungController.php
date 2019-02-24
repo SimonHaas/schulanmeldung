@@ -75,7 +75,8 @@ class AnmeldungController extends AbstractController
         /** @var Registrierung $registrierung */
         //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
-        $kontaktpersonen = $session->get('kontaktpersonen');
+        $schueler = $registrierung->getSchueler();
+        $kontaktpersonen = $schueler->getKontaktpersonen();
         $betrieb = $session->get('betrieb');
         $fluechtling = $session->get('fluechtling', false);
         $umschueler = $session->get('umschueler', false);
