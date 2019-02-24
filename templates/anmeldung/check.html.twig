@@ -13,5 +13,8 @@
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
     <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
 
+    {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+    <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
+
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}

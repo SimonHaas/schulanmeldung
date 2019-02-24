@@ -3,10 +3,6 @@
 <table class="table">
     <tbody>
     <tr>
-        <th>Id</th>
-        <td>{{ registrierung.id }}</td>
-    </tr>
-    <tr>
         <th>Datum</th>
         <td>{{ registrierung.datum ? registrierung.datum|date('Y-m-d H:i:s') : '' }}</td>
     </tr>
@@ -21,10 +17,6 @@
     <tr>
         <th>EintrittAm</th>
         <td>{{ registrierung.eintrittAm ? registrierung.eintrittAm|date('Y-m-d') : '' }}</td>
-    </tr>
-    <tr>
-        <th>Ip</th>
-        <td>{{ registrierung.ip }}</td>
     </tr>
     <tr>
         <th>Typ</th>

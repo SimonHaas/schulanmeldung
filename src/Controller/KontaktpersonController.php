@@ -47,6 +47,28 @@ class KontaktpersonController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="kontaktperson_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $kontaktperson = $session->get('kontaktperson');
+        $form = $this->createForm(KontaktpersonType::class, $kontaktperson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('kontaktperson/update.html.twig', [
+            'kontaktperson' => $kontaktperson,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="kontaktperson_show", methods="GET")
      */
     public function show(Kontaktperson $kontaktperson): Response
