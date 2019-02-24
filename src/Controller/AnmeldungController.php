@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Betrieb;
 use App\Entity\Kontaktperson;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
@@ -42,6 +43,10 @@ class AnmeldungController extends AbstractController
         //TODO kontaktpersonen als Array speichern
         $session->set('kontaktperson', $kontaktperson);
 
+        $betrieb = new Betrieb();
+        $betrieb->setEmail('etst@test.de');
+        $session->set('betrieb', $betrieb);
+
         $registrierung->setSchueler($schueler);
         $session->set('registrierung', $registrierung);
 
@@ -61,11 +66,12 @@ class AnmeldungController extends AbstractController
 
         $registrierung = $session->get('registrierung');
         $kontaktperson = $session->get('kontaktperson');
-
+        $betrieb = $session->get('betrieb');
 
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktperson' => $kontaktperson,
+            'betrieb' => $betrieb,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }

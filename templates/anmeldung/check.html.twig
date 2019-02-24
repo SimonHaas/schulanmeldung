@@ -16,5 +16,8 @@
     {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
     <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
 
+    {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
+    <button><a href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
+
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}
