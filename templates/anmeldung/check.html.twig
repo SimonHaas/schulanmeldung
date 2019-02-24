@@ -18,6 +18,11 @@
     <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
     {% endif %}
 
+    {% if umschueler %}
+        {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
+        <button><a href="{{ path('umschueler_update') }}">Bearbeiten</a></button>
+    {% endif %}
+
     {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
     <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
 

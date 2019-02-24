@@ -68,6 +68,7 @@ class AnmeldungController extends AbstractController
         $kontaktperson = $session->get('kontaktperson');
         $betrieb = $session->get('betrieb');
         $fluechtling = $session->get('fluechtling', false);
+        $umschueler = $session->get('umschueler', false);
 
 
         $templateOptions = [
@@ -75,6 +76,7 @@ class AnmeldungController extends AbstractController
             'kontaktperson' => $kontaktperson,
             'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
+            'umschueler' => $umschueler,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
@@ -88,10 +90,13 @@ class AnmeldungController extends AbstractController
     {
         $session = $request->getSession();
         $registrierung = $session->get('registrierung');
+        //TODO auch noch alles andere aus der Session holen und speichern
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($registrierung);
         $em->flush();
+
+        //TODO Session zerstören
 
         return $this->render('anmeldung/beendet.html.twig');
     }
