@@ -14,8 +14,8 @@
     <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
 
     {% if fluechtling %}
-    {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
-    <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
+        {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
+        <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
     {% endif %}
 
     {% if umschueler %}
@@ -23,6 +23,10 @@
         <button><a href="{{ path('umschueler_update') }}">Bearbeiten</a></button>
     {% endif %}
 
+    {% for kontaktperson in kontaktpersonen %}
+        {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+        <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
+    {% endfor %}
     {% for schulbesuch in schulbesuche %}
         {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
         <button><a href="{{ path('schulbesuch_update') }}">Bearbeiten</a></button>

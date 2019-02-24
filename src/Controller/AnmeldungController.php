@@ -6,7 +6,6 @@ use App\Entity\Betrieb;
 use App\Entity\Kontaktperson;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
-use App\Repository\SchuelerRepository;
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,29 +25,38 @@ class AnmeldungController extends AbstractController
         $session = new Session();
 
         $registrierung = new Registrierung();
-        $registrierung->setIp($request->getClientIp());
-        $registrierung->setDatum(new DateTime());
-        $registrierung->setMitteilung('das ist eine Test-Mitteilung');
+        $registrierung
+            ->setIp($request->getClientIp())
+            ->setDatum(new DateTime())
+            ->setMitteilung('das ist eine Test-Mitteilung')
+            ->setWohnheim(false)
+            ->setEintrittAm(new DateTime())
+            ->setTyp(1)
+            ->setIstEQMassnahme(false);
 
         $schueler = new Schueler();
-        $schueler->setGeburtsdatum(new DateTime());
-        $schueler->setGeburtsort('Berlin');
-        $schueler->setNachname('Haas');
-        $schueler->setVorname('Simon');
-        $schueler->setRufname('Simon');
+        $schueler
+            ->setGeburtsdatum(new DateTime())
+            ->setGeburtsort('Berlin')
+            ->setNachname('Haas')
+            ->setVorname('Meiersodifasdof')
+            ->setRufname('Simon');
 
         $kontaktperson = new Kontaktperson();
-        $kontaktperson->setVorname('Rosi');
-        $kontaktperson->setNachname('Haas');
-        //TODO kontaktpersonen als Array speichern
-        $session->set('kontaktperson', $kontaktperson);
+        $kontaktperson
+            ->setVorname('Rosi')
+            ->setNachname('Haas');
 
         $betrieb = new Betrieb();
         $betrieb->setEmail('etst@test.de');
-        $session->set('betrieb', $betrieb);
+
+        $registrierung->setSchueler($schueler);
 
         $registrierung->setSchueler($schueler);
         $session->set('registrierung', $registrierung);
+
+        $schueler->setNachname('Das wurde nach dem Speichern in der Session gesetzt');
+
 
         return $this->render('anmeldung/index.html.twig');
     }
@@ -65,8 +73,9 @@ class AnmeldungController extends AbstractController
         $session = $request->getSession();
 
         /** @var Registrierung $registrierung */
+        //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
-        $kontaktperson = $session->get('kontaktperson');
+        $kontaktpersonen = $session->get('kontaktpersonen');
         $betrieb = $session->get('betrieb');
         $fluechtling = $session->get('fluechtling', false);
         $umschueler = $session->get('umschueler', false);
@@ -76,7 +85,7 @@ class AnmeldungController extends AbstractController
 
         $templateOptions = [
             'registrierung' => $registrierung,
-            'kontaktperson' => $kontaktperson,
+            'kontaktpersonen' => $kontaktpersonen,
             'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
@@ -92,15 +101,16 @@ class AnmeldungController extends AbstractController
      */
     public function beenden(Request $request)
     {
+        //TODO sicherstellen, dass man vorher auf den 'Abschliessen'-Button gedrueckt hat
+
         $session = $request->getSession();
         $registrierung = $session->get('registrierung');
-        //TODO auch noch alles andere aus der Session holen und speichern
-
         $em = $this->getDoctrine()->getManager();
+        // das speichert alles was an der Registrierung dran haengt
         $em->persist($registrierung);
         $em->flush();
 
-        //TODO Session zerstören
+        $session->invalidate();
 
         return $this->render('anmeldung/beendet.html.twig');
     }
