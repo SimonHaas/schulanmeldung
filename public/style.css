@@ -62,4 +62,5 @@ a:hover{
 .greyFooter{
     color: #7e7e7e;
     border-bottom-style: dotted;
+    font-size: 15px!important;
 }
