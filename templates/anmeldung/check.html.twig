@@ -8,11 +8,13 @@
        </style>
    #}
     <div class="">
-        <h1>Hier können die eingegebenen Daten nochmal überprüft und bestätigt werden ✅</h1>
+        <br>
+        <h3 class="headlineFont text-center">Hier können die eingegebenen Daten nochmal überprüft und bestätigt werden ✅</h3>
+        <br>
     </div>
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
-    <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
+    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
 
     {% if fluechtling %}
         {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
@@ -36,12 +38,14 @@
 
     {% if betrieb is not null %}
     {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
-    <button><a href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
-
+    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
     {% endif %}
-
+    <br>
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
-    <button><a href="{{ path('schueler_update') }}">Bearbeiten</a></button>
+    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('schueler_update') }}">Bearbeiten</a></button>
 
-    <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
+    <br>
+    <button class="btn btn-outline-primary  BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
+
+
 {% endblock %}

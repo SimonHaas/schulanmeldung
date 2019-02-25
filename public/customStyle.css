@@ -44,18 +44,13 @@ body{
     color: #FFFFFF;
 }
 
-a:hover{
-    color: #FFFFFF!important;
-}
-
 .BayreuthButton{
     border-color: #00377B!important;
-    color: #00377B!important;
 }
 
 .BayreuthButton:hover{
     background-color: #00377B!important;
-    color: #FFFFFF!important;
+    color: white;
 }
 
 .greyFooter{
@@ -63,3 +58,12 @@ a:hover{
     border-bottom-style: dotted;
     font-size: 15px!important;
 }
+
+.table{
+    table-layout:fixed;
+}
+
+.blankLinkButton{
+    color: black;
+}
+
