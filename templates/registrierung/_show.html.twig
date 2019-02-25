@@ -1,0 +1,30 @@
+<h1>Registrierung</h1>
+
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Datum</th>
+        <td>{{ registrierung.datum ? registrierung.datum|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Mitteilung</th>
+        <td>{{ registrierung.mitteilung }}</td>
+    </tr>
+    <tr>
+        <th>Wohnheim</th>
+        <td>{{ registrierung.wohnheim ? 'Yes' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th>EintrittAm</th>
+        <td>{{ registrierung.eintrittAm ? registrierung.eintrittAm|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Typ</th>
+        <td>{{ registrierung.typ }}</td>
+    </tr>
+    <tr>
+        <th>IstEQMassnahme</th>
+        <td>{{ registrierung.istEQMassnahme ? 'Yes' : 'No' }}</td>
+    </tr>
+    </tbody>
+</table>

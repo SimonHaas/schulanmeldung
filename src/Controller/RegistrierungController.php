@@ -47,6 +47,28 @@ class RegistrierungController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="registrierung_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $registrierung = $session->get('registrierung');
+        $form = $this->createForm(RegistrierungType::class, $registrierung);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('registrierung/update.html.twig', [
+            'registrierung' => $registrierung,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="registrierung_show", methods="GET")
      */
     public function show(Registrierung $registrierung): Response

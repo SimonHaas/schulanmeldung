@@ -10,8 +10,34 @@
         <h1>Hier können die eingegebenen Daten nochmal überprüft und bestätigt werden ✅</h1>
     </div>
 
-    <h1>Daten der Registrierung</h1>
+    {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
+    <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
 
-    {{ include('registrierung/_form.html.twig', { 'form': registrierungsForm, 'check': true}) }}
+    {% if fluechtling %}
+        {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
+        <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
+    {% endif %}
 
+    {% if umschueler %}
+        {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
+        <button><a href="{{ path('umschueler_update') }}">Bearbeiten</a></button>
+    {% endif %}
+
+    {% for kontaktperson in kontaktpersonen %}
+        {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+        <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
+    {% endfor %}
+    {% for schulbesuch in schulbesuche %}
+        {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
+        <button><a href="{{ path('schulbesuch_update') }}">Bearbeiten</a></button>
+    {% endfor %}
+    {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
+
+    {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+    <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
+
+    {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
+    <button><a href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
+
+    <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}

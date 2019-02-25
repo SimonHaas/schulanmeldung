@@ -19,7 +19,6 @@ class RegistrierungType extends AbstractType
             ->add('ip')
             ->add('typ')
             ->add('istEQMassnahme')
-            ->add('schueler')
         ;
     }
 

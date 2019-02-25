@@ -47,6 +47,28 @@ class FluechtlingController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="fluechtling_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $fluechtling = $session->get('fluechtling');
+        $form = $this->createForm(FluechtlingType::class, $fluechtling);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('fluechtling/update.html.twig', [
+            'fluechtling' => $fluechtling,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="fluechtling_show", methods="GET")
      */
     public function show(Fluechtling $fluechtling): Response
