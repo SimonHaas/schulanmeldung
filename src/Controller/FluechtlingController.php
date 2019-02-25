@@ -16,9 +16,46 @@ use Symfony\Component\Routing\Annotation\Route;
 class FluechtlingController extends AbstractController
 {
     /**
-     * @Route("/", name="fluechtling_index", methods="GET")
+     * @Route("/", name="fluechtling_index")
      */
-    public function index(FluechtlingRepository $fluechtlingRepository): Response
+    public function index(Request $request) {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if($session->has('fluechtling')) {
+            $fluechtling = $session->get('fluechtling');
+        } else {
+            $fluechtling = new Fluechtling();
+        }
+
+        $form = $this->createForm(FluechtlingType::class, $fluechtling);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schueler = $session->get('schueler');
+            $fluechtling = $form->getData();
+
+            $schueler->setFluechtling($fluechtling);
+            $fluechtling->setSchueler($schueler);
+
+            $session->set('schueler', $schueler);
+            $session->set('fluechtling', $fluechtling);
+            return $this->redirectToRoute('schueler_index');
+        }
+        return $this->render('anmeldung/fluechtling.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/view", name="fluechtling_view", methods="GET")
+     */
+    public function view(FluechtlingRepository $fluechtlingRepository): Response
     {
         return $this->render('fluechtling/index.html.twig', ['fluechtlings' => $fluechtlingRepository->findAll()]);
     }
