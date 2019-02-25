@@ -36,12 +36,10 @@
     {% if betrieb is not null %}
     {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
     <button><a href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
+
     {% endif %}
 
-    *TODO*
-    <a href="/anmeldung/start">Zum Start</a>
-
-     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
+    {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
     <button><a href="{{ path('schueler_update') }}">Bearbeiten</a></button>
 
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
