@@ -85,54 +85,6 @@ class AnmeldungController extends AbstractController
 
     }
 
-    /*
-    /**
-     * @Route("/", name="anmeldung")
-     * @throws Exception
-     */
-    /*
-    public function index(Request $request)
-    {
-        $session = new Session();
-
-        $registrierung = new Registrierung();
-        $registrierung
-            ->setIp($request->getClientIp())
-            ->setDatum(new DateTime())
-            ->setMitteilung('das ist eine Test-Mitteilung')
-            ->setWohnheim(false)
-            ->setEintrittAm(new DateTime())
-            ->setTyp(1)
-            ->setIstEQMassnahme(false);
-
-        $schueler = new Schueler();
-        $schueler
-            ->setGeburtsdatum(new DateTime())
-            ->setGeburtsort('Berlin')
-            ->setNachname('Haas')
-            ->setVorname('Meiersodifasdof')
-            ->setRufname('Simon');
-
-        $kontaktperson = new Kontaktperson();
-        $kontaktperson
-            ->setVorname('Rosi')
-            ->setNachname('Haas');
-
-        $betrieb = new Betrieb();
-        $betrieb->setEmail('etst@test.de');
-
-        $registrierung->setSchueler($schueler);
-
-        $registrierung->setSchueler($schueler);
-        $session->set('registrierung', $registrierung);
-
-        $schueler->setNachname('Das wurde nach dem Speichern in der Session gesetzt');
-
-
-        return $this->render('anmeldung/index.html.twig');
-    }
-    */
-
     /**
      * @Route("/daten-pruefen", name="daten_pruefen")
      * @param Request $request
