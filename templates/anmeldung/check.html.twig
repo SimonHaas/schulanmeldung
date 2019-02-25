@@ -14,7 +14,7 @@
     </div>
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
-    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
+    <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('registrierung_update') }}">Bearbeiten</a>
 
     {% if fluechtling %}
         {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
@@ -42,10 +42,9 @@
     {% endif %}
     <br>
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
-    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('schueler_update') }}">Bearbeiten</a></button>
-
+    <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('schueler_update') }}">Bearbeiten</a>
     <br>
-    <button class="btn btn-outline-primary  BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
+   <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>
 
 
 {% endblock %}
