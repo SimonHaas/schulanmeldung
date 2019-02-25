@@ -41,5 +41,8 @@
     *TODO*
     <a href="/anmeldung/start">Zum Start</a>
 
+     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
+    <button><a href="{{ path('schueler_update') }}">Bearbeiten</a></button>
+
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}
