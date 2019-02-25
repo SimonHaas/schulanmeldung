@@ -1,7 +1,7 @@
 
 body{
     background-color: rgba(102, 155, 204, 0.05) !important;
-    font-family: "Gill Sans MT V1" !important;
+    font-family: "Lato" !important;
     font-size: 18px;
 }
 
@@ -59,3 +59,7 @@ a:hover{
     color: #FFFFFF!important;
 }
 
+.greyFooter{
+    color: #7e7e7e;
+    border-bottom-style: dotted;
+}
