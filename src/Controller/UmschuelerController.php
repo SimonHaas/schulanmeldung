@@ -12,10 +12,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UmschuelerController extends AbstractController
 {
+
     /**
-     * @Route("/", name="umschueler_index")
+     * @Route("/", name="umschueler_index", methods="GET")
      */
-    public function index(Request $request) {
+    public function view(UmschuelerRepository $umschuelerRepository): Response
+    {
+        return $this->render('umschueler/index.html.twig', ['umschuelers' => $umschuelerRepository->findAll()]);
+    }
+    /**
+     * @Route("/neu", name="umschueler_new", methods="GET|POST")
+     */
+    public function new(Request $request): Response
+    {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
         } else {
@@ -29,6 +38,7 @@ class UmschuelerController extends AbstractController
         } else {
             $umschueler = new Umschueler();
         }
+
         $form = $this->createForm(UmschuelerType::class, $umschueler);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -38,37 +48,10 @@ class UmschuelerController extends AbstractController
             $umschueler->setSchueler($schueler);
             $session->set('schueler', $schueler);
             $session->set('umschueler', $umschueler);
-            return $this->redirectToRoute('schueler_index');
-        }
-        return $this->render('umschueler/_form.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/", name="umschueler_view", methods="GET")
-     */
-    public function view(UmschuelerRepository $umschuelerRepository): Response
-    {
-        return $this->render('umschueler/index.html.twig', ['umschuelers' => $umschuelerRepository->findAll()]);
-    }
-    /**
-     * @Route("/new", name="umschueler_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
-    {
-        $umschueler = new Umschueler();
-        $form = $this->createForm(UmschuelerType::class, $umschueler);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($umschueler);
-            $em->flush();
-            return $this->redirectToRoute('umschueler_view');
+            return $this->redirectToRoute('schueler_new');
         }
         return $this->render('umschueler/new.html.twig', [
-            'umschueler' => $umschueler,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
     /**

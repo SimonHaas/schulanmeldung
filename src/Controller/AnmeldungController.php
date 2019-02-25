@@ -54,11 +54,11 @@ class AnmeldungController extends AbstractController
             $session->set('schueler', $schueler);
             switch($registrierung->getTyp()) {
                 case "AUAU":
-                    return $this->redirectToRoute('ausbildung_index');
+                    return $this->redirectToRoute('ausbildung_new');
                 case "UM":
-                    return $this->redirectToRoute('umschueler_index');
+                    return $this->redirectToRoute('umschueler_new');
                 case "BIK":
-                    return $this->redirectToRoute('fluechtling_index');
+                    return $this->redirectToRoute('fluechtling_new');
                 default:
                     $this->redirectToRoute('error');
             }

@@ -6,11 +6,7 @@ use App\Entity\Ausbildung;
 use App\Entity\Betrieb;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\View\ChoiceView;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AusbildungType extends AbstractType
@@ -40,11 +36,7 @@ class AusbildungType extends AbstractType
             ]);
         }
 
-            $builder->add('betriebNeuButton', ButtonType::class, [
-                'label' => 'Neuen Betrieb anlegen',
-            ])
-
-            ->add('beruf', null, [
+            $builder->add('beruf', null, [
                 'placeholder' => 'Auswählen...'
             ])
         ;
@@ -58,11 +50,4 @@ class AusbildungType extends AbstractType
             ->setRequired(["betriebe", "betriebNeu"])
         ;
     }
-
-    public function finishView(FormView $view, FormInterface $form, array $options)
-    {
-        $newChoice = new ChoiceView(new Betrieb(), '-1', 'Neuen Betrieb anlegen'); // <- new option
-        $view->children['betrieb']->vars['choices'][] = $newChoice;//<- adding the new option
-    }
-
 }

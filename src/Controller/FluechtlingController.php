@@ -15,10 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FluechtlingController extends AbstractController
 {
+
     /**
-     * @Route("/", name="fluechtling_index")
+     * @Route("/index", name="fluechtling_index", methods="GET")
      */
-    public function index(Request $request) {
+    public function view(FluechtlingRepository $fluechtlingRepository): Response
+    {
+        return $this->render('fluechtling/index.html.twig', ['fluechtlings' => $fluechtlingRepository->findAll()]);
+    }
+
+    /**
+     * @Route("/neu", name="fluechtling_new", methods="GET|POST")
+     */
+    public function new(Request $request): Response
+    {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
         } else {
@@ -28,7 +38,7 @@ class FluechtlingController extends AbstractController
             return $this->redirectToRoute('anmeldung_start');
         }
 
-        if($session->has('fluechtling')) {
+        if(!empty($session->get('registrierung')->getSchueler()->getFluechtling())) {
             $fluechtling = $session->get('fluechtling');
         } else {
             $fluechtling = new Fluechtling();
@@ -36,45 +46,14 @@ class FluechtlingController extends AbstractController
 
         $form = $this->createForm(FluechtlingType::class, $fluechtling);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $schueler = $session->get('schueler');
-            $fluechtling = $form->getData();
-
-            $schueler->setFluechtling($fluechtling);
-            $fluechtling->setSchueler($schueler);
-
-            $session->set('schueler', $schueler);
-            $session->set('fluechtling', $fluechtling);
-            return $this->redirectToRoute('schueler_index');
-        }
-        return $this->render('fluechtling/_form.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/view", name="fluechtling_view", methods="GET")
-     */
-    public function view(FluechtlingRepository $fluechtlingRepository): Response
-    {
-        return $this->render('fluechtling/index.html.twig', ['fluechtlings' => $fluechtlingRepository->findAll()]);
-    }
-
-    /**
-     * @Route("/new", name="fluechtling_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
-    {
-        $fluechtling = new Fluechtling();
-        $form = $this->createForm(FluechtlingType::class, $fluechtling);
-        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($fluechtling);
-            $em->flush();
+            $fluechtling = $form->getData();
 
-            return $this->redirectToRoute('fluechtling_index');
+            $fluechtling->setSchueler($session->get('registrierung')->getSchueler());
+            $session->get('registrierung')->getSchueler()->setFluechtling($fluechtling);
+
+            return $this->redirectToRoute('schueler_new');
         }
 
         return $this->render('fluechtling/new.html.twig', [

@@ -19,7 +19,8 @@ class StartType extends AbstractType
                 'choices' => [
                     'Ausbildung mit Ausbildungsvertrag / EQ-Maßnahme' => 'AUAU',
                     'Umschüler mit Vertrag' => 'UM',
-                    'Berufsgrundschuljahr Bautechnik / Holz - Zimmerer' => 'BGJs',
+                    'Berufsgrundschuljahr Bautechnik: Holztechnik (Schreiner/Holzmechaniker)' => 'BGJH',
+                    'Berufsgrundschuljahr Bautechnik: Zimmerer' => 'BGJZ',
                     'ohne Berufstätigkeit und arbeitslos' => 'OBA',
                     'ungelernte Arbeitskräfte' => 'UAR',
                     'Mithelfende Familienangehörige' => 'MF',

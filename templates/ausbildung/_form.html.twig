@@ -1,10 +1,9 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Ausbildung{% endblock %}
-
-{% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" />
-    {{ form_end(form) }}
-{% endblock %}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_row(form.betrieb) }}
+<a href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
+{{ form_row(form.beginn) }}
+{{ form_row(form.ende) }}
+{{ form_row(form.beruf) }}
+<input type="submit" />
+{{ form_end(form) }}

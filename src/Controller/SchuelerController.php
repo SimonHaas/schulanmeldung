@@ -19,24 +19,7 @@ class SchuelerController extends AbstractController
      * @Route("/", name="schueler_index")
      */
     public function index(Request $request) {
-        $session = $request->getSession();
-        if($session->has('registrierung')) {
-            $schueler = $session->get('schueler');
-            //$this->getDoctrine()->getManager()->persist($schueler->getAusbildung());
-            $form = $this->createForm(SchuelerType::class, $schueler);
-            $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()) {
-                $schueler = $form->getData();
-                $session->set('schueler', $schueler);
-                return $this->redirectToRoute('daten_pruefen');
-            }
-            return $this->render('schueler/_form.html.twig', [
-                'form' => $form->createView()
-            ]);
-        } else {
-            $session->invalidate();
-            return $this->redirectToRoute('anmeldung_start');
-        }
+
 
     }
 
@@ -49,25 +32,33 @@ class SchuelerController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="schueler_new", methods="GET|POST")
+     * @Route("/neu", name="schueler_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
-        $schueler = new Schueler();
-        $form = $this->createForm(SchuelerType::class, $schueler);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($schueler);
-            $em->flush();
-
-            return $this->redirectToRoute('schueler_index');
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        if(!empty($session->get('registrierung')->getSchueler())) {
+            $schueler = $session->get('registrierung')->getSchueler();
+        } else {
+            $schueler = new Schueler();
         }
 
+        $form = $this->createForm(SchuelerType::class, $schueler);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schueler = $form->getData();
+            $session->get('registrierung')->setSchueler($schueler);
+            return $this->redirectToRoute('daten_pruefen');
+        }
         return $this->render('schueler/new.html.twig', [
-            'schueler' => $schueler,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
