@@ -33,13 +33,13 @@
     {% endfor %}
     {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
 
-    *TODO*
-    <a href="/anmeldung/start">Zum Start</a>
-    {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
-    <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
-
+    {% if betrieb is not null %}
     {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
     <button><a href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
+    {% endif %}
+
+    *TODO*
+    <a href="/anmeldung/start">Zum Start</a>
 
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}
