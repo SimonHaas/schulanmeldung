@@ -27,22 +27,23 @@ class Ausbildung
      */
     private $ende;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $relation;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb", inversedBy="ausbildungen")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $betrieb;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
      * @ORM\JoinColumn(nullable=false)
      */
     private $beruf;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="ausbildung", cascade={"persist", "remove"})
+     */
+    private $schueler;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $betrieb;
 
     public function getId(): ?int
     {
@@ -73,14 +74,32 @@ class Ausbildung
         return $this;
     }
 
-    public function getRelation(): ?string
+    public function getBeruf(): ?Beruf
     {
-        return $this->relation;
+        return $this->beruf;
     }
 
-    public function setRelation(string $relation): self
+    public function setBeruf(?Beruf $beruf): self
     {
-        $this->relation = $relation;
+        $this->beruf = $beruf;
+
+        return $this;
+    }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAusbildung = $schueler === null ? null : $this;
+        if ($newAusbildung !== $schueler->getAusbildung()) {
+            $schueler->setAusbildung($newAusbildung);
+        }
 
         return $this;
     }
@@ -93,18 +112,6 @@ class Ausbildung
     public function setBetrieb(?Betrieb $betrieb): self
     {
         $this->betrieb = $betrieb;
-
-        return $this;
-    }
-
-    public function getBeruf(): ?Beruf
-    {
-        return $this->beruf;
-    }
-
-    public function setBeruf(?Beruf $beruf): self
-    {
-        $this->beruf = $beruf;
 
         return $this;
     }

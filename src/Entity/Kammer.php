@@ -22,9 +22,21 @@ class Kammer
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $kammernummer;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -35,6 +47,23 @@ class Kammer
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    public function getKammernummer(): ?int
+    {
+        return $this->kammernummer;
+    }
+
+    public function setKammernummer(int $kammernummer): self
+    {
+        $this->kammernummer = $kammernummer;
 
         return $this;
     }

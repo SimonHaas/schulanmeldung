@@ -33,6 +33,8 @@
     {% endfor %}
     {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
 
+    *TODO*
+    <a href="/anmeldung/start">Zum Start</a>
     {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
     <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
 

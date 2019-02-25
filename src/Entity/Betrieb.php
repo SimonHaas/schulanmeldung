@@ -74,21 +74,19 @@ class Betrieb
      */
     private $istVerifiziert;
 
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Ausbildung", mappedBy="betrieb")
-     */
-    private $ausbildungen;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
      * @ORM\JoinColumn(nullable=false)
      */
     private $kammer;
 
+    /**
+     * @ORM\Column(type="string", length=8)
+     */
+    private $gemeindeschluessel;
+
     public function __construct()
     {
-        $this->schueler = new ArrayCollection();
         $this->ausbildungen = new ArrayCollection();
     }
 
@@ -229,37 +227,6 @@ class Betrieb
         return $this;
     }
 
-    /**
-     * @return Collection|Ausbildung[]
-     */
-    public function getAusbildungen(): Collection
-    {
-        return $this->ausbildungen;
-    }
-
-    public function addAusbildungen(Ausbildung $ausbildungen): self
-    {
-        if (!$this->ausbildungen->contains($ausbildungen)) {
-            $this->ausbildungen[] = $ausbildungen;
-            $ausbildungen->setBetrieb($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAusbildungen(Ausbildung $ausbildungen): self
-    {
-        if ($this->ausbildungen->contains($ausbildungen)) {
-            $this->ausbildungen->removeElement($ausbildungen);
-            // set the owning side to null (unless already changed)
-            if ($ausbildungen->getBetrieb() === $this) {
-                $ausbildungen->setBetrieb(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getKammer(): ?Kammer
     {
         return $this->kammer;
@@ -270,5 +237,41 @@ class Betrieb
         $this->kammer = $kammer;
 
         return $this;
+    }
+
+    public function getGemeindeschluessel(): ?string
+    {
+        return $this->gemeindeschluessel;
+    }
+
+    public function setGemeindeschluessel(string $gemeindeschluessel): self
+    {
+        $this->gemeindeschluessel = $gemeindeschluessel;
+
+        return $this;
+    }
+
+    public function set($array): self
+    {
+        $this->name = $array['name'];
+        $this->ansprPartner = $array['ansprPartner'];
+        $this->strasse = $array['strasse'];
+        $this->hsnr = $array['hsnr'];
+        $this->plz = $array['plz'];
+        $this->ort = $array['ort'];
+        $this->telZentrale = $array['telZentrale'];
+        $this->telDurchwahl = $array['telDurchwahl'];
+        $this->fax = $array['fax'];
+        $this->email = $array['email'];
+        $this->gemeindeschluessel = $array['gemeindeschluessel'];
+        $this->kammer = $array['kammer'];
+        $this->istVerifiziert = false;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHsnr();
     }
 }
