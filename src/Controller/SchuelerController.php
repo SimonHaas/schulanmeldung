@@ -24,6 +24,28 @@ class SchuelerController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="schueler_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $schueler = $session->get('schueler');
+        $form = $this->createForm(SchuelerType::class, $schueler);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('schueler/update.html.twig', [
+            'schueler' => $schueler,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="schueler_new", methods="GET|POST")
      */
     public function new(Request $request): Response

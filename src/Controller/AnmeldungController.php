@@ -75,6 +75,7 @@ class AnmeldungController extends AbstractController
         /** @var Registrierung $registrierung */
         //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
+        $schueler = $session->get('schueler');
         $schueler = $registrierung->getSchueler();
         $kontaktpersonen = $schueler->getKontaktpersonen();
         $betrieb = $session->get('betrieb');
@@ -91,6 +92,7 @@ class AnmeldungController extends AbstractController
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
             'schulbesuche' => $schulbesuche,
+            'schueler' => $schueler,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
