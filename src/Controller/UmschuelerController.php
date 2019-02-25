@@ -40,7 +40,7 @@ class UmschuelerController extends AbstractController
             $session->set('umschueler', $umschueler);
             return $this->redirectToRoute('schueler_index');
         }
-        return $this->render('anmeldung/umschulung.html.twig', [
+        return $this->render('umschueler/_form.html.twig', [
             'form' => $form->createView()
         ]);
     }

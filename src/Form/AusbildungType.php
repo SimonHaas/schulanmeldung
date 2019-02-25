@@ -7,6 +7,7 @@ use App\Entity\Betrieb;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\View\ChoiceView;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -39,14 +40,8 @@ class AusbildungType extends AbstractType
             ]);
         }
 
-            $builder->add('betriebNeu', BetriebType::class, [
-                'required' => false,
-                'mapped' => false,
-                'label' => false,
-                'attr' => [
-                    'class' => 'betriebNeu',
-                    'style' => 'display:none;'
-                ]
+            $builder->add('betriebNeuButton', ButtonType::class, [
+                'label' => 'Neuen Betrieb anlegen',
             ])
 
             ->add('beruf', null, [

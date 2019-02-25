@@ -30,7 +30,7 @@ class SchuelerController extends AbstractController
                 $session->set('schueler', $schueler);
                 return $this->redirectToRoute('daten_pruefen');
             }
-            return $this->render('anmeldung/schueler.html.twig', [
+            return $this->render('schueler/_form.html.twig', [
                 'form' => $form->createView()
             ]);
         } else {

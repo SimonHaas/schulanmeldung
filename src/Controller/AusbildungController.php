@@ -24,7 +24,11 @@ class AusbildungController extends AbstractController
             }
             return $this->redirectToRoute('anmeldung_start');
         }
-
+        $betriebeRepo = $this->getDoctrine()->getRepository(Betrieb::class);
+        $ausbildung = new Ausbildung();
+        $betriebe[] = $betriebeRepo->findBy(['istVerifiziert'=>true]);
+        $form = $this->createForm(AusbildungType::class, $ausbildung, ['betriebe' => $betriebe, 'betriebNeu' => null]);
+        /*
         $ausbildung = new Ausbildung();
         $schueler = $session->get('schueler');
         $schueler->setAusbildung($ausbildung);
@@ -70,7 +74,8 @@ class AusbildungController extends AbstractController
                 }
             }
         }
-        return $this->render('anmeldung/ausbildung.html.twig', [
+        */
+        return $this->render('ausbildung/_form.html.twig', [
             'form' => $form->createView()
         ]);
     }

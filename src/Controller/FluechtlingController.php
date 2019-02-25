@@ -47,7 +47,7 @@ class FluechtlingController extends AbstractController
             $session->set('fluechtling', $fluechtling);
             return $this->redirectToRoute('schueler_index');
         }
-        return $this->render('anmeldung/fluechtling.html.twig', [
+        return $this->render('fluechtling/_form.html.twig', [
             'form' => $form->createView()
         ]);
     }
