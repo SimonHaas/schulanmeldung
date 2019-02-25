@@ -1,0 +1,65 @@
+body{
+    background-color: rgba(102, 155, 204, 0.05) !important;
+    font-family: "Lato" !important;
+    font-size: 18px;
+}
+
+.labelFont{
+    font-size: 22px;
+    margin-top: 2%;
+}
+
+.headlineFont{
+    font-weight: bold;
+}
+
+.buttonFont{
+    font-weight: bolder!important;
+    font-size: 20px!important;
+}
+
+.SpacingSides{
+    padding: inherit;
+}
+
+.containerColor{
+    background-color: white;
+}
+
+.containerFooter{
+    background-color: #00377B;
+    color: #FFFFFF;
+}
+
+.copyright{
+    background-color: #222222;
+}
+
+.SpacingTop{
+    padding-top: 4%;
+}
+
+.blankLink{
+    text-decoration: none!important;
+    color: #FFFFFF;
+}
+
+a:hover{
+    color: #FFFFFF!important;
+}
+
+.BayreuthButton{
+    border-color: #00377B!important;
+    color: #00377B!important;
+}
+
+.BayreuthButton:hover{
+    background-color: #00377B!important;
+    color: #FFFFFF!important;
+}
+
+.greyFooter{
+    color: #7e7e7e;
+    border-bottom-style: dotted;
+    font-size: 15px!important;
+}
