@@ -1,6 +1,6 @@
 body{
     background-color: rgba(102, 155, 204, 0.05) !important;
-    font-family: "Lato" !important;
+    font-family: "Lato", sans-serif !important;
     font-size: 18px;
 }
 
@@ -46,6 +46,7 @@ body{
 
 .BayreuthButton{
     border-color: #00377B!important;
+    margin-bottom: 30px;
 }
 
 .BayreuthButton:hover{
