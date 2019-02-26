@@ -6,6 +6,7 @@ use App\Entity\Registrierung;
 use App\Form\StartType;
 use App\Entity\Schueler;
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

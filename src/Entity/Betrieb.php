@@ -78,7 +78,7 @@ class Betrieb
     // neue Kammer anlegen, oder im Nofall doch auf Null lassen?
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $kammer;
 

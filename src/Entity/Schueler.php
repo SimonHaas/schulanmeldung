@@ -133,11 +133,14 @@ class Schueler
      * @ORM\Column(type="string", length=255)
      */
     private $hoechsterAbschluss;
+    //TODO kann null sein wenn man keine Schulabschluss hat
 
     /**
      * @ORM\Column(type="date")
      */
     private $hoechAbschlAm;
+    //TODO rename to $hoechsterAbschlussDatum
+    //TODO kann null sein wenn man keine Schulabschluss hat
 
     public function __construct()
     {
