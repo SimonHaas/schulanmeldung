@@ -10,6 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminAuthenticatorController extends AbstractController
 {
+    //TODO Admin Zeugs noch mergen
     /**
      * @Route("/login", name="app_login")
      */
