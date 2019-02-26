@@ -49,9 +49,7 @@ class AnmeldungController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $registrierung = $form->getData();
-            $schueler = $registrierung->getSchueler();
             $session->set('registrierung', $registrierung);
-            $session->set('schueler', $schueler);
             switch($registrierung->getTyp()) {
                 case "AUAU":
                     return $this->redirectToRoute('ausbildung_new');
