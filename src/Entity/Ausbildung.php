@@ -29,7 +29,7 @@ class Ausbildung
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $beruf;
@@ -40,7 +40,7 @@ class Ausbildung
     private $schueler;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Betrieb", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $betrieb;
