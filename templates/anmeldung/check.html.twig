@@ -1,50 +1,42 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    {#   <style>
-           .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-           .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-       </style>
-   #}
     <div class="">
         <br>
-        <h3 class="headlineFont text-center">Hier können die eingegebenen Daten nochmal überprüft und bestätigt werden ✅</h3>
+        <h3 class="headlineFont text-center">Bitte prüfen Sie ihre Angaben und schließen die Anmeldung ab.</h3>
         <br>
     </div>
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
-    <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('registrierung_update') }}">Bearbeiten</a>
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'registrierung_update'}) }}
 
     {% if fluechtling %}
         {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
-        <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'fluechtling_update'}) }}
     {% endif %}
 
     {% if umschueler %}
         {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
-        <button><a href="{{ path('umschueler_update') }}">Bearbeiten</a></button>
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'umschueler_update'}) }}
     {% endif %}
 
     {% for kontaktperson in kontaktpersonen %}
         {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
-        <button><a href="{{ path('kontaktperson_update') }}">Bearbeiten</a></button>
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update'}) }}
     {% endfor %}
     {% for schulbesuch in schulbesuche %}
         {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
-        <button><a href="{{ path('schulbesuch_update') }}">Bearbeiten</a></button>
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'schulbesuch_update'}) }}
     {% endfor %}
     {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
 
     {% if betrieb is not null %}
-    {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
-    <button class="btn btn-outline-primary BayreuthButton buttonFont btn-block"><a class="blankLinkButton" href="{{ path('betrieb_update') }}">Bearbeiten</a></button>
+        {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'betrieb_update'}) }}
     {% endif %}
-    <br>
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
-    <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('schueler_update') }}">Bearbeiten</a>
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update'}) }}
+    
     <br>
-   <a class="btn btn-outline-primary BayreuthButton buttonFont btn-block" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>
-
-
+    <a class="btn btn-outline-primary  BayreuthButton buttonFont btn-block blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>
 {% endblock %}
