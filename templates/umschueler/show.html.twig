@@ -3,28 +3,7 @@
 {% block title %}Umschueler{% endblock %}
 
 {% block body %}
-    <h1>Umschueler</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ umschueler.id }}</td>
-            </tr>
-            <tr>
-                <th>Traeger</th>
-                <td>{{ umschueler.traeger }}</td>
-            </tr>
-            <tr>
-                <th>TraegerSitz</th>
-                <td>{{ umschueler.traegerSitz }}</td>
-            </tr>
-            <tr>
-                <th>FoerdererNr</th>
-                <td>{{ umschueler.foerdererNr }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ include('umschueler/_show.html.twig') }}
 
     <a href="{{ path('umschueler_index') }}">back to list</a>
 

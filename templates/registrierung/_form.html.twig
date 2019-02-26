@@ -1,7 +1,3 @@
-{% if check is not defined %}
-    {% set check = false %}
-{% endif %}
-
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>

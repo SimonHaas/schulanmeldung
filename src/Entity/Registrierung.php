@@ -43,7 +43,7 @@ class Registrierung
     private $ip;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string",length=4)
      */
     private $typ;
 
@@ -123,12 +123,12 @@ class Registrierung
         return $this;
     }
 
-    public function getTyp(): ?int
+    public function getTyp(): ?string
     {
         return $this->typ;
     }
 
-    public function setTyp(int $typ): self
+    public function setTyp(string $typ): self
     {
         $this->typ = $typ;
 

@@ -32,6 +32,11 @@ class Umschueler
      */
     private $foerdererNr;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="umschueler", cascade={"persist", "remove"})
+     */
+    private $schueler;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -72,4 +77,23 @@ class Umschueler
 
         return $this;
     }
+
+    public function getSchueler(): ?Schueler
+    {
+        return $this->schueler;
+    }
+
+    public function setSchueler(?Schueler $schueler): self
+    {
+        $this->schueler = $schueler;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUmschuelerDaten = $schueler === null ? null : $this;
+        if ($newUmschuelerDaten !== $schueler->getUmschueler()) {
+            $schueler->setUmschueler($newUmschuelerDaten);
+        }
+
+        return $this;
+    }
+
 }

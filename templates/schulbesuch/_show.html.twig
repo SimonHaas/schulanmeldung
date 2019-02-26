@@ -1,0 +1,15 @@
+<h2 class="headlineFont">Schulbesuch</h2>
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Eintritt</th>
+        <td>{{ schulbesuch.eintritt ? schulbesuch.eintritt|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Austritt</th>
+        <td>{{ schulbesuch.austritt ? schulbesuch.austritt|date('Y-m-d') : '' }}</td>
+    </tr>
+    {# TODO an finale Datenstruktur anpassen #}
+    </tbody>
+</table>

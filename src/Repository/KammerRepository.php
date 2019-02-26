@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Kammer;
-use App\Entity\Schule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -21,7 +20,7 @@ class KammerRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Schule[] Returns an array of Schule objects
+//     * @return Kammer[] Returns an array of Kammer objects
 //     */
     /*
     public function findByExampleField($value)
@@ -38,7 +37,7 @@ class KammerRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Schule
+    public function findOneBySomeField($value): ?Kammer
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')

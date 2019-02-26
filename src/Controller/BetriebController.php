@@ -47,6 +47,28 @@ class BetriebController extends AbstractController
     }
 
     /**
+     * @Route("/update", name="betrieb_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        $betrieb = $session->get('betrieb');
+        $form = $this->createForm(BetriebType::class, $betrieb);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('betrieb/update.html.twig', [
+            'betrieb' => $betrieb,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="betrieb_show", methods="GET")
      */
     public function show(Betrieb $betrieb): Response

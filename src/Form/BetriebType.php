@@ -12,25 +12,50 @@ class BetriebType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('ansprPartner')
-            ->add('strasse')
-            ->add('hsnr')
-            ->add('plz')
-            ->add('ort')
-            ->add('telZentrale')
-            ->add('telDurchwahl')
-            ->add('fax')
-            ->add('email')
-            ->add('istVerifiziert')
-            ->add('kammer')
+            ->add('name', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('ansprPartner', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('strasse', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('hsnr', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('plz', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('ort', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('telZentrale', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('telDurchwahl', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('fax', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('email', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('gemeindeschluessel', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+            ->add('kammer', null, [
+                'attr' => ['class' => 'betrieb_item']
+            ])
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Betrieb::class,
+            'data_class' => Betrieb::class
         ]);
     }
 }
