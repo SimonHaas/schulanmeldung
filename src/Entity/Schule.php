@@ -18,6 +18,11 @@ class Schule
     private $id;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $nummer;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -31,11 +36,6 @@ class Schule
      * @ORM\Column(type="string", length=255)
      */
     private $strasse;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $hausnummer;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -88,18 +88,6 @@ class Schule
         return $this;
     }
 
-    public function getHausnummer(): ?string
-    {
-        return $this->hausnummer;
-    }
-
-    public function setHausnummer(string $hausnummer): self
-    {
-        $this->hausnummer = $hausnummer;
-
-        return $this;
-    }
-
     public function getOrt(): ?string
     {
         return $this->ort;
@@ -122,5 +110,23 @@ class Schule
         $this->plz = $plz;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $nummer
+     * @return Schule
+     */
+    public function setNummer($nummer)
+    {
+        $this->nummer = $nummer;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNummer()
+    {
+        return $this->nummer;
     }
 }
