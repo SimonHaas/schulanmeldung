@@ -1,4 +1,84 @@
 {{ form_start(form) }}
-{{ form_widget(form) }}
-<input type="submit" />
+
+<br>
+<div class="conatiner">
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.vorname, {'attr': {'placeholder': 'Alle Vornamen', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.nachname, {'attr': {'placeholder': 'Nachname', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.rufname, {'attr': {'placeholder': 'Rufname', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.geschlecht, {'attr': {'placeholder': 'Geschlecht', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.strasse, {'attr': {'placeholder': 'Straße', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.hsnr, {'attr': {'placeholder': 'Hausnummer', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.plz, {'attr': {'placeholder': 'Postleitzhal', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.ort, {'attr': {'placeholder': 'Ort', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.tel, {'attr': {'placeholder': 'Telefon', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.email, {'attr': {'placeholder': 'Email', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+        <br>
+    <div class="row">
+        <div class="col-lg-4">
+            {{ form_widget(form.geburtsdatum.day, {'attr': {'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.geburtsdatum.month, {'attr': {'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.geburtsdatum.year, {'attr': {'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.geburtsort, {'attr': {'placeholder': 'Geburtsort', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.geburtsland, {'attr': {'placeholder': 'Geburtsland', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ form_widget(form.staatsangehoerigkeit, {'attr': {'placeholder': 'Staatsangehörigkeit', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-lg-6">
+            {{ form_widget(form.bekenntnis, {'attr': {'class': 'form-control',}}) }}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<input class="btn btn-outline-primary BayreuthButton buttonFont btn-block" type="submit" />
 {{ form_end(form) }}
