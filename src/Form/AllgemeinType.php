@@ -18,9 +18,10 @@ class AllgemeinType extends AbstractType
     {
 
         $builder
-            ->add('eintrittAm', DateType::class)
-            ->add('wohnheim', CheckboxType::class)
-            ->add('mitteilung', TextareaType::class);
+            ->add('eintrittAm', DateType::class) //TODO eintritt wohin? Eindeutig benennen oder mit kurzen Text erklären
+            ->add('wohnheim', CheckboxType::class) //TODO das ist required, soll es aber nicht sein
+            ->add('mitteilung', TextareaType::class); //TODO das ist required, soll es aber nicht sein
+        //TODO kurz erläutern wozu eine Mitteilung. Für wen? Was wäre ein Grund da was reinzuschreiben?
     }
 
     public function configureOptions(OptionsResolver $resolver)

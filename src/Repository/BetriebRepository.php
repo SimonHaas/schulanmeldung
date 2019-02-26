@@ -19,6 +19,18 @@ class BetriebRepository extends ServiceEntityRepository
         parent::__construct($registry, Betrieb::class);
     }
 
+    /**
+     * @return Betrieb[] Returns all verified Betriebe
+     */
+    public function findAllVerified()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.istVerifiziert = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Betrieb[] Returns an array of Betrieb objects
 //     */

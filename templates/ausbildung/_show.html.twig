@@ -4,11 +4,11 @@
     <tbody>
     <tr>
         <th>Beginn</th>
-        <td>{{ ausbilundg.beginn }}</td>
+        <td>{{ ausbildung.beginn ? ausbildung.beginn|date('Y-m-d') : '' }}</td>
     </tr>
     <tr>
         <th>Ende</th>
-        <td>{{ ausbildung.ende }}</td>
+        <td>{{ ausbildung.ende ? ausbildung.ende|date('Y-m-d') : '' }}</td>
     </tr>
     <tr>
         <th>Beruf</th>

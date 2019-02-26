@@ -3,10 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Ausbildung;
-use App\Entity\Betrieb;
 use App\Form\AusbildungType;
+use App\Repository\BetriebRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,8 +19,11 @@ class AusbildungController extends AbstractController
 {
     /**
      * @Route("/", name="ausbildung_new")
+     * @param Request $request
+     * @param BetriebRepository $betriebRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function new(Request $request)
+    public function new(Request $request, BetriebRepository $betriebRepository)
     {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
@@ -41,8 +45,7 @@ class AusbildungController extends AbstractController
         } else {
             $ausbildung = new Ausbildung();
         }
-        $betriebeRepo = $this->getDoctrine()->getRepository(Betrieb::class);
-        $betriebe[] = $betriebeRepo->findBy(['istVerifiziert'=>true]);
+        $betriebe[] = $betriebRepository->findAllVerified();
 
         if($session->has('betrieb')) {
             $betriebNeu = $session->get('betrieb');
@@ -65,6 +68,29 @@ class AusbildungController extends AbstractController
         }
         return $this->render('ausbildung/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/update", name="ausbildung_update", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function update(Request $request)
+    {
+        $session = $request->getSession();
+        //TODO Ausbildung aus der Registrierung ableiten
+        $ausbildung = $session->get('ausbildung');
+        $form = $this->createForm(AusbildungType::class, $ausbildung);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('ausbildung/update.html.twig', [
+            'ausbildung' => $ausbildung,
+            'form' => $form->createView(),
         ]);
     }
 }

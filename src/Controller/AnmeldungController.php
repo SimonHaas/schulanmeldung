@@ -22,6 +22,7 @@ class AnmeldungController extends AbstractController
 {
     /**
      * @Route("/", name="anmeldung_start")
+     * @throws Exception
      */
     public function index(Request $request)
     {
@@ -38,12 +39,10 @@ class AnmeldungController extends AbstractController
             $registrierung = new Registrierung();
             $registrierung->setSchueler($schueler);
             $registrierung->setIp($request->getClientIp());
-            try {
-                $registrierung->setDatum(new DateTime());
-            } catch (Exception $e) {
-            }
+            $registrierung->setDatum(new DateTime());
         }
 
+        //TODO StartType noch stylen
         $form = $this->createForm(StartType::class, $registrierung);
         $form->handleRequest($request);
 
@@ -58,7 +57,7 @@ class AnmeldungController extends AbstractController
                 case "BIK":
                     return $this->redirectToRoute('fluechtling_new');
                 default:
-                    $this->redirectToRoute('error');
+                    $this->redirectToRoute('error'); //TODO 'error' Route anlegen, oder besser: Form nochmal anzeigen
             }
         }
         return $this->render('anmeldung/start.html.twig', [
@@ -90,23 +89,21 @@ class AnmeldungController extends AbstractController
      */
     public function check(Request $request)
     {
-        //TODO daten zusammensammeln und ans Template weitergeben
-        //TODO Objekte validieren und ggf Fehlermeldungen anzeigen
+        //TODO sessionhandling ähnlich wie bei AnmeldungController-new
+        //TODO sessionhandling in Filter auslagern, oder zumindest in eine einfache Funktion?!
+        // https://symfony.com/doc/current/event_dispatcher/before_after_filters.html
         $session = $request->getSession();
 
         /** @var Registrierung $registrierung */
-        //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
-        $schueler = $session->get('schueler');
         $schueler = $registrierung->getSchueler();
+        $ausbildung = $schueler->getAusbildung();
         $kontaktpersonen = $schueler->getKontaktpersonen();
         $betrieb = $schueler->getAusbildung()->getBetrieb();
         $fluechtling = $schueler->getFluechtling();
         $umschueler = $schueler->getUmschueler();
-
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
-        $ausbildung = null;
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktpersonen' => $kontaktpersonen,

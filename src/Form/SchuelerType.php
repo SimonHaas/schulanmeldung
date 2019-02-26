@@ -14,6 +14,7 @@ class SchuelerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //TODO am Handy sind die einzelnen Input-Fields ohne Margin-top margin-bottom direkt aneinander, wahrscheinlich ist das bei allen Forms so
         $builder
             ->add('vorname', null, [
                 'label' => 'Vornamen',
@@ -26,8 +27,7 @@ class SchuelerType extends AbstractType
                 'choices' => [
                     'männlich' => 'M',
                     'weiblich' => 'W',
-                    'Apache-Kampfhubschrauber' => 'A',
-                    'andere' => 'D'
+                    'divers' => 'D'
                 ]
             ])
             ->add('strasse')

@@ -24,10 +24,10 @@ class BetriebController extends AbstractController
     }
 
     /**
+     * TODO diese Route und die untendrunter eindeutig benennen
      * @Route("/neu", name="betrieb_ausbildung")
      */
     public function betriebNeu(Request $request) {
-        //die(json_encode($request));
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
         } else {
@@ -55,6 +55,8 @@ class BetriebController extends AbstractController
             return $this->redirectToRoute('ausbildung_new');
         }
 
+        //TODO BetriebType stylen
+        //TODO im Formular steht "Anspr partner" geschrieben
         return $this->render('betrieb/new.html.twig', [
             'betrieb' => $betrieb,
             'form' => $form->createView()
@@ -105,6 +107,7 @@ class BetriebController extends AbstractController
      */
     public function update(Request $request)
     {
+        //TODO umbauen, dass der Betrieb aus der Registrierung gezogen wird
         $session = $request->getSession();
         $betrieb = $session->get('betrieb');
         $form = $this->createForm(BetriebType::class, $betrieb);
