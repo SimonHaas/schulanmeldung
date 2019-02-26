@@ -4,9 +4,13 @@ namespace App\Form;
 
 use App\Entity\Schueler;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,7 +30,6 @@ class SchuelerType extends AbstractType
                 'choices' => [
                     'männlich' => 'M',
                     'weiblich' => 'W',
-                    'Apache-Kampfhubschrauber' => 'A',
                     'andere' => 'D'
                 ]
             ])
@@ -34,16 +37,31 @@ class SchuelerType extends AbstractType
             ->add('hsnr')
             ->add('plz')
             ->add('ort')
-            ->add('tel')
+            ->add('tel', TelType::class)
             ->add('email', EmailType::class)
-            ->add('geburtsdatum')
+            ->add('geburtsdatum', BirthdayType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'datetime',
+                'format' => 'dd.mm.yyyy'
+            ])
             ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
                 'placeholder' => 'Auswählen...',
                 'choice_translation_locale' => 'de',
                 'preferred_choices' => ['Deutschland' => "DE"]
             ])
-            ->add('staatsangehoerigkeit')
+            ->add('zuzugAm', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'datetime',
+                'format' => 'mm.yyyy',
+                'required' => false
+            ])
+            ->add('staatsangehoerigkeit', CountryType::class, [
+                'placeholder' => 'Auswählen...',
+                'choice_translation_locale' => 'de'
+            ])
             ->add('bekenntnis', ChoiceType::class, [
                 'placeholder' => 'Auswählen...',
                 'choices' => [

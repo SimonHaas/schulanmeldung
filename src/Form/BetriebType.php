@@ -5,6 +5,9 @@ namespace App\Form;
 use App\Entity\Betrieb;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,9 +17,6 @@ class BetriebType extends AbstractType
     {
         $builder
             ->add('name', null, [
-
-            ])
-            ->add('ansprPartner', null, [
 
             ])
             ->add('strasse', null, [
@@ -31,22 +31,26 @@ class BetriebType extends AbstractType
             ->add('ort', null, [
 
             ])
-            ->add('telZentrale', null, [
-
-            ])
-            ->add('telDurchwahl', null, [
-
-            ])
-            ->add('fax', null, [
-
-            ])
-            ->add('email', null, [
-
-            ])
             ->add('gemeindeschluessel', null, [
 
             ])
+            ->add('telZentrale', TelType::class, [
+
+            ])
+            ->add('ansprPartner', null, [
+
+            ])
+            ->add('telDurchwahl', TelType::class, [
+
+            ])
+            ->add('fax', TelType::class, [
+
+            ])
+            ->add('email', EmailType::class, [
+
+            ])
             ->add('kammer', ChoiceType::class, [
+                'placeholder' => 'Auswählen...',
                 'choices' => [
                     'HWK Bayreuth' => 102,
                     'IHK Bayreuth' => 153,

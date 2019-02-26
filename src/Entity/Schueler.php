@@ -139,6 +139,11 @@ class Schueler
      */
     private $hoechAbschlAn;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $zuzugAm;
+
     public function __construct()
     {
         $this->kontaktpersonen = new ArrayCollection();
@@ -488,5 +493,17 @@ class Schueler
     public function __toString()
     {
         return $this->getVorname() . ' ' . $this->getNachname();
+    }
+
+    public function getZuzugAm(): ?\DateTimeInterface
+    {
+        return $this->zuzugAm;
+    }
+
+    public function setZuzugAm(?\DateTimeInterface $zuzugAm): self
+    {
+        $this->zuzugAm = $zuzugAm;
+
+        return $this;
     }
 }

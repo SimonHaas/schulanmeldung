@@ -38,21 +38,29 @@ class KontaktpersonController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
 
         $kontaktperson = new Kontaktperson();
         $form = $this->createForm(KontaktpersonType::class, $kontaktperson);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($request->hasSession() && $request->getSession()->has('registrierung')) {
-                $session = $request->getSession();
-            } else {
-                if($request->hasSession()) {
-                    $request->getSession()->invalidate();
+            $kontaktperson = $form->getData();
+            if($kontaktperson->getArt() == "ET") {
+                if($kontaktperson->getAnrede() == "H") {
+                    $kontaktperson->setArt("VA");
+                } elseif ($kontaktperson->getAnrede() == "F") {
+                    $kontaktperson->setArt("MU");
                 }
-                return $this->redirectToRoute('anmeldung_start');
             }
-            $session->get('registrierung')->getSchueler()->addKontaktperson($form->getData());
+           $session->get('registrierung')->getSchueler()->addKontaktperson($kontaktperson);
 
             return $this->redirectToRoute('kontaktperson_index');
         }

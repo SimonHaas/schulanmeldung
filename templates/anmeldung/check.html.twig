@@ -12,6 +12,9 @@
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
     <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
+    {% if ausbildung %}
+    {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
+    {% endif %}
     {#
     {% if fluechtling %}
         {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}

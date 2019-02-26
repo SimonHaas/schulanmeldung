@@ -2,6 +2,7 @@
 {{ form_errors(form) }}
 {{ form_row(form.betrieb) }}
 <a href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
+{# TODO: https://github.com/eternicode/bootstrap-datepicker ? #}
 {{ form_row(form.beginn) }}
 {{ form_row(form.ende) }}
 {{ form_row(form.beruf) }}

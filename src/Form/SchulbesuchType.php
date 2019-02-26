@@ -6,6 +6,7 @@ use App\Entity\Schulbesuch;
 use App\Entity\Schule;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,8 +31,18 @@ class SchulbesuchType extends AbstractType
             ]);
         }
         $builder
-            ->add('eintritt')
-            ->add('austritt')
+            ->add('eintritt', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'datetime',
+                'format' => 'dd.mm.yyyy'
+            ])
+            ->add('austritt', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'datetime',
+                'format' => 'dd.mm.yyyy'
+            ])
 
         ;
     }

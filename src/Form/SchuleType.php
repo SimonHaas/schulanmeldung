@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Schule;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,12 +14,24 @@ class SchuleType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('art')
+            ->add('art', ChoiceType::class, [
+                'choices' => [
+                    'Hauptschule oder Mittelschule' => 'VS',
+                    'Volksschule zur sonderpäd. Förderung' => 'SVS',
+                    'Realschule' => 'RS',
+                    'Wirtschaftsschule' => 'WS',
+                    'Gymnasium' => 'GY',
+                    'Berufsschule' => 'BS',
+                    'Berufsschule zur sonderpäd. Förderung' => 'SBS',
+                    'Fachoberschule' => 'FOS',
+                    'sonstige Schule' => 'SO'
+                ],
+                'placeholder' => 'Auswählen...'
+            ])
             ->add('strasse')
             ->add('hausnummer')
-            ->add('ort')
             ->add('plz')
-            ->add('istVerifiziert')
+            ->add('ort')
         ;
     }
 

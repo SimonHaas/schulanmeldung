@@ -84,13 +84,12 @@ class AnmeldungController extends AbstractController
         $session = $request->getSession();
 
         /** @var Registrierung $registrierung */
-        //TODO nur Registrierung in Session speichern und alles andere über entsprechende Relationen bekommen?
         $registrierung = $session->get('registrierung');
         $schueler = $registrierung->getSchueler();
         $kontaktpersonen = $schueler->getKontaktpersonen();
         $fluechtling = $schueler->getFluechtling();
         $umschueler = $schueler->getUmschueler();
-
+        $ausbildung = $schueler->getAusbildung();
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
 
@@ -100,6 +99,7 @@ class AnmeldungController extends AbstractController
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
             'schulbesuche' => $schulbesuche,
+            'ausbildung' => $ausbildung
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
@@ -161,11 +161,7 @@ class AnmeldungController extends AbstractController
         }
         $registrierung->setSchueler($schueler);
 
-        /*
-
-        */
         $em->persist($registrierung);
-        //TODO: Bereits existierende Entities werden erneut in Datenbank gespeichert!! Kann das verhindert werden?!?!
         $em->flush();
 
         $session->invalidate();
