@@ -5,20 +5,18 @@
 {% block body %}
     {{ form_start(form) }}
 
+<br>
+<br>
+<div class="container">
 
-<div class="conatiner">
-    <div class="row">
-        <div class="col-lg-3">
-            {{ form_widget(form.istEQMassnahme ) }}
-            {{ form_widget(form.typ ) }}
-        </div>
-        <div class="col-lg-9">
-        </div>
-    </div>
+    {{ form_widget(form.istEQMassnahme ) }}
+    <label><h4>EQ-Maßnahme</h4></label>
+    <br>
+        {{form_widget(form.typ, {'attr':{'class':'form-control'}})}}
+    <br>
+        <input type="submit" class="btn btn-outline-primary BayreuthButton btn-block buttonFont"/>
+
 </div>
-
-    <input type="submit" class="btn btn-outline-primary BayreuthButton buttonFont"/>
 
     {{ form_end(form) }}
 {% endblock %}
-

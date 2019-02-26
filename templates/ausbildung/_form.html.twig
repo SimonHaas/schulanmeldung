@@ -1,9 +1,41 @@
+
+<div class="container">
 {{ form_start(form) }}
-{{ form_errors(form) }}
-{{ form_row(form.betrieb) }}
+    {{ form_errors(form) }}
+{{ form_row(form.betrieb, {'attr':{'class':'form-control'}}) }}
+
 <a href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
-{{ form_row(form.beginn) }}
-{{ form_row(form.ende) }}
-{{ form_row(form.beruf) }}
-<input type="submit" />
+    <br>
+    <br>
+    <label>Beginn:</label>
+    <div class="row">
+        <div class="col-lg-4">
+            {{ form_widget(form.beginn.day, {'attr':{'class':'form-control '}})  }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.beginn.month, {'attr':{'class':'form-control'}})  }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.beginn.year, {'attr':{'class':'form-control '}})  }}
+        </div>
+    </div>
+
+    <label>Ende:</label>
+    <div class="row">
+        <div class="col-lg-4">
+            {{ form_widget(form.ende.day, {'attr':{'class':'form-control '}})  }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.ende.month, {'attr':{'class':'form-control'}})  }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_widget(form.ende.year, {'attr':{'class':'form-control '}})  }}
+        </div>
+    </div>
+
+    <br>
+{{ form_row(form.beruf, {'attr':{'class':'form-control'}}) }}
+    <br>
+<input class="btn btn-outline-primary BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />
 {{ form_end(form) }}
+</div>
