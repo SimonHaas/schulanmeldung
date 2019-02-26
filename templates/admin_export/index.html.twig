@@ -18,11 +18,12 @@
     </style>
 
     <div class="example-wrapper">
-        {{ test }}
-    <pre>
-        {% for entry in registrations %}
-
+        <div>
+                    <pre>
+        {% for import_string in import_strings %}
+            {{ import_string }}
         {% endfor %}
-    </pre>
+        </pre>
+        </div>
     </div>
 {% endblock %}
