@@ -3,10 +3,8 @@
 {{ form_start(form) }}
     {{ form_errors(form) }}
 {{ form_row(form.betrieb, {'attr':{'class':'form-control'}}) }}
-
-<a href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
-    <br>
-    <br>
+<br>
+<a class="btn btn-outline-primary BayreuthButton buttonFont btn-block blankLinkButton" href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
     <label>Beginn:</label>
     <div class="row">
         <div class="col-lg-4">
