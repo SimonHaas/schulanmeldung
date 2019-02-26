@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Kontaktperson;
 use App\Form\KontaktpersonType;
-use App\Repository\KontaktpersonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

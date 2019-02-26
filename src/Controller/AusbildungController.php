@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Ausbildung;
-use App\Entity\Beruf;
 use App\Entity\Betrieb;
 use App\Form\AusbildungType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -2,11 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Schulbesuch;
-use App\Entity\Schule;
-use App\Form\SchulbesuchType;
 use App\Form\VorbildungType;
-use App\Repository\SchulbesuchRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
