@@ -14,14 +14,14 @@ class UmschuelerController extends AbstractController
 {
 
     /**
-     * @Route("/", name="umschueler_index", methods="GET")
+     * @Route("/index", name="umschueler_index", methods="GET")
      */
     public function view(UmschuelerRepository $umschuelerRepository): Response
     {
         return $this->render('umschueler/index.html.twig', ['umschuelers' => $umschuelerRepository->findAll()]);
     }
     /**
-     * @Route("/neu", name="umschueler_new", methods="GET|POST")
+     * @Route("/", name="umschueler_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {

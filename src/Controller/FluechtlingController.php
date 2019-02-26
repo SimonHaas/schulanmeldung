@@ -25,7 +25,7 @@ class FluechtlingController extends AbstractController
     }
 
     /**
-     * @Route("/neu", name="fluechtling_new", methods="GET|POST")
+     * @Route("/", name="fluechtling_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {

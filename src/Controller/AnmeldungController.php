@@ -99,9 +99,9 @@ class AnmeldungController extends AbstractController
         $registrierung = $session->get('registrierung');
         $schueler = $registrierung->getSchueler();
         $kontaktpersonen = $schueler->getKontaktpersonen();
-        $betrieb = $session->get('betrieb');
-        $fluechtling = $session->get('fluechtling', false);
-        $umschueler = $session->get('umschueler', false);
+        $betrieb = $schueler->getAusbildung()->getBetrieb();
+        $fluechtling = $schueler->getFluechtling();
+        $umschueler = $schueler->getUmschueler();
 
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 

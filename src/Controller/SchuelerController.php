@@ -15,13 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SchuelerController extends AbstractController
 {
-    /**
-     * @Route("/", name="schueler_index")
-     */
-    public function index(Request $request) {
-
-
-    }
 
     /**
      * @Route("/view", name="schueler_view", methods="GET")
@@ -32,7 +25,7 @@ class SchuelerController extends AbstractController
     }
 
     /**
-     * @Route("/neu", name="schueler_new", methods="GET|POST")
+     * @Route("/", name="schueler_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
@@ -55,7 +48,7 @@ class SchuelerController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $schueler = $form->getData();
             $session->get('registrierung')->setSchueler($schueler);
-            return $this->redirectToRoute('daten_pruefen');
+            return $this->redirectToRoute('allgemein_new');
         }
         return $this->render('schueler/new.html.twig', [
             'form' => $form->createView()

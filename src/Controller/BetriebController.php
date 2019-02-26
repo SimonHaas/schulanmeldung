@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BetriebController extends AbstractController
 {
     /**
-     * @Route("/", name="betrieb_index", methods="GET")
+     * @Route("/index", name="betrieb_index", methods="GET")
      */
     public function index(BetriebRepository $betriebRepository): Response
     {
@@ -24,7 +24,7 @@ class BetriebController extends AbstractController
     }
 
     /**
-     * @Route("/neu-ausbildung", name="betrieb_ausbildung")
+     * @Route("/neu", name="betrieb_ausbildung")
      */
     public function betriebNeu(Request $request) {
         //die(json_encode($request));
