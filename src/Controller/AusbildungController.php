@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AusbildungController extends AbstractController
 {
     /**
-     * @Route("/neu", name="ausbildung_new")
+     * @Route("/", name="ausbildung_new")
      */
     public function new(Request $request)
     {
@@ -30,7 +30,17 @@ class AusbildungController extends AbstractController
             return $this->redirectToRoute('anmeldung_start');
         }
 
-        $ausbildung = new Ausbildung();
+        if(!empty($session->get('registrierung')->getSchueler()->getAusbildung())) {
+            $ausbildung = $session->get('registrierung')->getSchueler()->getAusbildung();
+            if(!empty($ausbildung->getBetrieb())) {
+                $this->getDoctrine()->getManager()->persist($ausbildung->getBetrieb());
+            }
+            if(!empty($ausbildung->getBeruf())) {
+                $this->getDoctrine()->getManager()->persist($ausbildung->getBeruf());
+            }
+        } else {
+            $ausbildung = new Ausbildung();
+        }
         $betriebeRepo = $this->getDoctrine()->getRepository(Betrieb::class);
         $betriebe[] = $betriebeRepo->findBy(['istVerifiziert'=>true]);
 
