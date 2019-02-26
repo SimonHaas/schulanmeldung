@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Beruf;
+use App\Entity\Betrieb;
 use App\Entity\Registrierung;
+use App\Entity\Schule;
 use App\Form\StartType;
 use App\Entity\Schueler;
 use DateTime;
@@ -33,6 +36,7 @@ class AnmeldungController extends AbstractController
 
         if($session->has('registrierung')) {
             $registrierung = $session->get('registrierung');
+            $schueler = $registrierung->getSchueler();
         } else {
             $schueler = new Schueler();
             $registrierung = new Registrierung();
@@ -50,37 +54,22 @@ class AnmeldungController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $registrierung = $form->getData();
             $session->set('registrierung', $registrierung);
+            $session->set('schueler', $schueler);
+
             switch($registrierung->getTyp()) {
-                case "AUAU":case "EQ":
+                case "AUAU": case "EQ":
                     return $this->redirectToRoute('ausbildung_new');
                 case "UM":
                     return $this->redirectToRoute('umschueler_new');
                 case "BIK":
                     return $this->redirectToRoute('fluechtling_new');
                 default:
-                    $this->redirectToRoute('error');
+                    return $this->redirectToRoute('schueler_new');
             }
         }
         return $this->render('anmeldung/start.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/success", name="anmeldung_success")
-     */
-    public function success(Request $request) {
-        $session = $request->getSession();
-        if($session->has('ausbildung')) {
-            return $this->render('anmeldung/success.html.twig', [
-                'betrieb' => $session->get('betrieb')->getName(),
-                'beruf' => $session->get('beruf')->getBezeichnung()
-            ]);
-        } else {
-            $session->invalidate();
-            return $this->redirectToRoute('anmeldung_start');
-        }
-
     }
 
     /**
@@ -99,7 +88,6 @@ class AnmeldungController extends AbstractController
         $registrierung = $session->get('registrierung');
         $schueler = $registrierung->getSchueler();
         $kontaktpersonen = $schueler->getKontaktpersonen();
-        $betrieb = $schueler->getAusbildung()->getBetrieb();
         $fluechtling = $schueler->getFluechtling();
         $umschueler = $schueler->getUmschueler();
 
@@ -109,7 +97,6 @@ class AnmeldungController extends AbstractController
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktpersonen' => $kontaktpersonen,
-            'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
             'schulbesuche' => $schulbesuche,
@@ -124,29 +111,61 @@ class AnmeldungController extends AbstractController
      */
     public function beenden(Request $request)
     {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
         //TODO sicherstellen, dass man vorher auf den 'Abschliessen'-Button gedrueckt hat
 
-        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-
         $registrierung = $session->get('registrierung');
+        $schueler = $registrierung->getSchueler();
+        if(!empty($schueler->getAusbildung())) {
+            // Handle Ausbildung-Entity related stuff
+            $ausbildung = $schueler->getAusbildung();
+            $beruf = $this->getDoctrine()->getRepository(Beruf::class)->find($ausbildung->getBeruf()->getId());
+            $betrieb = $ausbildung->getBetrieb();
+            if(empty($betrieb->getId())) {
+                // new betrieb, let's persist it!
+                $this->getDoctrine()->getManager()->persist($betrieb);
+            } else {
+                // betrieb is canned, so search for it again and reassign it, because doctrine is really strange
+                $betrieb = $this->getDoctrine()->getRepository(Betrieb::class)->find($betrieb->getId());
+            }
 
-        $kontaktpersonen = $registrierung->getSchueler()->getKontaktpersonen();
+            $ausbildung->setBeruf($beruf);
+            $ausbildung->setBetrieb($betrieb);
+            $schueler->setAusbildung($ausbildung);
+        }
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
-        foreach ($kontaktpersonen as $kontaktperson) {
-            $em->persist($kontaktperson);
-        }
-
         foreach ($schulbesuche as $schulbesuch) {
-            $em->persist($schulbesuch);
-            $em->persist($schulbesuch->getSchule());
-        }
+            if(empty($schulbesuch->getSchule()->getId())) {
+                // New Schule added, let's persist it!
+                $em->persist($schulbesuch->getSchule());
+            } else {
+                // Schule is canned, so search for it again and reassign it
 
-        $em->persist($registrierung->getSchueler()->getAusbildung()->getBetrieb());
-        $em->persist($registrierung->getSchueler()->getAusbildung()->getBeruf());
-        // das speichert alles was an der Registrierung dran haengt
+                // First, let's remove the "old" schulbesuch from schueler
+                $registrierung->getSchueler()->removeSchulbesuch($schulbesuch);
+                // Then, let's search 'n' replace
+                $schule = $this->getDoctrine()->getRepository(Schule::class)->find($schulbesuch->getSchule()->getId());
+                $schulbesuch->setSchule($schule);
+                // Last, re-add schulbesuch to schueler
+                $registrierung->getSchueler()->addSchulbesuch($schulbesuch);
+            }
+        }
+        $registrierung->setSchueler($schueler);
+
+        /*
+
+        */
         $em->persist($registrierung);
+        //TODO: Bereits existierende Entities werden erneut in Datenbank gespeichert!! Kann das verhindert werden?!?!
         $em->flush();
 
         $session->invalidate();

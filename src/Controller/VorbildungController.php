@@ -75,7 +75,12 @@ class VorbildungController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $session->get('registrierung')->getSchueler()->addSchulbesuche($form->getData());
+            $schulbesuch = $form->getData();
+            if($session->has('schule')) {
+                $schulbesuch->setSchule($session->get('schule'));
+                $session->remove('schule');
+            }
+            $session->get('registrierung')->getSchueler()->addSchulbesuch($form->getData());
 
             return $this->redirectToRoute('vorbildung_index');
         }

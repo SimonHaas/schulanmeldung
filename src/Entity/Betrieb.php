@@ -84,11 +84,6 @@ class Betrieb
      */
     private $kammer;
 
-    public function __construct()
-    {
-        $this->ausbildungen = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;

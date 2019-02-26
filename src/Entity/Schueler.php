@@ -45,12 +45,12 @@ class Schueler
     private $geburtsort;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Kontaktperson", mappedBy="schueler", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Kontaktperson", mappedBy="schueler", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $kontaktpersonen;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Schulbesuch", mappedBy="schueler", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Schulbesuch", mappedBy="schueler", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $schulbesuche;
 
@@ -249,23 +249,23 @@ class Schueler
         return $this->schulbesuche;
     }
 
-    public function addSchulbesuche(Schulbesuch $schulbesuche): self
+    public function addSchulbesuch(Schulbesuch $schulbesuch): self
     {
-        if (!$this->schulbesuche->contains($schulbesuche)) {
-            $this->schulbesuche[] = $schulbesuche;
-            $schulbesuche->setSchueler($this);
+        if (!$this->schulbesuche->contains($schulbesuch)) {
+            $this->schulbesuche[] = $schulbesuch;
+            $schulbesuch->setSchueler($this);
         }
 
         return $this;
     }
 
-    public function removeSchulbesuche(Schulbesuch $schulbesuche): self
+    public function removeSchulbesuch(Schulbesuch $schulbesuch): self
     {
-        if ($this->schulbesuche->contains($schulbesuche)) {
-            $this->schulbesuche->removeElement($schulbesuche);
+        if ($this->schulbesuche->contains($schulbesuch)) {
+            $this->schulbesuche->removeElement($schulbesuch);
             // set the owning side to null (unless already changed)
-            if ($schulbesuche->getSchueler() === $this) {
-                $schulbesuche->setSchueler(null);
+            if ($schulbesuch->getSchueler() === $this) {
+                $schulbesuch->setSchueler(null);
             }
         }
 

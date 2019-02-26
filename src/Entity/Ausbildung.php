@@ -27,13 +27,6 @@ class Ausbildung
      */
     private $ende;
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $beruf;
-
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Schueler", mappedBy="ausbildung", cascade={"persist", "remove"})
      */
@@ -44,6 +37,12 @@ class Ausbildung
      * @ORM\JoinColumn(nullable=false)
      */
     private $betrieb;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Beruf", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $beruf;
 
     public function getId(): ?int
     {
@@ -74,18 +73,6 @@ class Ausbildung
         return $this;
     }
 
-    public function getBeruf(): ?Beruf
-    {
-        return $this->beruf;
-    }
-
-    public function setBeruf(?Beruf $beruf): self
-    {
-        $this->beruf = $beruf;
-
-        return $this;
-    }
-
     public function getSchueler(): ?Schueler
     {
         return $this->schueler;
@@ -112,6 +99,18 @@ class Ausbildung
     public function setBetrieb(?Betrieb $betrieb): self
     {
         $this->betrieb = $betrieb;
+
+        return $this;
+    }
+
+    public function getBeruf(): ?Beruf
+    {
+        return $this->beruf;
+    }
+
+    public function setBeruf(?Beruf $beruf): self
+    {
+        $this->beruf = $beruf;
 
         return $this;
     }

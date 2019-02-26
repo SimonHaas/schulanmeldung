@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Ausbildung;
+use App\Entity\Beruf;
 use App\Entity\Betrieb;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,7 +37,8 @@ class AusbildungType extends AbstractType
             ]);
         }
 
-            $builder->add('beruf', null, [
+            $builder->add('beruf', EntityType::class, [
+                'class' => Beruf::class,
                 'placeholder' => 'Auswählen...'
             ])
         ;
