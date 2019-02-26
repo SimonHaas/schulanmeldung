@@ -4,8 +4,19 @@
 
 {% block body %}
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" />
+
+<br>
+<br>
+<div class="container">
+
+    {{ form_widget(form.istEQMassnahme ) }}
+    <label><h4>EQ-Maßnahme</h4></label>
+    <br>
+        {{form_widget(form.typ, {'attr':{'class':'form-control'}})}}
+    <br>
+        <input type="submit" class="btn btn-outline-primary BayreuthButton btn-block buttonFont"/>
+
+</div>
+
     {{ form_end(form) }}
 {% endblock %}
-

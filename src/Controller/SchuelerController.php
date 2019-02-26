@@ -15,12 +15,44 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SchuelerController extends AbstractController
 {
+
     /**
-     * @Route("/", name="schueler_index", methods="GET")
+     * @Route("/view", name="schueler_view", methods="GET")
      */
-    public function index(SchuelerRepository $schuelerRepository): Response
+    public function view(SchuelerRepository $schuelerRepository): Response
     {
         return $this->render('schueler/index.html.twig', ['schuelers' => $schuelerRepository->findAll()]);
+    }
+
+    /**
+     * @Route("/", name="schueler_new", methods="GET|POST")
+     */
+    public function new(Request $request): Response
+    {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        if(!empty($session->get('registrierung')->getSchueler())) {
+            $schueler = $session->get('registrierung')->getSchueler();
+        } else {
+            $schueler = new Schueler();
+        }
+
+        $form = $this->createForm(SchuelerType::class, $schueler);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schueler = $form->getData();
+            $session->get('registrierung')->setSchueler($schueler);
+            return $this->redirectToRoute('allgemein_new');
+        }
+        return $this->render('schueler/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
@@ -40,29 +72,6 @@ class SchuelerController extends AbstractController
         }
 
         return $this->render('schueler/update.html.twig', [
-            'schueler' => $schueler,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="schueler_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
-    {
-        $schueler = new Schueler();
-        $form = $this->createForm(SchuelerType::class, $schueler);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($schueler);
-            $em->flush();
-
-            return $this->redirectToRoute('schueler_index');
-        }
-
-        return $this->render('schueler/new.html.twig', [
             'schueler' => $schueler,
             'form' => $form->createView(),
         ]);

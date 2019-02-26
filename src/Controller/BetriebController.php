@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class BetriebController extends AbstractController
 {
     /**
-     * @Route("/", name="betrieb_index", methods="GET")
+     * @Route("/index", name="betrieb_index", methods="GET")
      */
     public function index(BetriebRepository $betriebRepository): Response
     {
@@ -24,11 +24,63 @@ class BetriebController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="betrieb_new", methods="GET|POST")
+     * @Route("/neu", name="betrieb_ausbildung")
+     */
+    public function betriebNeu(Request $request) {
+        //die(json_encode($request));
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if($session->has('betrieb')) {
+            $betrieb = $session->get('betrieb');
+            $this->getDoctrine()->getManager()->persist($betrieb->getKammer());
+        } else {
+            $betrieb = new Betrieb();
+        }
+
+        $form = $this->createForm(BetriebType::class, $betrieb);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $betrieb = $form->getData();
+            $betrieb->setIstVerifiziert(false);
+            $session->set('betrieb', $betrieb);
+
+            return $this->redirectToRoute('ausbildung_new');
+        }
+
+        return $this->render('betrieb/new.html.twig', [
+            'betrieb' => $betrieb,
+            'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/neu", name="betrieb_new", methods="GET|POST")
      */
     public function new(Request $request): Response
     {
-        $betrieb = new Betrieb();
+        if($request->hasSession() && !empty($request->getSession()->get('registrierung')->getSchueler()->getAusbildung())) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        if(!empty($session->get('registrierung')->getSchueler()->getAusbildung()->getBetrieb())) {
+            $betrieb = $session->get('registrierung')->getSchueler()->getAusbildung()->getBetrieb();
+        } else {
+            $betrieb = new Betrieb();
+        }
+
         $form = $this->createForm(BetriebType::class, $betrieb);
         $form->handleRequest($request);
 
@@ -37,7 +89,7 @@ class BetriebController extends AbstractController
             $em->persist($betrieb);
             $em->flush();
 
-            return $this->redirectToRoute('betrieb_index');
+            return $this->redirectToRoute('ausbildung_new');
         }
 
         return $this->render('betrieb/new.html.twig', [

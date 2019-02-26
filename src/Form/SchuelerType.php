@@ -39,13 +39,13 @@ class SchuelerType extends AbstractType
             ->add('geburtsdatum')
             ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
-                'placeholder' => 'Auswählen...',
+                'placeholder' => 'Geburtsland...',
                 'choice_translation_locale' => 'de',
                 'preferred_choices' => ['Deutschland' => "DE"]
             ])
             ->add('staatsangehoerigkeit')
             ->add('bekenntnis', ChoiceType::class, [
-                'placeholder' => 'Auswählen...',
+                'placeholder' => 'Bekenntnis...',
                 'choices' => [
                     'römisch-katholisch' => 'RK',
                     'evangelisch' => 'RV',
