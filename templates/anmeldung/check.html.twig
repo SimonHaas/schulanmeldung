@@ -36,6 +36,7 @@
     {% endif %}
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
     {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update'}) }}
+    
     <br>
     <a class="btn btn-outline-primary  BayreuthButton buttonFont btn-block blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>
 {% endblock %}
