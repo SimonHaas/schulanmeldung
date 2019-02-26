@@ -3,6 +3,22 @@
 {% block title %}Start{% endblock %}
 
 {% block body %}
-    {{ include('start/_form.html.twig') }}
+    {{ form_start(form) }}
+
+
+<div class="conatiner">
+    <div class="row">
+        <div class="col-lg-3">
+            {{ form_widget(form.istEQMassnahme ) }}
+            {{ form_widget(form.typ ) }}
+        </div>
+        <div class="col-lg-9">
+        </div>
+    </div>
+</div>
+
+    <input type="submit" class="btn btn-outline-primary BayreuthButton buttonFont"/>
+
+    {{ form_end(form) }}
 {% endblock %}
 
