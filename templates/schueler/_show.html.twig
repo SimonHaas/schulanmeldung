@@ -1,0 +1,75 @@
+<h2 class="headlineFont">Schüler</h2>
+
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Vorname</th>
+        <td>{{ schueler.vorname }}</td>
+    </tr>
+    <tr>
+        <th>Nachname</th>
+        <td>{{ schueler.nachname }}</td>
+    </tr>
+    <tr>
+        <th>Rufname</th>
+        <td>{{ schueler.rufname }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsdatum</th>
+        <td>{{ schueler.geburtsdatum ? schueler.geburtsdatum|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsort</th>
+        <td>{{ schueler.geburtsort }}</td>
+    </tr>
+        <tr>
+        <th>Geschlecht</th>
+        <td>{{ schueler.geschlecht }}</td>
+    </tr>
+    <tr>
+        <th>Straße</th>
+        <td>{{ schueler.strasse }}</td>
+    </tr>
+    <tr>
+        <th>Hausnummer</th>
+        <td>{{ schueler.hsnr }}</td>
+    </tr>
+    <tr>
+        <th>Postleitzahl</th>
+        <td>{{ schueler.plz }}</td>
+    </tr>
+    <tr>
+        <th>Ort</th>
+        <td>{{ schueler.ort }}</td>
+    </tr>
+    <tr>
+        <th>Telefonnummer</th>
+        <td>{{ schueler.tel }}</td>
+    </tr>
+    <tr>
+        <th>E-Mail Adresse</th>
+        <td>{{ schueler.email }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsland</th>
+        <td>{{ schueler.geburtsland }}</td>
+    </tr>
+    <tr>
+        <th>Staatsangehörigkeit</th>
+        <td>{{ schueler.staatsangehoerigkeit }}</td>
+    </tr>
+    <tr>
+        <th>Bekenntnis</th>
+        <td>{{ schueler.bekenntnis }}</td>
+    </tr>
+    <tr>
+        <th>letzte Schulart</th>
+        <td>{{ schueler.letzteSchulart }}</td>
+    </tr>
+    <tr>
+        <th>höchster Abschluss</th>
+        <td>{{ schueler.hoechsterAbschluss }}</td>
+    </tr>
+    </tbody>
+</table>

@@ -106,7 +106,7 @@ class AnmeldungController extends AbstractController
 
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
-
+        $ausbildung = null;
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktpersonen' => $kontaktpersonen,
@@ -115,6 +115,7 @@ class AnmeldungController extends AbstractController
             'umschueler' => $umschueler,
             'schulbesuche' => $schulbesuche,
             'schueler' => $schueler,
+            'ausbildung' => $ausbildung,
         ];
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
