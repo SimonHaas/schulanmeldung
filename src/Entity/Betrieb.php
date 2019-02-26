@@ -75,15 +75,14 @@ class Betrieb
     private $istVerifiziert;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $kammer;
-
-    /**
      * @ORM\Column(type="string", length=8)
      */
     private $gemeindeschluessel;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $kammer;
 
     public function __construct()
     {
@@ -227,18 +226,6 @@ class Betrieb
         return $this;
     }
 
-    public function getKammer(): ?Kammer
-    {
-        return $this->kammer;
-    }
-
-    public function setKammer(?Kammer $kammer): self
-    {
-        $this->kammer = $kammer;
-
-        return $this;
-    }
-
     public function getGemeindeschluessel(): ?string
     {
         return $this->gemeindeschluessel;
@@ -251,27 +238,20 @@ class Betrieb
         return $this;
     }
 
-    public function set($array): self
-    {
-        $this->name = $array['name'];
-        $this->ansprPartner = $array['ansprPartner'];
-        $this->strasse = $array['strasse'];
-        $this->hsnr = $array['hsnr'];
-        $this->plz = $array['plz'];
-        $this->ort = $array['ort'];
-        $this->telZentrale = $array['telZentrale'];
-        $this->telDurchwahl = $array['telDurchwahl'];
-        $this->fax = $array['fax'];
-        $this->email = $array['email'];
-        $this->gemeindeschluessel = $array['gemeindeschluessel'];
-        $this->kammer = $array['kammer'];
-        $this->istVerifiziert = false;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHsnr();
+    }
+
+    public function getKammer(): ?int
+    {
+        return $this->kammer;
+    }
+
+    public function setKammer(int $kammer): self
+    {
+        $this->kammer = $kammer;
+
+        return $this;
     }
 }

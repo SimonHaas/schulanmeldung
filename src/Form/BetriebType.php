@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Betrieb;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,43 +14,76 @@ class BetriebType extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('ansprPartner', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('strasse', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('hsnr', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('plz', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('ort', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('telZentrale', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('telDurchwahl', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('fax', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('email', null, [
-                'attr' => ['class' => 'betrieb_item']
+
             ])
             ->add('gemeindeschluessel', null, [
-                'attr' => ['class' => 'betrieb_item']
-            ])
-            ->add('kammer', null, [
-                'attr' => ['class' => 'betrieb_item']
-            ])
 
-        ;
+            ])
+            ->add('kammer', ChoiceType::class, [
+                'choices' => [
+                    'HWK Bayreuth' => 102,
+                    'IHK Bayreuth' => 153,
+                    'IHK Coburg' => 154,
+                    'IHK Aschaffenburg' => 151,
+                    'HWK Augsburg' => 101,
+                    'IHK Augsburg' => 152,
+                    'IHK Lindau' => 155,
+                    'IHK München' => 156,
+                    'HWK Nürnberg' => 105,
+                    'IHK Nürnberg' => 157,
+                    'HWK Passau' => 106,
+                    'IHK Passau' => 158,
+                    'HWK Regensburg' => 107,
+                    'IHK Regensburg' => 159,
+                    'HWK Würzburg' => 108,
+                    'IHK Würzburg-Schweinfurt' => 160,
+                    'sonstige' => 000,
+                ]
+            ]);
+
+        /*
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">
+</option><option value="">sonstige
+         */
     }
 
     public function configureOptions(OptionsResolver $resolver)

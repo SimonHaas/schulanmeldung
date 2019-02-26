@@ -12,7 +12,7 @@
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
     <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
-
+    {#
     {% if fluechtling %}
         {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
         <button><a href="{{ path('fluechtling_update') }}">Bearbeiten</a></button>
@@ -31,7 +31,8 @@
         {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
         <button><a href="{{ path('schulbesuch_update') }}">Bearbeiten</a></button>
     {% endfor %}
-    {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
+
+
 
     {% if betrieb is not null %}
     {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
@@ -40,6 +41,6 @@
 
     *TODO*
     <a href="/anmeldung/start">Zum Start</a>
-
+#}
     <button><a href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a></button>
 {% endblock %}

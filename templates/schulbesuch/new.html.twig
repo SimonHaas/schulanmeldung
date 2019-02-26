@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Schulbesuch{% endblock %}
+
+{% block body %}
+    <h1>Create new Schulbesuch</h1>
+
+    {{ include('schulbesuch/_form.html.twig') }}
+
+    <a href="{{ path('vorbildung_index') }}">back to list</a>
+{% endblock %}

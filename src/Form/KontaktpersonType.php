@@ -21,7 +21,6 @@ class KontaktpersonType extends AbstractType
             ->add('ort')
             ->add('telefonnummer')
             ->add('email')
-            ->add('schueler')
         ;
     }
 

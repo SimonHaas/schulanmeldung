@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_row(form.schule) }}
+    <a href="{{ path('schule_new') }}">Neue Schule anlegen</a>
+    {{ form_row(form.eintritt) }}
+    {{ form_row(form.austritt) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

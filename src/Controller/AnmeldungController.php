@@ -51,7 +51,7 @@ class AnmeldungController extends AbstractController
             $registrierung = $form->getData();
             $session->set('registrierung', $registrierung);
             switch($registrierung->getTyp()) {
-                case "AUAU":
+                case "AUAU":case "EQ":
                     return $this->redirectToRoute('ausbildung_new');
                 case "UM":
                     return $this->redirectToRoute('umschueler_new');
@@ -127,8 +127,24 @@ class AnmeldungController extends AbstractController
         //TODO sicherstellen, dass man vorher auf den 'Abschliessen'-Button gedrueckt hat
 
         $session = $request->getSession();
-        $registrierung = $session->get('registrierung');
         $em = $this->getDoctrine()->getManager();
+
+        $registrierung = $session->get('registrierung');
+
+        $kontaktpersonen = $registrierung->getSchueler()->getKontaktpersonen();
+        $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
+
+        foreach ($kontaktpersonen as $kontaktperson) {
+            $em->persist($kontaktperson);
+        }
+
+        foreach ($schulbesuche as $schulbesuch) {
+            $em->persist($schulbesuch);
+            $em->persist($schulbesuch->getSchule());
+        }
+
+        $em->persist($registrierung->getSchueler()->getAusbildung()->getBetrieb());
+        $em->persist($registrierung->getSchueler()->getAusbildung()->getBeruf());
         // das speichert alles was an der Registrierung dran haengt
         $em->persist($registrierung);
         $em->flush();

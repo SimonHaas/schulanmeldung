@@ -18,6 +18,7 @@ class SchuleType extends AbstractType
             ->add('hausnummer')
             ->add('ort')
             ->add('plz')
+            ->add('istVerifiziert')
         ;
     }
 

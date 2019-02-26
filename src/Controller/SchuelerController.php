@@ -48,7 +48,7 @@ class SchuelerController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $schueler = $form->getData();
             $session->get('registrierung')->setSchueler($schueler);
-            return $this->redirectToRoute('allgemein_new');
+            return $this->redirectToRoute('kontaktperson_index');
         }
         return $this->render('schueler/new.html.twig', [
             'form' => $form->createView()

@@ -18,7 +18,7 @@ class Kontaktperson
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1)
      */
     private $anrede;
 
@@ -121,12 +121,12 @@ class Kontaktperson
         return $this;
     }
 
-    public function getHausnummer(): ?int
+    public function getHausnummer(): ?string
     {
         return $this->hausnummer;
     }
 
-    public function setHausnummer(int $hausnummer): self
+    public function setHausnummer(string $hausnummer): self
     {
         $this->hausnummer = $hausnummer;
 

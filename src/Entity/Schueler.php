@@ -135,9 +135,9 @@ class Schueler
     private $hoechsterAbschluss;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255)
      */
-    private $hoechAbschlAm;
+    private $hoechAbschlAn;
 
     public function __construct()
     {
@@ -469,14 +469,14 @@ class Schueler
         return $this;
     }
 
-    public function getHoechAbschlAm(): ?\DateTimeInterface
+    public function getHoechAbschlAn(): ?string
     {
-        return $this->hoechAbschlAm;
+        return $this->hoechAbschlAn;
     }
 
-    public function setHoechAbschlAm(\DateTimeInterface $hoechAbschlAm): self
+    public function setHoechAbschlAn(string $hoechAbschlAn): self
     {
-        $this->hoechAbschlAm = $hoechAbschlAm;
+        $this->hoechAbschlAn = $hoechAbschlAn;
 
         return $this;
     }
