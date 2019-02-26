@@ -1,0 +1,31 @@
+<h2 class="headlineFont">Schüler</h2>
+
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Id</th>
+        <td>{{ schueler.id }}</td>
+    </tr>
+    <tr>
+        <th>Vorname</th>
+        <td>{{ schueler.vorname }}</td>
+    </tr>
+    <tr>
+        <th>Nachname</th>
+        <td>{{ schueler.nachname }}</td>
+    </tr>
+    <tr>
+        <th>Rufname</th>
+        <td>{{ schueler.rufname }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsdatum</th>
+        <td>{{ schueler.geburtsdatum ? schueler.geburtsdatum|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsort</th>
+        <td>{{ schueler.geburtsort }}</td>
+    </tr>
+    </tbody>
+</table>

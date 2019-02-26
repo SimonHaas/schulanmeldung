@@ -2,7 +2,6 @@
 <html>
 <head>
     {% block head %}
-        <link rel="stylesheet" href="style.css" />
         <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
         <!-- Required meta tags -->
@@ -11,17 +10,88 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/customStyle.css') }}" type="text/css">
+        <link rel="stylesheet" href="/customStyle.css">
+
 </head>
+
+
 <body>
-<div id="content">
-    {% block body %}
-    {% endblock %}
+
+<header>
+        <div class="container containerColor">
+                <div class="row SpacingTop SpacingSides">
+                        <div class="col-lg-3">
+                                <img class="img-fluid" src="/Logo_Berufsschule_4c.jpg" width="200px"  alt="Logo">
+                        </div>
+                        <div class="col-lg-9">
+                        </div>
+                </div>
+                <br>
+                <div class="row">
+                        <div class="col-lg-12 text-center">
+                                <h1 class="headlineFont">Schulanmeldung</h1>
+                        </div>
+                </div>
+        </div>
+</header>
+
+<div id="content" class="container containerColor">
+        <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                        {% block body %}
+                        {% endblock %}
+                </div>
+                <div class="col-lg-1"></div>
+        </div>
+        <br>
+        <br>
 </div>
+
 <div id="footer">
-    {% block footer %}
-        &copy; Copyright 2018 by <a href="http://www.bs1-bt.de/">Staatliche Berufsschule 1 Bayreuth</a>.
-    {% endblock %}
+        {% block footer %}
+        <div class="container containerFooter">
+                <div class="row SpacingSides">
+                        <div class="col-lg-6 text-left headlineFont">
+                                <br>
+                                Staatliche Berufsschule I<br>
+                                Kerschensteinerstraße 6<br>
+                                95448 Bayreuth<br>
+                                <br>
+
+                        </div>
+
+                        <div class="col-lg-6 text-right headlineFont">
+                                <br>
+                                Tel.: 0921 / 50739360<br>
+                                Fax: 0921 / 507393699<br>
+                                <a class="blankLink" href="https://www.bs1-bt.de/allgemeines/kontakt">Kontaktfomular</a>
+                        </div>
+                </div>
+                <div class="row copyright">
+                        <div class="col-lg-12 text-center">
+                                <br>
+                                <div class="row">
+                                        <div class="col-lg-6">
+                                                <a class="blankLink greyFooter" href="https://www.bs1-bt.de/impressum    ">Impressum</a>
+                                        </div>
+                                        <div class="col-lg-6">
+                                                <a class="blankLink greyFooter" href="https://www.bs1-bt.de/datenschutz">Datenschutz</a>
+                                        </div>
+                                </div>
+                                <br>
+                        </div>
+
+                </div>
+                {% endblock %}
+        </div>
+
+
 </div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
