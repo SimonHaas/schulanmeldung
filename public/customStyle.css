@@ -78,6 +78,10 @@ body{
     margin-bottom:0!important;
 }
 
-.smallButton{
+.smallButtonDistance{
     margin-top: 2%;
+}
+
+.invisibleItems{
+    visibility: hidden;
 }

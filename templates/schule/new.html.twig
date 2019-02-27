@@ -3,9 +3,9 @@
 {% block title %}New Schule{% endblock %}
 
 {% block body %}
-    <h1>Create new Schule</h1>
+    <h1>Anlegen einer neuen Schule</h1>
 
     {{ include('schule/_form.html.twig') }}
 
-    <a href="{{ path('schulbesuch_new') }}">zurück</a>
+    <a class="btn BayreuthButton buttonFont blankLinkButton" href="{{ path('schulbesuch_new') }}">Zurück</a>
 {% endblock %}
