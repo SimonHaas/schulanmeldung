@@ -22,16 +22,27 @@
         {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'umschueler_update', 'text': ''}) }}
     {% endif %}
-    {% if ausbildung %}
+    {% if ausbildung is not null %}
         <h2 class="headlineFont">Ausbildung</h2>
         {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'ausbildung_update', 'text': ''}) }}
+        {% if ausbildung.betrieb.id is null %}
+            <h2 class="headlineFont">Betrieb</h2>
+            {{ include('betrieb/_show.html.twig', { 'betrieb': ausbildung.betrieb }) }}
+            {{ include('anmeldung/_checkButton.html.twig', {'route': 'betrieb_update', 'text': ''}) }}
+        {% endif %}
     {% endif %}
-    {% if kontaktpersonen is not null %}
         <h2 class="headlineFont">Kontaktpersonen</h2>
-        {{ include('kontaktperson/_showtable.html.twig', { 'kontaktpeople': kontaktpersonen}) }}
+        {% for kontaktperson in kontaktpersonen %}
+        {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update', 'text': 'Hinzufügen'}) }}
-    {% endif %}
+
+
     {% if schulbesuche is not null %}
         <h2 class="headlineFont">Schulbesuche</h2>
         {{ include('schulbesuch/_showtable.html.twig', { 'schulbesuche': schulbesuche}) }}

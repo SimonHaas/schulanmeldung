@@ -9,12 +9,14 @@
 </div>
 <div class="row">
     <div class="col-lg-6">
-        <label class="labelFont">Straße</label>
+        <label class="labelFont">Straße und Hausnummer</label>
         {{  form_widget(form.strasse, {'attr':{'placeholder': 'Bsp.: Kerschensteinerstraße', 'class':'form-control'}}) }}
     </div>
     <div class="col-lg-6">
+        {#
         <label class="labelFont">Hausnummer</label>
         {{  form_widget(form.hsnr, {'attr':{'placeholder': 'Bsp.: 6', 'class':'form-control'}}) }}
+        #}
     </div>
 </div>
 <div class="row">
@@ -57,10 +59,6 @@
         {{  form_widget(form.email, {'attr':{'placeholder': 'Bsp.: sekretariat@bs1-bt.de', 'class':'form-control'}}) }}
     </div>
 </div>
-
-
-{{  form_widget(form.gemeindeschluessel, {'attr':{ 'class':'invisibleItems'}}) }}
-
 
 <br>
 <input class="btn BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />

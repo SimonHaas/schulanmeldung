@@ -70,7 +70,7 @@ class Betrieb
     private $istVerifiziert;
 
     /**
-     * @ORM\Column(type="string", length=8)
+     * @ORM\Column(type="string", length=8, nullable=true)
      */
     private $gemeindeschluessel;
 
@@ -218,7 +218,7 @@ class Betrieb
 
     public function __toString()
     {
-        return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHsnr();
+        return $this->getName() . ', ' . $this->getStrasse();
     }
 
     public function getKammer(): ?int

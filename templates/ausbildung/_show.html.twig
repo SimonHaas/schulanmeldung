@@ -1,9 +1,11 @@
 <table class="table">
     <tbody>
+    {% if ausbildung.betrieb.id is not null %}
     <tr>
         <th>Betrieb</th>
-        <td>{{ include('betrieb/_show.html.twig', { 'betrieb': ausbildung.betrieb}) }}</td>
+        <td>{{ ausbildung.betrieb.name }}, {{ ausbildung.betrieb.strasse }}, {{ ausbildung.betrieb.plz }} {{ ausbildung.betrieb.ort }}</td>
     </tr>
+    {% endif %}
     <tr>
         <th>Ausbildungsbeginn</th>
         <td>{{ ausbildung.beginn ? ausbildung.beginn|date('d.m.Y') : ''}}</td>
