@@ -3,7 +3,8 @@
 
 <div class="row">
     <div class="col-lg-12">
-        {{ form_row(form.betrieb, {'attr':{'class':'form-control'}}) }}
+        <label class="labelFont">Betrieb</label>
+        {{  form_widget(form.betrieb, {'attr':{'class':'form-control'}}) }}
         <a class="btn BayreuthButton blankLinkButton btn-sm float-right smallButton" href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
     </div>
 </div>
@@ -18,7 +19,8 @@
 <div class="row">
     <div class="col-lg-12">
         <br>
-        {{ form_row(form.beruf, {'attr':{'class':'form-control'}}) }}
+        <label class="labelFont">Beruf</label>
+        {{  form_widget(form.beruf, {'attr':{'class':'form-control'}}) }}
         <br>
     </div>
 </div>

@@ -3,7 +3,8 @@
 {% block title %}Kontaktperson index{% endblock %}
 
 {% block body %}
-    <h1>Kontaktperson index</h1>
+    <h1>Kontaktpersonen</h1>
+
 
     <table class="table">
         <thead>
@@ -11,11 +12,11 @@
                 <th>Anrede</th>
                 <th>Vorname</th>
                 <th>Nachname</th>
-                <th>Strasse</th>
-                <th>Hausnummer</th>
-                <th>Plz</th>
+                <th>Str.</th>
+                <th>Hausnr</th>
+                <th>Plz.</th>
                 <th>Ort</th>
-                <th>Telefonnummer</th>
+                <th>Telefonnr</th>
                 <th>Email</th>
             </tr>
         </thead>
@@ -34,12 +35,17 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="12">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('kontaktperson_new') }}">Create new</a>
-    <a href="{{ path('vorbildung_index') }}">Weiter</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <a class="btn BayreuthButton buttonFont blankLinkButton pull-left" href="{{ path('kontaktperson_new') }}">Create new</a>
+            <a class="btn BayreuthButton buttonFont blankLinkButton float-right" href="{{ path('vorbildung_index') }}">Weiter</a>
+        </div>
+    </div>
+
 {% endblock %}
