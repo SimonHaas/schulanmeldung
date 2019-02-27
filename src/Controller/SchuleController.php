@@ -46,8 +46,11 @@ class SchuleController extends AbstractController
             $schule = $form->getData();
             $schule->setIstVerifiziert(false);
             $session->set('schule', $schule);
-
-            return $this->redirectToRoute('schulbesuch_new');
+            if($session->has('update')) {
+                return $this->redirectToRoute('schulbesuch_update');
+            } else {
+                return $this->redirectToRoute('schulbesuch_new');
+            }
         }
 
         return $this->render('schule/new.html.twig', [

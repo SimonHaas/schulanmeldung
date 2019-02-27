@@ -70,11 +70,12 @@ class FluechtlingController extends AbstractController
     public function update(Request $request)
     {
         $session = $request->getSession();
-        $fluechtling = $session->get('fluechtling');
+        $fluechtling = $session->get('registrierung')->getSchueler()->getFluechtling();
         $form = $this->createForm(FluechtlingType::class, $fluechtling);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $session->get('registrierung')->getSchueler()->setFluechtling($form->getData());
             return $this->redirectToRoute('daten_pruefen');
         }
 

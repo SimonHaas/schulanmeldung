@@ -51,7 +51,11 @@ class BetriebController extends AbstractController
             $betrieb->setIstVerifiziert(false);
             $session->set('betrieb', $betrieb);
 
-            return $this->redirectToRoute('ausbildung_new');
+            if($session->has('update') && $session->get('update') == true) {
+                return $this->redirectToRoute('ausbildung_update');
+            } else {
+                return $this->redirectToRoute('ausbildung_new');
+            }
         }
 
         //TODO BetriebType stylen
@@ -59,43 +63,6 @@ class BetriebController extends AbstractController
         return $this->render('betrieb/new.html.twig', [
             'betrieb' => $betrieb,
             'form' => $form->createView()
-        ]);
-    }
-
-
-    /**
-     * @Route("/neu", name="betrieb_new", methods="GET|POST")
-     */
-    public function new(Request $request): Response
-    {
-        if($request->hasSession() && !empty($request->getSession()->get('registrierung')->getSchueler()->getAusbildung())) {
-            $session = $request->getSession();
-        } else {
-            if($request->hasSession()) {
-                $request->getSession()->invalidate();
-            }
-            return $this->redirectToRoute('anmeldung_start');
-        }
-        if(!empty($session->get('registrierung')->getSchueler()->getAusbildung()->getBetrieb())) {
-            $betrieb = $session->get('registrierung')->getSchueler()->getAusbildung()->getBetrieb();
-        } else {
-            $betrieb = new Betrieb();
-        }
-
-        $form = $this->createForm(BetriebType::class, $betrieb);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($betrieb);
-            $em->flush();
-
-            return $this->redirectToRoute('ausbildung_new');
-        }
-
-        return $this->render('betrieb/new.html.twig', [
-            'betrieb' => $betrieb,
-            'form' => $form->createView(),
         ]);
     }
 
@@ -108,11 +75,14 @@ class BetriebController extends AbstractController
     {
         //TODO umbauen, dass der Betrieb aus der Registrierung gezogen wird
         $session = $request->getSession();
-        $betrieb = $session->get('betrieb');
+        $betrieb = $session->get('registrierung')->getSchueler()->getAusbildung()->getBetrieb();
         $form = $this->createForm(BetriebType::class, $betrieb);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $betrieb = $form->getData();
+            $betrieb->setIstVerifiziert(false);
+            $session->get('registrierung')->getSchueler()->getAusbildung()->setBetrieb($betrieb);
             return $this->redirectToRoute('daten_pruefen');
         }
 

@@ -54,4 +54,12 @@ class AllgemeinController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /**
+     * @Route("/update", name="allgemein_update")
+     */
+    public function update(Request $request)
+    {
+
+    }
+
 }

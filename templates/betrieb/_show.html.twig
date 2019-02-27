@@ -1,5 +1,3 @@
-<h2 class="headlineFont">Betrieb</h2>
-
 <table class="table table-hover">
     <tbody>
     <tr>
@@ -7,28 +5,21 @@
         <td>{{ betrieb.name }}</td>
     </tr>
     <tr>
-        <th>Ansprechpartner</th>
-        <td>{{ betrieb.ansprPartner }}</td>
-    </tr>
-    <tr>
         <th>Straße</th>
-        <td>{{ betrieb.strasse }}</td>
-    </tr>
-    <tr>
-        <th>Hausnummer</th>
-        <td>{{ betrieb.hsnr }}</td>
-    </tr>
-    <tr>
-        <th>PLZ</th>
-        <td>{{ betrieb.plz }}</td>
+        <td>{{ betrieb.strasse }} </td>
     </tr>
     <tr>
         <th>Ort</th>
-        <td>{{ betrieb.ort }}</td>
+        <td>{{ betrieb.plz }} {{ betrieb.ort }}</td>
     </tr>
+    {% if betrieb.id is null %}
     <tr>
         <th>Telefonnummer Zentrale</th>
         <td>{{ betrieb.telZentrale }}</td>
+    </tr>
+    <tr>
+        <th>Ansprechpartner</th>
+        <td>{{ betrieb.ansprPartner }}</td>
     </tr>
     <tr>
         <th>Telefonnummer Durchwahl</th>
@@ -42,5 +33,9 @@
         <th>Email</th>
         <td>{{ betrieb.email }}</td>
     </tr>
+    {% endif %}
     </tbody>
 </table>
+{% if betrieb.id is null %}
+{{ include('anmeldung/_checkButton.html.twig', {'route': 'betrieb_update', 'text': ''}) }}
+{% endif %}

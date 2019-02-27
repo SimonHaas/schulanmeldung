@@ -6,45 +6,40 @@
         <h3 class="headlineFont text-center">Bitte prüfen Sie ihre Angaben und schließen Sie die Anmeldung ab.</h3>
         <br>
     </div>
-
-    {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
-    <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
-    {% if ausbildung %}
-    {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
+    {% if registrierung.typ != "AUAU" and registrierung.typ != "EQ" %}
+        <div class="alert alert-info" role="alert">Sie kommen ohne Vertrag zu uns</div>
     {% endif %}
-    {#
-    {{ include('anmeldung/_checkButton.html.twig', {'route': 'registrierung_update'}) }}
-
-    {% if fluechtling %}
-        {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'fluechtling_update'}) }}
-    {% endif %}
-
-    {% if umschueler %}
-        {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'umschueler_update'}) }}
-    {% endif %}
-
-    {% for kontaktperson in kontaktpersonen %}
-        {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update'}) }}
-    {% endfor %}
-    {% for schulbesuch in schulbesuche %}
-        {{ include('schulbesuch/_show.html.twig', { 'schulbesuch': schulbesuch}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'schulbesuch_update'}) }}
-    {% endfor %}
-    {# TODO Button um weiteren Schulbesuch und Kontaktperson hinzuzufuegen #}
-
-    {% if betrieb is not null %}
-        {{ include('betrieb/_show.html.twig', { 'betrieb': betrieb}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'betrieb_update'}) }}
-    {% endif %}
-    {% if ausbildung is not null %}
-        {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
-        {{ include('anmeldung/_checkButton.html.twig', {'route': 'ausbildung_update'}) }}
-    {% endif %}
+    <h2 class="headlineFont">Schüler</h2>
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
-    {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update'}) }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update', 'text': ''}) }}
+    {% if schueler.fluechtling %}
+        <h2 class="headlineFont">Informationen zu Flüchtling</h2>
+        {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'fluechtling_update', 'text': ''}) }}
+    {% endif %}
+    {% if schueler.umschueler %}
+        <h2 class="headlineFont">Informationen zu Umschüler</h2>
+        {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'umschueler_update', 'text': ''}) }}
+    {% endif %}
+    {% if ausbildung %}
+        <h2 class="headlineFont">Ausbildung</h2>
+        {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'ausbildung_update', 'text': ''}) }}
+    {% endif %}
+    {% if kontaktpersonen is not null %}
+        <h2 class="headlineFont">Kontaktpersonen</h2>
+        {{ include('kontaktperson/_showtable.html.twig', { 'kontaktpeople': kontaktpersonen}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update', 'text': 'Hinzufügen'}) }}
+    {% endif %}
+    {% if schulbesuche is not null %}
+        <h2 class="headlineFont">Schulbesuche</h2>
+        {{ include('schulbesuch/_showtable.html.twig', { 'schulbesuche': schulbesuche}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'schulbesuch_update', 'text': 'Hinzufügen'}) }}
+    {% endif %}
+    <h2 class="headlineFont">Allgemein</h2>
+    {{ include('allgemein/_show.html.twig', { 'registrierung': registrierung}) }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'allgemein_update', 'text': ''}) }}
 
     <br>
     {# TODO diesen Farblich abheben #}

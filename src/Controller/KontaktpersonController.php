@@ -69,4 +69,32 @@ class KontaktpersonController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/update", name="kontaktperson_update", methods={"GET","POST"})
+     */
+    public function update(Request $request): Response
+    {
+        $session = $request->getSession();
+        $kontaktperson = new Kontaktperson();
+        $form = $this->createForm(KontaktpersonType::class, $kontaktperson);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $kontaktperson = $form->getData();
+            if($kontaktperson->getArt() == "ET") {
+                if($kontaktperson->getAnrede() == "H") {
+                    $kontaktperson->setArt("VA");
+                } elseif ($kontaktperson->getAnrede() == "F") {
+                    $kontaktperson->setArt("MU");
+                }
+            }
+            $session->get('registrierung')->getSchueler()->addKontaktperson($kontaktperson);
+
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('kontaktperson/new.html.twig', [
+            'kontaktperson' => $kontaktperson,
+            'form' => $form->createView(),
+        ]);
+    }
 }

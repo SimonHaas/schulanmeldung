@@ -30,7 +30,7 @@ class SchuelerType extends AbstractType
                 'choices' => [
                     'männlich' => 'M',
                     'weiblich' => 'W',
-                    'andere' => 'D'
+                    'divers' => 'D'
                 ]
             ])
             ->add('strasse')

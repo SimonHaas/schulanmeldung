@@ -1,0 +1,18 @@
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Eintritt in die Berufsschule I am</th>
+        <td>{{ registrierung.eintrittAm|date('d. M Y') }}</td>
+    </tr>
+    <tr>
+        <th>Unterbringung in Wohnheim gewünscht</th>
+        <td>{{ registrierung.wohnheim ? 'Ja' : 'Nein'}}</td>
+    </tr>
+    {% if registrierung.mitteilung is not null %}
+    <tr>
+        <th>Mitteilung an die Berufsschule I</th>
+        <td>{{ registrierung.mitteilung }}</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
