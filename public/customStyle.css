@@ -42,7 +42,7 @@ body{
 }
 
 .SpacingTop{
-    padding-top: 4%;
+    padding-top: 2%;
 }
 
 .blankLink{
@@ -91,7 +91,6 @@ body{
 
 .confirmButton{
     border-color: #00cc00;
-    color: ;
 }
 
 .confirmButton:hover{
