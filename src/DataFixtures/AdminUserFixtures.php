@@ -21,7 +21,7 @@ class AdminUserFixtures extends Fixture
     {
 
         $user = new AdminUser(1);
-        $user->setEmail('max.grossmann@hof-university.de');
+        $user->setEmail('admin@bs1-bt.de');
         $user->setRoles($user->getRoles());
 
         $user->setPassword($this->passwordEncoder->encodePassword(
