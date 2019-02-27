@@ -43,7 +43,7 @@ class Schule
     private $ort;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=5)
      */
     private $plz;
 
@@ -149,6 +149,6 @@ class Schule
 
     public function __toString()
     {
-        return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHausnummer();
+        return $this->getName() . ', ' . $this->getStrasse();
     }
 }

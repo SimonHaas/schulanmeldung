@@ -30,13 +30,13 @@ class AnmeldungController extends AbstractController
      */
     public function index(Request $request)
     {
-        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+        if ($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
         } else {
             $session = new Session();
         }
 
-        if($session->has('registrierung')) {
+        if ($session->has('registrierung')) {
             $registrierung = $session->get('registrierung');
             $schueler = $registrierung->getSchueler();
         } else {
@@ -53,8 +53,9 @@ class AnmeldungController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $registrierung = $form->getData();
             $session->set('registrierung', $registrierung);
-            switch($registrierung->getTyp()) {
-                case "AUAU": case "EQ":
+            switch ($registrierung->getTyp()) {
+                case "AUAU":
+                case "EQ":
                     return $this->redirectToRoute('ausbildung_new');
                 case "UM":
                     return $this->redirectToRoute('umschueler_new');
@@ -62,11 +63,12 @@ class AnmeldungController extends AbstractController
                     return $this->redirectToRoute('fluechtling_new');
                 default:
                     return $this->redirectToRoute('schueler_new');
+            }
         }
-        return $this->render('anmeldung/start.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+            return $this->render('anmeldung/start.html.twig', [
+                'form' => $form->createView(),
+            ]);
+        }
 
     /**
      * @Route("/daten-pruefen", name="daten_pruefen")
@@ -84,6 +86,11 @@ class AnmeldungController extends AbstractController
         $registrierung = $session->get('registrierung');
         $schueler = $registrierung->getSchueler();
         $ausbildung = $schueler->getAusbildung();
+        if(!empty($ausbildung)) {
+            $betrieb = $ausbildung->getBetrieb();
+        } else {
+            $betrieb = null;
+        }
         $kontaktpersonen = $schueler->getKontaktpersonen();
         $fluechtling = $schueler->getFluechtling();
         $umschueler = $schueler->getUmschueler();

@@ -40,10 +40,10 @@ class BetriebType extends AbstractType
 
             ])
             ->add('telDurchwahl', TelType::class, [
-
+                'required' => false
             ])
             ->add('fax', TelType::class, [
-
+                'required' => false
             ])
             ->add('email', EmailType::class, [
 

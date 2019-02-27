@@ -48,15 +48,7 @@
     </div>
         <br>
     <div class="row">
-        <div class="col-lg-4">
-            {{ form_widget(form.geburtsdatum.day, {'attr': {'class': 'form-control',}}) }}
-        </div>
-        <div class="col-lg-4">
-            {{ form_widget(form.geburtsdatum.month, {'attr': {'class': 'form-control',}}) }}
-        </div>
-        <div class="col-lg-4">
-            {{ form_widget(form.geburtsdatum.year, {'attr': {'class': 'form-control',}}) }}
-        </div>
+            {{ form_widget(form.geburtsdatum, {'attr': {'placeholder': 'Geburtsdatum', 'class': 'form-control',}}) }}
     </div>
     <br>
     <div class="row">
@@ -65,6 +57,7 @@
         </div>
         <div class="col-lg-6">
             {{ form_widget(form.geburtsland, {'attr': {'placeholder': 'Geburtsland', 'class': 'form-control',}}) }}
+            {{ form_widget(form.zuzugAm, {'attr': {'placeholder': 'Zuzug Am', 'class': 'form-control',}}) }}
         </div>
     </div>
     <br>
