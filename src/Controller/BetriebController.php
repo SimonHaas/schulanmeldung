@@ -39,7 +39,6 @@ class BetriebController extends AbstractController
 
         if($session->has('betrieb')) {
             $betrieb = $session->get('betrieb');
-            $this->getDoctrine()->getManager()->persist($betrieb->getKammer());
         } else {
             $betrieb = new Betrieb();
         }
