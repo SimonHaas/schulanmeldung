@@ -1,18 +1,16 @@
-<h1>Ausbildung</h1>
-
 <table class="table">
     <tbody>
     <tr>
         <th>Betrieb</th>
-        <td>{{ ausbildung.betrieb.name }}</td>
+        <td>{{ include('betrieb/_show.html.twig', { 'betrieb': ausbildung.betrieb}) }}</td>
     </tr>
     <tr>
-        <th>Beginn</th>
-        <td>{{ ausbildung.beginn|date('d.m.Y') }}</td>
+        <th>Ausbildungsbeginn</th>
+        <td>{{ ausbildung.beginn ? ausbildung.beginn|date('d.m.Y') : ''}}</td>
     </tr>
     <tr>
-        <th>Ende</th>
-        <td>{{ ausbildung.ende|date('d.m.Y') }}</td>
+        <th>Ausbildungsende</th>
+        <td>{{ ausbildung.ende ? ausbildung.ende|date('d.m.Y') : ''}}</td>
     </tr>
     <tr>
         <th>Beruf</th>

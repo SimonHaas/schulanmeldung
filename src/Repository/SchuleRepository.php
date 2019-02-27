@@ -19,6 +19,17 @@ class SchuleRepository extends ServiceEntityRepository
         parent::__construct($registry, Schule::class);
     }
 
+    /**
+     * @return Schule[] Returns all verified Schulen
+     */
+    public function findAllVerified()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.istVerifiziert = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Schule[] Returns an array of Schule objects
 //     */

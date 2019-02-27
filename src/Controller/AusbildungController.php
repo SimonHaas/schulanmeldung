@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Ausbildung;
+use App\Entity\Beruf;
+use App\Entity\Betrieb;
 use App\Form\AusbildungType;
 use App\Repository\BetriebRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -59,12 +62,7 @@ class AusbildungController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $ausbildung = $form->getData();
-
-            $schueler = $session->get('registrierung')->getSchueler();
-            $schueler->setAusbildung($ausbildung);
-            $session->get('registrierung')->setSchueler($schueler);
-
+            $this->saveToSession($form->getData(), $session);
             return $this->redirectToRoute('schueler_new');
         }
         return $this->render('ausbildung/new.html.twig', [
@@ -80,12 +78,31 @@ class AusbildungController extends AbstractController
     public function update(Request $request)
     {
         $session = $request->getSession();
-        //TODO Ausbildung aus der Registrierung ableiten
-        $ausbildung = $session->get('ausbildung');
-        $form = $this->createForm(AusbildungType::class, $ausbildung);
+
+        $session->set('update', true);
+
+        $ausbildung = $session->get('registrierung')->getSchueler()->getAusbildung();
+        $beruf = $this->getDoctrine()->getRepository(Beruf::class)->find($ausbildung->getBeruf()->getId());
+        $betriebe[] = $this->getDoctrine()->getRepository(Betrieb::class)->findAllVerified();
+        $betrieb = $ausbildung->getBetrieb();
+        if($session->has('betrieb')) {
+            $betrieb = $session->get('betrieb');
+        }
+        if(empty($betrieb->getId())) {
+            $this->getDoctrine()->getManager()->persist($betrieb);
+        } else {
+            $betrieb = $this->getDoctrine()->getRepository(Betrieb::class)->find($betrieb->getId());
+        }
+        $betriebe[] = $betrieb;
+        $ausbildung->setBetrieb($betrieb);
+        $ausbildung->setBeruf($beruf);
+        $form = $this->createForm(AusbildungType::class, $ausbildung, ['betriebe' => $betriebe, 'betriebNeu' => $betrieb]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->saveToSession($form->getData(), $session);
+            $session->remove('update');
+            $session->remove('betrieb');
             return $this->redirectToRoute('daten_pruefen');
         }
 
@@ -93,5 +110,10 @@ class AusbildungController extends AbstractController
             'ausbildung' => $ausbildung,
             'form' => $form->createView(),
         ]);
+    }
+    private function saveToSession(Ausbildung $ausbildung, Session $session) {
+        $schueler = $session->get('registrierung')->getSchueler();
+        $schueler->setAusbildung($ausbildung);
+        $session->get('registrierung')->setSchueler($schueler);
     }
 }

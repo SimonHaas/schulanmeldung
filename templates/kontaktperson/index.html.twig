@@ -5,40 +5,7 @@
 {% block body %}
     <h1>Kontaktperson index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Anrede</th>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>Strasse</th>
-                <th>Hausnummer</th>
-                <th>Plz</th>
-                <th>Ort</th>
-                <th>Telefonnummer</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for kontaktperson in kontaktpeople %}
-            <tr>
-                <td>{{ kontaktperson.anrede }}</td>
-                <td>{{ kontaktperson.vorname }}</td>
-                <td>{{ kontaktperson.nachname }}</td>
-                <td>{{ kontaktperson.strasse }}</td>
-                <td>{{ kontaktperson.hausnummer }}</td>
-                <td>{{ kontaktperson.plz }}</td>
-                <td>{{ kontaktperson.ort }}</td>
-                <td>{{ kontaktperson.telefonnummer }}</td>
-                <td>{{ kontaktperson.email }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {{ include('kontaktperson/_showtable.html.twig', {'kontaktpeople': kontaktpeople}) }}
 
     <a href="{{ path('kontaktperson_new') }}">Create new</a>
     <a href="{{ path('vorbildung_index') }}">Weiter</a>

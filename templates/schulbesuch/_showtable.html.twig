@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Schulname</th>
+        <th>Eintritt</th>
+        <th>Austritt</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for schulbesuch in schulbesuche %}
+        <tr>
+            <td>{{ schulbesuch.schule.name }}</td>
+            <td>{{ schulbesuch.eintritt ? schulbesuch.eintritt|date('Y-m-d') : '' }}</td>
+            <td>{{ schulbesuch.austritt ? schulbesuch.austritt|date('Y-m-d') : '' }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
