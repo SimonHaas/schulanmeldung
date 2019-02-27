@@ -18,12 +18,17 @@
     </style>
 
     <div class="example-wrapper">
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
         <div>
-                    <pre>
-        {% for import_string in import_strings %}
-            {{ import_string }}
-        {% endfor %}
-        </pre>
+            {% if import_strings|length > 0 %}
+                <pre>
+                        {% for import_string in import_strings %}
+                            {{ import_string }}
+                        {% endfor %}
+                </pre>
+            {% else %}
+                <p>Es gibt aktuell keine Registrierungen</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
