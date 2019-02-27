@@ -5,7 +5,6 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class StartType extends AbstractType
@@ -17,7 +16,8 @@ class StartType extends AbstractType
                 'label' => 'Art der Beschäftigung',
                 'placeholder' => 'Auswählen...',
                 'choices' => [
-                    'Ausbildung mit Ausbildungsvertrag / EQ-Maßnahme' => 'AUAU',
+                    'Ausbildung mit Ausbildungsvertrag' => 'AUAU',
+                    'EQ-Maßnahme' => 'EQ',
                     'Umschüler mit Vertrag' => 'UM',
                     'Berufsgrundschuljahr Bautechnik: Holztechnik (Schreiner/Holzmechaniker)' => 'BGJH',
                     'Berufsgrundschuljahr Bautechnik: Zimmerer' => 'BGJZ',
@@ -28,9 +28,6 @@ class StartType extends AbstractType
                     'Berufsvorbereitungsjahr' => 'BVJ',
                     'Klasse für Flüchtlinge und Asylbewerber' => 'BIK'
                 ]
-            ])->add('istEQMassnahme', CheckboxType::class, [
-                'label' => 'EQ-Maßnahme',
-                'required' => false
             ]);
     }
 

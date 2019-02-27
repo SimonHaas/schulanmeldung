@@ -2,9 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Ausbildung;
-use App\Entity\Betrieb;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -18,10 +15,18 @@ class AllgemeinType extends AbstractType
     {
 
         $builder
-            ->add('eintrittAm', DateType::class) //TODO eintritt wohin? Eindeutig benennen oder mit kurzen Text erklären
-            ->add('wohnheim', CheckboxType::class) //TODO das ist required, soll es aber nicht sein
-            ->add('mitteilung', TextareaType::class); //TODO das ist required, soll es aber nicht sein
-        //TODO kurz erläutern wozu eine Mitteilung. Für wen? Was wäre ein Grund da was reinzuschreiben?
+            ->add('eintrittAm', DateType::class, [
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'datetime',
+                'format' => 'dd.mm.yyyy'
+            ])
+            ->add('wohnheim', CheckboxType::class, [
+                'required' => false
+            ])
+            ->add('mitteilung', TextareaType::class, [
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

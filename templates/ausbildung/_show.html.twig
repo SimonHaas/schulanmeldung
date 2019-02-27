@@ -1,18 +1,22 @@
-<h2 class="headlineFont">Ausbildung</h2>
+<h1>Ausbildung</h1>
 
-<table class="table table-hover">
+<table class="table">
     <tbody>
     <tr>
+        <th>Betrieb</th>
+        <td>{{ ausbildung.betrieb.name }}</td>
+    </tr>
+    <tr>
         <th>Beginn</th>
-        <td>{{ ausbildung.beginn ? ausbildung.beginn|date('Y-m-d') : '' }}</td>
+        <td>{{ ausbildung.beginn|date('d.m.Y') }}</td>
     </tr>
     <tr>
         <th>Ende</th>
-        <td>{{ ausbildung.ende ? ausbildung.ende|date('Y-m-d') : '' }}</td>
+        <td>{{ ausbildung.ende|date('d.m.Y') }}</td>
     </tr>
     <tr>
         <th>Beruf</th>
-        <td>{{ ausbildung.beruf }}</td>
+        <td>{{ ausbildung.beruf.bezeichnung }}</td>
     </tr>
     </tbody>
 </table>

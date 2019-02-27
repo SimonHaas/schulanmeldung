@@ -59,11 +59,12 @@ class AusbildungController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            if($session->has('betrieb')) {
-                $session->remove('betrieb');
-            }
             $ausbildung = $form->getData();
-            $session->get('registrierung')->getSchueler()->setAusbildung($ausbildung);
+
+            $schueler = $session->get('registrierung')->getSchueler();
+            $schueler->setAusbildung($ausbildung);
+            $session->get('registrierung')->setSchueler($schueler);
+
             return $this->redirectToRoute('schueler_new');
         }
         return $this->render('ausbildung/new.html.twig', [

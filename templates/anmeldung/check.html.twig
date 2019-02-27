@@ -8,6 +8,11 @@
     </div>
 
     {{ include('registrierung/_show.html.twig', { 'registrierung': registrierung}) }}
+    <button><a href="{{ path('registrierung_update') }}">Bearbeiten</a></button>
+    {% if ausbildung %}
+    {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
+    {% endif %}
+    {#
     {{ include('anmeldung/_checkButton.html.twig', {'route': 'registrierung_update'}) }}
 
     {% if fluechtling %}
@@ -40,7 +45,7 @@
     {% endif %}
     {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
     {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update'}) }}
-    
+
     <br>
     {# TODO diesen Farblich abheben #}
     <a class="btn btn-outline-primary  BayreuthButton buttonFont btn-block blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>

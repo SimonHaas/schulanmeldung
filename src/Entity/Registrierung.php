@@ -48,11 +48,6 @@ class Registrierung
     private $typ;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $istEQMassnahme;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Schueler", inversedBy="registrierung", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -131,18 +126,6 @@ class Registrierung
     public function setTyp(string $typ): self
     {
         $this->typ = $typ;
-
-        return $this;
-    }
-
-    public function getIstEQMassnahme(): ?bool
-    {
-        return $this->istEQMassnahme;
-    }
-
-    public function setIstEQMassnahme(bool $istEQMassnahme): self
-    {
-        $this->istEQMassnahme = $istEQMassnahme;
 
         return $this;
     }

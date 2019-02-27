@@ -47,6 +47,11 @@ class Schule
      */
     private $plz;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $istVerifiziert;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,5 +133,22 @@ class Schule
     public function getNummer()
     {
         return $this->nummer;
+    }
+
+    public function getIstVerifiziert(): ?bool
+    {
+        return $this->istVerifiziert;
+    }
+
+    public function setIstVerifiziert(bool $istVerifiziert): self
+    {
+        $this->istVerifiziert = $istVerifiziert;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ', ' . $this->getStrasse() . ' ' . $this->getHausnummer();
     }
 }

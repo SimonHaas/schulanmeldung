@@ -18,7 +18,7 @@ class Kontaktperson
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1)
      */
     private $anrede;
 
@@ -38,12 +38,12 @@ class Kontaktperson
     private $strasse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=10)
      */
     private $hausnummer;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=5)
      */
     private $plz;
 
@@ -53,7 +53,7 @@ class Kontaktperson
     private $ort;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=30, nullable=true)
      */
     private $telefonnummer;
 
@@ -67,6 +67,11 @@ class Kontaktperson
      * @ORM\JoinColumn(nullable=false)
      */
     private $schueler;
+
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $art;
 
     public function getId(): ?int
     {
@@ -121,12 +126,12 @@ class Kontaktperson
         return $this;
     }
 
-    public function getHausnummer(): ?int
+    public function getHausnummer(): ?string
     {
         return $this->hausnummer;
     }
 
-    public function setHausnummer(int $hausnummer): self
+    public function setHausnummer(string $hausnummer): self
     {
         $this->hausnummer = $hausnummer;
 
@@ -189,6 +194,18 @@ class Kontaktperson
     public function setSchueler(?Schueler $schueler): self
     {
         $this->schueler = $schueler;
+
+        return $this;
+    }
+
+    public function getArt(): ?string
+    {
+        return $this->art;
+    }
+
+    public function setArt(?string $art): self
+    {
+        $this->art = $art;
 
         return $this;
     }
