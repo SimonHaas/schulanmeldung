@@ -39,7 +39,7 @@ class BetriebType extends AbstractType
             ->add('fax', null, [
                 'attr' => ['class' => 'betrieb_item']
             ])
-            ->add('email', null, [
+            ->add('email', null, [ //TODO input type="email"
                 'attr' => ['class' => 'betrieb_item']
             ])
             ->add('gemeindeschluessel', null, [

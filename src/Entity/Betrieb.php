@@ -74,9 +74,11 @@ class Betrieb
      */
     private $istVerifiziert;
 
+    //TODO im Formular sicherstellen, dass das nicht null ist.
+    // neue Kammer anlegen, oder im Nofall doch auf Null lassen?
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Kammer")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $kammer;
 

@@ -133,11 +133,14 @@ class Schueler
      * @ORM\Column(type="string", length=255)
      */
     private $hoechsterAbschluss;
+    //TODO kann null sein wenn man keine Schulabschluss hat
 
     /**
      * @ORM\Column(type="date")
      */
     private $hoechAbschlAm;
+    //TODO rename to $hoechsterAbschlussDatum
+    //TODO kann null sein wenn man keine Schulabschluss hat
 
     public function __construct()
     {
@@ -155,9 +158,10 @@ class Schueler
         return $this->vorname;
     }
 
-    public function setVorname(string $vorname): self
+    public function setVorname(string $vorname, bool $uppercase = true): self
     {
-        $this->vorname = $vorname;
+        if($uppercase)
+            $this->vorname = ucwords($vorname);
 
         return $this;
     }
@@ -167,9 +171,10 @@ class Schueler
         return $this->nachname;
     }
 
-    public function setNachname(string $nachname): self
+    public function setNachname(string $nachname, bool $uppercase = true): self
     {
-        $this->nachname = $nachname;
+        if($uppercase)
+            $this->nachname = $nachname;
 
         return $this;
     }
@@ -179,9 +184,10 @@ class Schueler
         return $this->rufname;
     }
 
-    public function setRufname(string $rufname): self
+    public function setRufname(string $rufname, bool $uppercase = true): self
     {
-        $this->rufname = $rufname;
+        if($uppercase)
+            $this->rufname = $rufname;
 
         return $this;
     }
