@@ -1,7 +1,25 @@
 {{ form_start(form) }}
-    {{ form_row(form.schule) }}
-    <a href="{{ path('schule_new') }}">Neue Schule anlegen</a>
-    {{ form_row(form.eintritt) }}
-    {{ form_row(form.austritt) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="row">
+    <div class="col-lg-12">
+        <label class="labelFont">Schule</label>
+        {{  form_widget(form.schule, {'attr':{'class':'form-control'}}) }}
+    </div>
+</div>
+
+<a class="btn BayreuthButton btn-sm smallButtonDistance blankLinkButton" href="{{ path('schule_new') }}">Neue Schule anlegen</a>
+
+<div class="row">
+    <div class="col-lg-6">
+        <label class="labelFont">Eintritt</label>
+        {{  form_widget(form.eintritt, {'attr':{'class':'form-control'}}) }}
+    </div>
+    <div class="col-lg-6">
+        <label class="labelFont">Austritt</label>
+        {{  form_widget(form.austritt, {'attr':{'class':'form-control'}}) }}
+    </div>
+</div>
+
+<br>
+    <button class="btn BayreuthButton buttonFont btn-block blankLinkButton">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

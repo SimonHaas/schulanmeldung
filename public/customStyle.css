@@ -52,11 +52,13 @@ body{
 .BayreuthButton{
     border-color: #00377B!important;
     margin-bottom: 30px;
+    color: #00377B!important;
+    background-color: white;
 }
 
 .BayreuthButton:hover{
     background-color: #00377B!important;
-    color: white;
+    color: white!important;
 }
 
 .greyFooter{
@@ -75,4 +77,23 @@ body{
 
 .jumbotron{
     margin-bottom:0!important;
+}
+
+.smallButtonDistance{
+    margin-top: 2%;
+}
+
+.invisibleItems{
+    visibility: hidden;
+}
+
+
+.confirmButton{
+    border-color: #00cc00;
+    color: ;
+}
+
+.confirmButton:hover{
+    background-color: #00cc00;
+    color: black;
 }
