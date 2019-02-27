@@ -31,9 +31,7 @@
                     <td>{{ entry.datum | date('d.m.Y') }}</td>
                     <td>{{ entry.mitteilung }}</td>
                     <td>
-                        <a class="btn btn-xs btn-danger" href="{{ path('admin_registrations_delete', {'id': entry.id }) }}">
-                            Löschen
-                        </a>
+                        {{ include('registrierung/_delete_form.html.twig', {'registrierung': entry}) }}
                     </td>
                 </tr>
             {% endfor %}
