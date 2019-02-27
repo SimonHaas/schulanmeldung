@@ -37,11 +37,6 @@ class Betrieb
     /**
      * @ORM\Column(type="string", length=5)
      */
-    private $hsnr;
-
-    /**
-     * @ORM\Column(type="string", length=5)
-     */
     private $plz;
 
     /**
@@ -121,18 +116,6 @@ class Betrieb
     public function setStrasse(string $strasse): self
     {
         $this->strasse = $strasse;
-
-        return $this;
-    }
-
-    public function getHsnr(): ?string
-    {
-        return $this->hsnr;
-    }
-
-    public function setHsnr(string $hsnr): self
-    {
-        $this->hsnr = $hsnr;
 
         return $this;
     }

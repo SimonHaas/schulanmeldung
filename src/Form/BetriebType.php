@@ -21,9 +21,6 @@ class BetriebType extends AbstractType
             ->add('strasse', null, [
 
             ])
-            ->add('hsnr', null, [
-
-            ])
             ->add('plz', null, [
 
             ])
