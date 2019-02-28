@@ -18,15 +18,13 @@ class AusbildungType extends AbstractType
         $builder
             ->add('beginn', DateType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
-                'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
+                // 'html5' => false,
+                 'input' => 'datetime',
+                //  'format' => 'dd.mm.yyyy'
             ])
             ->add('ende', DateType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
             ]);
         if(!empty($options['betriebNeu'])) {
             $builder->add('betrieb', EntityType::class, [

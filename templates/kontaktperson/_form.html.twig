@@ -22,36 +22,36 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Straße</label>
         {{ form_widget(form.strasse, {'attr':{'placeholder': 'Musterstraße', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Hausnummer</label>
         {{ form_widget(form.hausnummer, {'attr':{'placeholder': '15', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Postleitzahl</label>
         {{ form_widget(form.plz, {'attr':{'placeholder': '90000', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Ort</label>
         {{ form_widget(form.ort, {'attr':{'placeholder': 'Musterstadt', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Telefonnummer</label>
         {{ form_widget(form.telefonnummer, {'attr':{'placeholder': '0123456789', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Email</label>
         {{ form_widget(form.email, {'attr':{'placeholder': 'm.mustermann@musterkontakt.de', 'class':'form-control'}}) }}
     </div>
 </div>
 
 <br>
-<button class="btn BayreuthButton buttonFont btn-block blankLinkButton">{{ button_label|default('Save') }}</button>
+<button class="btn controlButton buttonFont btn-block blankLinkButton">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
