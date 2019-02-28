@@ -41,7 +41,7 @@ class AdminExport extends AbstractController
                 '%mitteilung%' => $registration->getMitteilung(),
                 '%wohnheim%' => $registration->getWohnheim(),
                 '%eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
-                '%eq_massnahme%' => $registration->getIstEQMassnahme(),
+                '%eq_massnahme%' => 0,
                 '%nachname%' => $schueler->getNachname(),
                 '%vorname%' => $schueler->getVorname(),
                 '%rufname%' => $schueler->getRufname(),
@@ -83,7 +83,7 @@ class AdminExport extends AbstractController
                     $registrationData[$baseKey . '_schule_art%'] = $schule->getArt();
                     $registrationData[$baseKey . '_schule_name%'] = $schule->getName();
                     $registrationData[$baseKey . '_schule_strasse%'] = $schule->getStrasse();
-                    $registrationData[$baseKey . '_schule_hausnummer%'] = $schule->getHausnummer();
+                    $registrationData[$baseKey . '_schule_hausnummer%'] = $schule->getStrasse();
                     $registrationData[$baseKey . '_schule_ort%'] = $schule->getOrt();
                     $registrationData[$baseKey . '_schule_plz%'] = $schule->getPlz();
                 }
