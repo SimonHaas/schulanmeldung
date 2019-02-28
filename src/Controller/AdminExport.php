@@ -37,6 +37,7 @@ class AdminExport extends AbstractController
         foreach ($doctrineRegistrations as $registration) {
             $schueler = $registration->getSchueler();
 
+
             $registrationData = array(
                 '%mitteilung%' => $registration->getMitteilung(),
                 '%wohnheim%' => $registration->getWohnheim(),
@@ -50,6 +51,7 @@ class AdminExport extends AbstractController
                 '%geburtsort%' => $schueler->getGeburtsort(),
             );
 
+            /*
             $kontaktPersonen = $schueler->getKontaktpersonen();
 
             if (isset($kontaktPersonen) && sizeof($kontaktPersonen) > 0) {
@@ -103,6 +105,8 @@ class AdminExport extends AbstractController
                     $registrationData[$baseKey . '_schule_plz%'] = $schule->getPlz();
                 }
             }
+            */
+
 
             array_push($assocRegistrations, $registrationData);
         }
