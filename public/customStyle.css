@@ -105,3 +105,14 @@ body{
 .headlineGlobal{
     text-decoration: underline;
 }
+
+#copyright{
+    font-size: small;
+    text-align: center;
+    margin-top: 40px;
+}
+
+#copyright a{
+    text-decoration: none;
+    color: white;
+}
