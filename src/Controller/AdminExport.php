@@ -58,6 +58,10 @@ class AdminExport extends AbstractController
 
                     $kontaktPerson = $kontaktPersonen[$i];
 
+                    if (!isset($kontaktPerson)) {
+                        continue;
+                    }
+
                     $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_nachname%'] = $kontaktPerson->getNachname();
@@ -76,10 +80,21 @@ class AdminExport extends AbstractController
                     $baseKey = '%schulbesuch_' . ($i + 1);
 
                     $schulBesuch = $schulBesuche[$i];
-                    $schule = $schulBesuch->getSchule();
+
+                    if (!isset($schulBesuch)) {
+                        continue;
+                    }
+
 
                     $registrationData[$baseKey . '_eintritt%'] = $schulBesuch->getEintritt()->format('d.m.Y');
                     $registrationData[$baseKey . '_austritt%'] = $schulBesuch->getAustritt()->format('d.m.Y');
+
+                    if (!isset($schulBesuch)) {
+                        continue;
+                    }
+
+                    $schule = $schulBesuch->getSchule();
+
                     $registrationData[$baseKey . '_schule_art%'] = $schule->getArt();
                     $registrationData[$baseKey . '_schule_name%'] = $schule->getName();
                     $registrationData[$baseKey . '_schule_strasse%'] = $schule->getStrasse();
