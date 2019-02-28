@@ -1,2 +1,0 @@
-[25-Sep-2018 09:09:08 UTC] PHP Fatal error:  Allowed memory size of 2147483648 bytes exhausted (tried to allocate 1073745920 bytes) in C:\Users\Christian Löwel\SynologyDrive\Berufsschule\IFI11d\schulanmeldung\src\Form\SchuelerType.php on line 14
-[25-Sep-2018 09:09:08 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in C:\Users\Christian Löwel\SynologyDrive\Berufsschule\IFI11d\schulanmeldung\vendor\symfony\debug\ErrorHandler.php on line 575

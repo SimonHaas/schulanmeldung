@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-lg-12">
+        <label class="labelFont">Eintritt am</label>
+        {{  form_widget(form.eintrittAm, {'attr':{'placeholder': '27.02.2019', 'class':'form-control'}}) }}
+    </div>
+</div>
+
+<br>
+<div class="row">
+    <div class="col-lg-2">
+        <label class="labelFont">Wohnheim</label>
+    </div>
+    <div class="col-lg-10">
+    {{  form_widget(form.wohnheim) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <label class="labelFont">Mitteilung</label>
+        {{  form_widget(form.mitteilung, {'attr':{'placeholder': 'Hier wichtige Informationen notieren', 'class':'form-control'}}) }}
+    </div>
+</div>
+<br>
+<input class="btn BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />
+{{ form_end(form) }}
+

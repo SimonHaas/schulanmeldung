@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+
+<h1 class="headlineFont">Umschüler</h1>
+
+<div class="row">
+    <div class="col-lg-12">
+        <label class="labelFont">Träger</label>
+        {{  form_widget(form.traeger, {'attr':{'placeholder': 'Träger', 'class':'form-control'}}) }}
+
+        <label class="labelFont">Trägersitz</label>
+        {{  form_widget(form.traegerSitz, {'attr':{'placeholder': 'Trägersitz', 'class':'form-control'}}) }}
+
+        <label class="labelFont">Förderer Nummer</label>
+        {{  form_widget(form.foerdererNr, {'attr':{'class':'form-control'}}) }}
+    </div>
+</div>
+
+<br>
+<input class="btn BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />
+{{ form_end(form) }}
+

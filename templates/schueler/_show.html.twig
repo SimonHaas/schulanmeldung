@@ -1,0 +1,62 @@
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td>{{ schueler.vorname }} {{ schueler.nachname }}</td>
+    </tr>
+    <tr>
+        <th>Rufname</th>
+        <td>{{ schueler.rufname }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsdatum</th>
+        <td>{{ schueler.geburtsdatum ? schueler.geburtsdatum|date('d.m.Y') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsort</th>
+        <td>{{ schueler.geburtsort }}</td>
+    </tr>
+        <tr>
+        <th>Geschlecht</th>
+        <td>
+            {% if schueler.geschlecht == 'M' %}
+                Männlich
+            {% elseif schueler.geschlecht == 'W' %}
+                Weiblich
+            {% elseif schueler.geschlecht == 'D' %}
+                Divers
+            {% else %}
+                Fehler
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Straße</th>
+        <td>{{ schueler.strasse }} {{ schueler.hsnr }}</td>
+    </tr>
+    <tr>
+        <th>Ort</th>
+        <td>{{ schueler.plz }} {{ schueler.ort }}</td>
+    </tr>
+    <tr>
+        <th>Telefonnummer</th>
+        <td>{{ schueler.tel }}</td>
+    </tr>
+    <tr>
+        <th>E-Mail Adresse</th>
+        <td>{{ schueler.email }}</td>
+    </tr>
+    <tr>
+        <th>Geburtsland</th>
+        <td>{{ schueler.geburtsland }}</td>
+    </tr>
+    <tr>
+        <th>Staatsangehörigkeit</th>
+        <td>{{ schueler.staatsangehoerigkeit }}</td>
+    </tr>
+    <tr>
+        <th>Bekenntnis</th>
+        <td>{{ schueler.bekenntnis }}</td>
+    </tr>
+    </tbody>
+</table>

@@ -5,10 +5,8 @@ namespace App\Form;
 use App\Entity\Kontaktperson;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,24 +15,32 @@ class KontaktpersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('art', ChoiceType::class, [
+                'placeholder' => 'Auswählen...',
+                'choices' => [
+                    'Elternteil' => 'ET',
+                    'Vormund' => 'VO',
+                    'Verwandter' => 'VW',
+                    'Pflegeeltern' => 'PF',
+                    'Heimleiter' => 'HL',
+                    'keine' => 'k',
+                ]
+            ])
             ->add('anrede', ChoiceType::class, [
-                'choices'  => [
-                    'Herr' => 'Herr',
-                    'Frau' => 'Frau',
-                ],
+                'placeholder' => 'Auswählen...',
+                'choices' => [
+                    'Herr' => 'H',
+                    'Frau' => 'F'
+                ]
             ])
-            ->add('vorname', TextType::class)
-            ->add('nachname', TextType::class)
-            ->add('strasse', TextType::class)
-            ->add('hausnummer', TextType::class)
-            ->add('plz', NumberType::class)
-            ->add('ort', TextType::class)
-            ->add('telefonnummer', NumberType::class)
+            ->add('vorname')
+            ->add('nachname')
+            ->add('strasse')
+            ->add('hausnummer')
+            ->add('plz')
+            ->add('ort')
+            ->add('telefonnummer', TelType::class)
             ->add('email', EmailType::class)
-            ->add('submit', SubmitType::class, [
-                'label' => 'Create',
-                'attr' => ['class' => 'btn btn-primary pull-right'],
-            ])
         ;
     }
 

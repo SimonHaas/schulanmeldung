@@ -1,0 +1,26 @@
+<h2 class="headlineFont">Registrierung</h2>
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Datum</th>
+        <td>{{ registrierung.datum ? registrierung.datum|date('Y-m-d H:i:s') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Mitteilung</th>
+        <td>{{ registrierung.mitteilung }}</td>
+    </tr>
+    <tr>
+        <th>Wohnheim</th>
+        <td>{{ registrierung.wohnheim ? 'Yes' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th >Eintritt am</th>
+        <td>{{ registrierung.eintrittAm ? registrierung.eintrittAm|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Typ</th>
+        <td>{{ registrierung.typ }}</td>
+    </tr>
+    </tbody>
+</table>

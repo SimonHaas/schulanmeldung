@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registrierung{% endblock %}
+
+{% block body %}
+    {{ include('registrierung/_show.html.twig') }}
+
+    <a href="{{ path('registrierung_index') }}">back to list</a>
+
+    <a href="{{ path('registrierung_edit', {'id': registrierung.id}) }}">edit</a>
+
+    {{ include('registrierung/_delete_form.html.twig') }}
+{% endblock %}

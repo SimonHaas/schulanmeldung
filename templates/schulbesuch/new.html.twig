@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Schulbesuch{% endblock %}
+
+{% block body %}
+    <h1>Schulbesuch</h1>
+
+    {{ include('schulbesuch/_form.html.twig') }}
+
+    <a class="btn BayreuthButton buttonFont blankLinkButton  float-left" href="{{ path('vorbildung_index') }}">Zurück zur Übersicht</a>
+{% endblock %}

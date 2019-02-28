@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Schule{% endblock %}
+
+{% block body %}
+    <h1>Anlegen einer neuen Schule</h1>
+
+    {{ include('schule/_form.html.twig') }}
+
+    <a class="btn BayreuthButton buttonFont blankLinkButton" href="{{ path('schulbesuch_new') }}">Zurück</a>
+{% endblock %}

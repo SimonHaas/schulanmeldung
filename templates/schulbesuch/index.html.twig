@@ -1,0 +1,6 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kontaktperson index{% endblock %}
+{% block body %}
+    {{ include('schulbesuch/table.html.twig', {'schulbesuche': schulbesuche}) }}
+{% endblock %}

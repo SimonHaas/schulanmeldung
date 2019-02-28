@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Kontaktperson{% endblock %}
+
+{% block body %}
+    <h1>Ertellen einer neuen Kontaktperson</h1>
+
+    {{ include('kontaktperson/_form.html.twig') }}
+
+    <a class="btn BayreuthButton buttonFont blankLinkButton float-left" href="{{ path('kontaktperson_index') }}">Zurück zur Liste</a>
+{% endblock %}

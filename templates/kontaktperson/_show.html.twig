@@ -1,0 +1,22 @@
+<h3 class="headlineFont">{{ kontaktperson.anrede == 'H' ? 'Herr' : 'Frau' }} {{ kontaktperson.vorname }} {{ kontaktperson.nachname }}</h3>
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <th>Straße und Hausnummer</th>
+        <td>{{ kontaktperson.strasse }} {{ kontaktperson.hausnummer }}</td>
+    </tr>
+    <tr>
+        <th>Ort</th>
+        <td>{{ kontaktperson.plz }} {{ kontaktperson.ort }}</td>
+    </tr>
+    <tr>
+        <th>Telefonnummer</th>
+        <td>{{ kontaktperson.telefonnummer }}</td>
+    </tr>
+    <tr>
+        <th>E-Mail Adresse</th>
+        <td>{{ kontaktperson.email }}</td>
+    </tr>
+    </tbody>
+</table>

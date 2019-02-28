@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,141 +13,97 @@ use Doctrine\ORM\Mapping as ORM;
 class Betrieb
 {
     /**
-     * TODO wird des benötigt
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    //private $id;
+    private $id;
 
     /**
-     * @ORM\Id()
-     * @ORM\Column(type="string", length=255, nullable=false, name="B_SCHLUESSEL")
+     * @ORM\Column(type="string", length=255)
      */
-    private $schluessel;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME1")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name1;
+    private $ansprPartner;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME2")
-     */
-    private $name2;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_NAME4")
-     */
-    private $name3;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true, name="B_PLZ")
-     */
-    private $plz;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_STRASSE")
+     * @ORM\Column(type="string", length=255)
      */
     private $strasse;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_ORT")
+     * @ORM\Column(type="string", length=5)
+     */
+    private $plz;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $ort;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON1")
+     * @ORM\Column(type="string", length=255)
      */
-    private $telefon1;
+    private $telZentrale;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON2")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $telefon2;
+    private $telDurchwahl;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_TELEFON3")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $telefon3;
+    private $fax;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_E_MAIL")
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false, name="B_GEMEINDEKZ")
+     * @ORM\Column(type="boolean")
      */
-    private $gemeinde;
+    private $istVerifiziert;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, name="B_BBIG")
+     * @ORM\Column(type="string", length=8, nullable=true)
      */
-    private $bbig;
+    private $gemeindeschluessel;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $kammer;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-*/
-    public function getSchluessel(): ?string
+
+    public function getName(): ?string
     {
-        return $this->schluessel;
+        return $this->name;
     }
 
-    public function setSchluessel(?string $schluessel): self
+    public function setName(string $name): self
     {
-        $this->schluessel = $schluessel;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getName1(): ?string
+    public function getAnsprPartner(): ?string
     {
-        return $this->name1;
+        return $this->ansprPartner;
     }
 
-    public function setName1(?string $name1): self
+    public function setAnsprPartner(?string $ansprPartner): self
     {
-        $this->name1 = $name1;
-
-        return $this;
-    }
-
-    public function getName2(): ?string
-    {
-        return $this->name2;
-    }
-
-    public function setName2(?string $name2): self
-    {
-        $this->name2 = $name2;
-
-        return $this;
-    }
-
-    public function getName3(): ?string
-    {
-        return $this->name3;
-    }
-
-    public function setName3(?string $name3): self
-    {
-        $this->name3 = $name3;
-
-        return $this;
-    }
-
-    public function getPlz(): ?int
-    {
-        return $this->plz;
-    }
-
-    public function setPlz(?int $plz): self
-    {
-        $this->plz = $plz;
+        $this->ansprPartner = $ansprPartner;
 
         return $this;
     }
@@ -155,9 +113,21 @@ class Betrieb
         return $this->strasse;
     }
 
-    public function setStrasse(?string $strasse): self
+    public function setStrasse(string $strasse): self
     {
         $this->strasse = $strasse;
+
+        return $this;
+    }
+
+    public function getPlz(): ?string
+    {
+        return $this->plz;
+    }
+
+    public function setPlz(string $plz): self
+    {
+        $this->plz = $plz;
 
         return $this;
     }
@@ -167,45 +137,45 @@ class Betrieb
         return $this->ort;
     }
 
-    public function setOrt(?string $ort): self
+    public function setOrt(string $ort): self
     {
         $this->ort = $ort;
 
         return $this;
     }
 
-    public function getTelefon1(): ?string
+    public function getTelZentrale(): ?string
     {
-        return $this->telefon1;
+        return $this->telZentrale;
     }
 
-    public function setTelefon1(?string $telefon1): self
+    public function setTelZentrale(string $telZentrale): self
     {
-        $this->telefon1 = $telefon1;
+        $this->telZentrale = $telZentrale;
 
         return $this;
     }
 
-    public function getTelefon2(): ?string
+    public function getTelDurchwahl(): ?string
     {
-        return $this->telefon2;
+        return $this->telDurchwahl;
     }
 
-    public function setTelefon2(?string $telefon2): self
+    public function setTelDurchwahl(?string $telDurchwahl): self
     {
-        $this->telefon2 = $telefon2;
+        $this->telDurchwahl = $telDurchwahl;
 
         return $this;
     }
 
-    public function getTelefon3(): ?string
+    public function getFax(): ?string
     {
-        return $this->telefon3;
+        return $this->fax;
     }
 
-    public function setTelefon3(?string $telefon3): self
+    public function setFax(?string $fax): self
     {
-        $this->telefon3 = $telefon3;
+        $this->fax = $fax;
 
         return $this;
     }
@@ -215,33 +185,50 @@ class Betrieb
         return $this->email;
     }
 
-    public function setEmail(?string $email): self
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getGemeinde(): ?string
+    public function getIstVerifiziert(): ?bool
     {
-        return $this->gemeinde;
+        return $this->istVerifiziert;
     }
 
-    public function setGemeinde(?string $gemeinde): self
+    public function setIstVerifiziert(bool $istVerifiziert): self
     {
-        $this->gemeinde = $gemeinde;
+        $this->istVerifiziert = $istVerifiziert;
 
         return $this;
     }
 
-    public function getBbig(): ?string
+    public function getGemeindeschluessel(): ?string
     {
-        return $this->bbig;
+        return $this->gemeindeschluessel;
     }
 
-    public function setBbig(?string $bbig): self
+    public function setGemeindeschluessel(string $gemeindeschluessel): self
     {
-        $this->bbig = $bbig;
+        $this->gemeindeschluessel = $gemeindeschluessel;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ', ' . $this->getStrasse();
+    }
+
+    public function getKammer(): ?int
+    {
+        return $this->kammer;
+    }
+
+    public function setKammer(int $kammer): self
+    {
+        $this->kammer = $kammer;
 
         return $this;
     }

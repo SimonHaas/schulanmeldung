@@ -1,0 +1,22 @@
+<table class="table table-hover">
+    <tbody>
+    {% if ausbildung.betrieb.id is not null %}
+    <tr>
+        <th>Betrieb</th>
+        <td>{{ ausbildung.betrieb.name }}, {{ ausbildung.betrieb.strasse }}, {{ ausbildung.betrieb.plz }} {{ ausbildung.betrieb.ort }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Ausbildungsbeginn</th>
+        <td>{{ ausbildung.beginn ? ausbildung.beginn|date('d.m.Y') : ''}}</td>
+    </tr>
+    <tr>
+        <th>Ausbildungsende</th>
+        <td>{{ ausbildung.ende ? ausbildung.ende|date('d.m.Y') : ''}}</td>
+    </tr>
+    <tr>
+        <th>Beruf</th>
+        <td>{{ ausbildung.beruf.bezeichnung }}</td>
+    </tr>
+    </tbody>
+</table>

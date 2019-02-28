@@ -2,208 +2,173 @@
 
 namespace App\Controller;
 
+use App\Entity\Beruf;
 use App\Entity\Betrieb;
-use App\Entity\Herkunftsschule;
-use App\Entity\Kontaktperson;
+use App\Entity\Registrierung;
+use App\Entity\Schule;
+use App\Form\StartType;
 use App\Entity\Schueler;
-use App\Form\BasicInfosType;
-use App\Form\BetriebSelectType;
-use App\Form\BetriebType;
-use App\Form\KontaktpersonType;
-use App\Form\SchuelerType;
+use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
+use Exception;
 
+/**
+ * Class AnmeldungController
+ * @package App\Controller
+ * @Route("/anmeldung")
+ */
 class AnmeldungController extends AbstractController
 {
     /**
-     * @Route("/anmeldung", name="anmeldung")
-     * @param Request $request
-     * @return RedirectResponse|Response
+     * @Route("/", name="anmeldung_start")
+     * @throws Exception
      */
     public function index(Request $request)
     {
-        //TODO als Startseite umbauen
-        /**
-         * @var $pastSchools Herkunftsschule[]
-         */
-        $pastSchools = $this->getDoctrine()
-            ->getRepository(Herkunftsschule::class)
-            ->findAll();
-
-        $selectOptions = array();
-        foreach($pastSchools as $pastSchool) {
-            $selectString = $pastSchool->getOrt().': '.$pastSchool->getName().', '.$pastSchool->getStrasse();
-            $selectValue = $pastSchool->getId();
-            $selectOptions[$selectString] = $selectValue;
+        if ($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            $session = new Session();
         }
 
-        $form = $this->createForm(BasicInfosType::class, $selectOptions);
-        $form->handleRequest($request);
-
-        //TODO for isValid add Annotations in Entity
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($post);
-            //$entityManager->flush();
-
-            //return $this->redirectToRoute('admin_post_show', [
-            //    'id' => $post->getId()
-            //]);
-
-            return $this->redirectToRoute('betrieb.select');
+        if ($session->has('registrierung')) {
+            $registrierung = $session->get('registrierung');
+            $schueler = $registrierung->getSchueler();
+        } else {
+            $schueler = new Schueler();
+            $registrierung = new Registrierung();
+            $registrierung->setSchueler($schueler);
+            $registrierung->setIp($request->getClientIp());
+            $registrierung->setDatum(new DateTime());
         }
 
-
-        return $this->render('anmeldung/index.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * @Route("betriebsauswahl", name="betrieb.select")
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function betriebSelect(Request $request)
-    {
-        /**
-         * @var $companies Betrieb[]
-         */
-        $companies = $this->getDoctrine()
-            ->getRepository(Betrieb::class)
-            ->findAll();
-
-        //TODO Auswahl in SchuelerType
-        $selectOptions = array();
-        foreach($companies as $company) {
-            $selectString = $company->getName1().' '.$company->getName2().' '.$company->getName3().', '.$company->getStrasse().', '.$company->getPlz().' '.$company->getOrt();
-            $selectValue = $company->getSchluessel();
-            $selectOptions[$selectString] = $selectValue;
-        }
-
-        $form = $this->createForm(BetriebSelectType::class, $selectOptions);
-
-
+        $form = $this->createForm(StartType::class, $registrierung);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //TODO Betrieb vielleicht in Session speicher oder irgendwie mit Schueler verknüpfen
-            //$entityManager = $this->getDoctrine()->getManager();
-            //$entityManager->persist($post);
-            //$entityManager->flush();
-
-            //return $this->redirectToRoute('admin_post_show', [
-            //    'id' => $post->getId()
-            //]);
-
-            return $this->redirectToRoute('schueler');
+            $registrierung = $form->getData();
+            $session->set('registrierung', $registrierung);
+            switch ($registrierung->getTyp()) {
+                case "AUAU":
+                case "EQ":
+                    return $this->redirectToRoute('ausbildung_new');
+                case "UM":
+                    return $this->redirectToRoute('umschueler_new');
+                case "BIK":
+                    return $this->redirectToRoute('fluechtling_new');
+                default:
+                    return $this->redirectToRoute('schueler_new');
+            }
+        }
+            return $this->render('anmeldung/start.html.twig', [
+                'form' => $form->createView(),
+            ]);
         }
 
-        return $this->render('anmeldung/betriebSelect.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
     /**
-     * @Route("betrieb", name="betrieb")
+     * @Route("/daten-pruefen", name="daten_pruefen")
      * @param Request $request
      * @return Response
      */
-    public function betrieb(Request $request)
+    public function check(Request $request)
     {
-        $form = $this->createForm(BetriebType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var $betrieb Betrieb
-             */
-            $betrieb = $form->getData();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($betrieb);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('schueler');
+        //TODO sessionhandling ähnlich wie bei AnmeldungController-new
+        //TODO sessionhandling in Filter auslagern, oder zumindest in eine einfache Funktion?!
+        // https://symfony.com/doc/current/event_dispatcher/before_after_filters.html
+        $session = $request->getSession();
+        if(!$session->has('registrierung')) {
+            $session->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
         }
 
-        return $this->render('anmeldung/betrieb.html.twig', array(
-            'form' => $form->createView()
-        ));
+        /** @var Registrierung $registrierung */
+        $registrierung = $session->get('registrierung');
+        $schueler = $registrierung->getSchueler();
+        $ausbildung = $schueler->getAusbildung();
+        $kontaktpersonen = $schueler->getKontaktpersonen();
+        $fluechtling = $schueler->getFluechtling();
+        $umschueler = $schueler->getUmschueler();
+        $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
+
+        $templateOptions = [
+            'registrierung' => $registrierung,
+            'kontaktpersonen' => $kontaktpersonen,
+            'fluechtling' => $fluechtling,
+            'umschueler' => $umschueler,
+            'schulbesuche' => $schulbesuche,
+            'schueler' => $schueler,
+            'ausbildung' => $ausbildung,
+        ];
+        return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
 
     /**
-     * @Route("schueler", name="schueler")
+     * @Route("/beenden", name="anmeldung_beenden")
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return string
      */
-    public function schueler(Request $request)
+    public function beenden(Request $request)
     {
-        $form = $this->createForm(SchuelerType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var $schueler Schueler
-             */
-            $schueler = $form->getData();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($schueler);
-            $entityManager->flush();
-
-            //TODO CSV generieren
-
-            return $this->redirectToRoute('datenschutz');
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
         }
+        //TODO sicherstellen, dass man vorher auf den 'Abschliessen'-Button gedrueckt hat
 
-        return $this->render('anmeldung/schueler.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
+        $em = $this->getDoctrine()->getManager();
+        $registrierung = $session->get('registrierung');
+        $schueler = $registrierung->getSchueler();
+        if(!empty($schueler->getAusbildung())) {
+            // Handle Ausbildung-Entity related stuff
+            $ausbildung = $schueler->getAusbildung();
+            $beruf = $this->getDoctrine()->getRepository(Beruf::class)->find($ausbildung->getBeruf()->getId());
+            $betrieb = $ausbildung->getBetrieb();
+            if(empty($betrieb->getId())) {
+                // new betrieb, let's persist it!
+                $this->getDoctrine()->getManager()->persist($betrieb);
+            } else {
+                // betrieb is canned, so search for it again and reassign it, because doctrine is really strange
+                $betrieb = $this->getDoctrine()->getRepository(Betrieb::class)->find($betrieb->getId());
+            }
 
-
-
-    /**
-     * @Route("datenschutz", name="datenschutz")
-     * @param Request $request
-     * @return Response
-     */
-    public function datenschutz(Request $request)
-    {
-        return $this->render('anmeldung/datenschutz.html.twig');
-    }
-
-    /**
-     * @Route("/kontaktperson", name="kontaktperson")
-     * @param Request $request
-     * @return RedirectResponse|Response
-     */
-    public function kontaktperson(Request $request)
-    {
-        $kontaktperson = new Kontaktperson();
-        $form = $this->createForm(KontaktpersonType::class, $kontaktperson);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $kontaktperson = $form->getData();
-
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
-            return $this->redirectToRoute('test'); //TODO sinnvolle Route
+            $ausbildung->setBeruf($beruf);
+            $ausbildung->setBetrieb($betrieb);
+            $schueler->setAusbildung($ausbildung);
         }
+        $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
-        return $this->render('anmeldung/kontaktperson.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        foreach ($schulbesuche as $schulbesuch) {
+            if(empty($schulbesuch->getSchule()->getId())) {
+                // New Schule added, let's persist it!
+                $em->persist($schulbesuch->getSchule());
+            } else {
+                // Schule is canned, so search for it again and reassign it
+
+                // First, let's remove the "old" schulbesuch from schueler
+                $registrierung->getSchueler()->removeSchulbesuch($schulbesuch);
+                // Then, let's search 'n' replace
+                $schule = $this->getDoctrine()->getRepository(Schule::class)->find($schulbesuch->getSchule()->getId());
+                $schulbesuch->setSchule($schule);
+                // Last, re-add schulbesuch to schueler
+                $registrierung->getSchueler()->addSchulbesuch($schulbesuch);
+            }
+        }
+        $registrierung->setSchueler($schueler);
+
+        $em->persist($registrierung);
+        $em->flush();
+
+        $session->invalidate();
+
+        return $this->render('anmeldung/beendet.html.twig');
     }
 }

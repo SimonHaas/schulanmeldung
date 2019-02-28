@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Umschueler{% endblock %}
+
+{% block body %}
+    {{ include('umschueler/_show.html.twig') }}
+
+    <a href="{{ path('umschueler_index') }}">back to list</a>
+
+    <a href="{{ path('umschueler_edit', {'id': umschueler.id}) }}">edit</a>
+
+    {{ include('umschueler/_delete_form.html.twig') }}
+{% endblock %}
