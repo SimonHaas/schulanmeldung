@@ -2,21 +2,21 @@
 {#{{ form_widget(form) }}#}
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Art</label>
         {{ form_widget(form.art, {'attr':{'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Anrede</label>
         {{ form_widget(form.anrede, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Vorname</label>
         {{ form_widget(form.vorname, {'attr':{'placeholder': 'Max', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Nachname</label>
         {{ form_widget(form.nachname, {'attr':{'placeholder': 'Mustermann', 'class':'form-control'}}) }}
     </div>
