@@ -12,14 +12,14 @@
 <div class="row">
     <div class="col-lg-6">
         <label class="labelFont">Eintritt</label>
-        {{  form_widget(form.eintritt, {'attr':{'class':'form-control'}}) }}
+        {{  form_widget(form.eintritt, {'attr':{'placeholder': 'Tag.Monat.Jahr','class':'form-control'}}) }}
     </div>
     <div class="col-lg-6">
         <label class="labelFont">Austritt</label>
-        {{  form_widget(form.austritt, {'attr':{'class':'form-control'}}) }}
+        {{  form_widget(form.austritt, {'attr':{'placeholder':'Tag.Monat.Jahr','class':'form-control'}}) }}
     </div>
 </div>
-
+<br>
 <br>
     <button class="btn BayreuthButton buttonFont btn-block blankLinkButton">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

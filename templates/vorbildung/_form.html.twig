@@ -4,21 +4,22 @@
 <div class="row">
     <div class="col-lg-12">
         <label class="labelFont">Letzte Schulart</label>
-        {{  form_widget(form.letzteSchulart, {'attr':{'placeholder': 'beispiel', 'class':'form-control'}}) }}
+        {{  form_widget(form.letzteSchulart, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <label class="labelFont">Höchster erreichter Abschluss</label>
-        {{  form_widget(form.hoechsterAbschluss, {'attr':{'placeholder': 'beispiel', 'class':'form-control'}}) }}
+        {{  form_widget(form.hoechsterAbschluss, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
         <label class="labelFont">Höchster erreichter Abschluss an</label>
-        {{  form_widget(form.hoechAbschlAn, {'attr':{'placeholder': 'beispiel', 'class':'form-control'}}) }}
+        {{  form_widget(form.hoechAbschlAn, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
+<br>
 <br>
 <input class="btn BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />
 {{ form_end(form) }}
