@@ -44,12 +44,7 @@ class UmschuelerController extends AbstractController
         $form = $this->createForm(UmschuelerType::class, $umschueler);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $schueler = $session->get('schueler');
-            $umschueler = $form->getData();
-            $schueler->setUmschueler($umschueler);
-            $umschueler->setSchueler($schueler);
-            $session->set('schueler', $schueler);
-            $session->set('umschueler', $umschueler);
+            $session->get('registrierung')->getSchueler()->setUmschueler($umschueler);
             return $this->redirectToRoute('schueler_new');
         }
         return $this->render('umschueler/new.html.twig', [
@@ -64,10 +59,11 @@ class UmschuelerController extends AbstractController
     public function update(Request $request)
     {
         $session = $request->getSession();
-        $umschueler = $session->get('umschueler');
+        $umschueler = $session->get('registrierung')->getSchueler()->getUmschueler();
         $form = $this->createForm(UmschuelerType::class, $umschueler);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $session->get('registrierung')->getSchueler()->setUmschueler($form->getData());
             return $this->redirectToRoute('daten_pruefen');
         }
         return $this->render('umschueler/update.html.twig', [

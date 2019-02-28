@@ -1,25 +1,6 @@
-<table class="table">
-    <thead>
-    <tr>
-        <th>Schulname</th>
-        <th>Eintritt</th>
-        <th>Austritt</th>
-        <th>actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for schulbesuch in schulbesuche %}
-        <tr>
-            <td>{{ schulbesuch.schule.name }}</td>
-            <td>{{ schulbesuch.eintritt ? schulbesuch.eintritt|date('Y-m-d') : '' }}</td>
-            <td>{{ schulbesuch.austritt ? schulbesuch.austritt|date('Y-m-d') : '' }}</td>
-        </tr>
-    {% else %}
-        <tr>
-            <td colspan="4">no records found</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html.twig' %}
 
-<a href="{{ path('schulbesuch_new') }}">Create new</a>
+{% block title %}Kontaktperson index{% endblock %}
+{% block body %}
+    {{ include('schulbesuch/table.html.twig', {'schulbesuche': schulbesuche}) }}
+{% endblock %}

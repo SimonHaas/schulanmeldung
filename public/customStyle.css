@@ -9,8 +9,9 @@ body{
 }
 
 .labelFont{
-    font-size: 22px;
-    margin-top: 2%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 4%;
 }
 
 .headlineFont{
@@ -41,7 +42,7 @@ body{
 }
 
 .SpacingTop{
-    padding-top: 4%;
+    padding-top: 2%;
 }
 
 .blankLink{
@@ -52,11 +53,13 @@ body{
 .BayreuthButton{
     border-color: #00377B!important;
     margin-bottom: 30px;
+    color: #00377B!important;
+    background-color: white;
 }
 
 .BayreuthButton:hover{
     background-color: #00377B!important;
-    color: white;
+    color: white!important;
 }
 
 .greyFooter{
@@ -75,4 +78,30 @@ body{
 
 .jumbotron{
     margin-bottom:0!important;
+}
+
+.smallButtonDistance{
+    margin-top: 2%;
+}
+
+.invisibleItems{
+    visibility: hidden;
+}
+
+
+.confirmButton{
+    border-color: #00cc00;
+}
+
+.confirmButton:hover{
+    background-color: #00cc00;
+    color: black;
+}
+
+.redHighlight{
+    color: red;
+}
+
+.headlineGlobal{
+    text-decoration: underline;
 }

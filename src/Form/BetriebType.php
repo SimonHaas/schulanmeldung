@@ -27,9 +27,6 @@ class BetriebType extends AbstractType
             ->add('ort', null, [
 
             ])
-            ->add('gemeindeschluessel', null, [
-
-            ])
             ->add('telZentrale', TelType::class, [
 
             ])

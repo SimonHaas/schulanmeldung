@@ -64,11 +64,12 @@ class SchuelerController extends AbstractController
     public function update(Request $request)
     {
         $session = $request->getSession();
-        $schueler = $session->get('schueler');
+        $schueler = $session->get('registrierung')->getSchueler();
         $form = $this->createForm(SchuelerType::class, $schueler);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $session->get('registrierung')->setSchueler($form->getData());
             return $this->redirectToRoute('daten_pruefen');
         }
 

@@ -28,7 +28,7 @@ class SchulbesuchController extends AbstractController
             }
             return $this->redirectToRoute('anmeldung_start');
         }
-        $schulen[] = $this->getDoctrine()->getRepository(Schule::class)->findBy(['istVerifiziert' => true]);
+        $schulen[] = $this->getVerified();
         $schulbesuch = new Schulbesuch();
         if($session->has('schule')) {
             $schule = $session->get('schule');
@@ -57,5 +57,44 @@ class SchulbesuchController extends AbstractController
         'schulbesuch' => $schulbesuch,
         'form' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/update", name="schulbesuch_update", methods={"GET","POST"})
+     */
+    public function update(Request $request): Response {
+        $schulbesuch = new Schulbesuch();
+        $session = $request->getSession();
+        $session->set('update', true);
+        $schulen[] = $this->getVerified();
+        if($session->has('schule')) {
+            $schule = $session->get('schule');
+            $this->getDoctrine()->getManager()->persist($schule);
+            $schulen[] = $schule;
+        } else {
+            $schule = null;
+        }
+        $form = $this->createForm(SchulbesuchType::class, new Schulbesuch(), [
+            'schule' => $schule,
+            'schulen' => $schulen
+        ]);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $schulbesuch = $form->getData();
+            if($session->has('schule')) {
+                $schulbesuch->setSchule($session->get('schule'));
+                $session->remove('schule');
+            }
+            $session->remove('update');
+            $session->get('registrierung')->getSchueler()->addSchulbesuch($schulbesuch);
+            return $this->redirectToRoute('daten_pruefen');
+        }
+        return $this->render('schulbesuch/new.html.twig', [
+            'schulbesuch' => $schulbesuch,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    private function getVerified() {
+        return $this->getDoctrine()->getRepository(Schule::class)->findAllVerified();
     }
 }

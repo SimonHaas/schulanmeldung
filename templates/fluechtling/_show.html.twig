@@ -1,13 +1,27 @@
-<h2 class="headlineFont">Flüchtlinginformationen</h2>
-
 <table class="table table-hover">
     <tbody>
     <tr>
         <th>Deutschkenntnisse</th>
-        <td>{{ fluechtling.deutschKenntnis }}</td>
+        <td>
+            {%  if fluechtling.deutschKenntnis == 0 %}
+                keine
+            {% elseif fluechtling.deutschKenntnis == 1 %}
+                sehr schlecht
+            {% elseif fluechtling.deutschKenntnis == 2 %}
+                eher schlecht
+            {% elseif fluechtling.deutschKenntnis == 3 %}
+                durchschnittlich
+            {% elseif fluechtling.deutschKenntnis == 4 %}
+                eher gut
+            {% elseif fluechtling.deutschKenntnis == 5 %}
+                sehr gut
+            {% else %}
+                Fehler
+            {% endif %}
+        </td>
     </tr>
     <tr>
-        <th>Anmeldestelle</th>
+        <th>Anmeldende Stelle</th>
         <td>{{ fluechtling.anmeldeStelle }}</td>
     </tr>
     <tr>

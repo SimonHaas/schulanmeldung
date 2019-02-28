@@ -81,26 +81,23 @@ class AnmeldungController extends AbstractController
         //TODO sessionhandling in Filter auslagern, oder zumindest in eine einfache Funktion?!
         // https://symfony.com/doc/current/event_dispatcher/before_after_filters.html
         $session = $request->getSession();
+        if(!$session->has('registrierung')) {
+            $session->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
 
         /** @var Registrierung $registrierung */
         $registrierung = $session->get('registrierung');
         $schueler = $registrierung->getSchueler();
         $ausbildung = $schueler->getAusbildung();
-        if(!empty($ausbildung)) {
-            $betrieb = $ausbildung->getBetrieb();
-        } else {
-            $betrieb = null;
-        }
         $kontaktpersonen = $schueler->getKontaktpersonen();
         $fluechtling = $schueler->getFluechtling();
         $umschueler = $schueler->getUmschueler();
-        $ausbildung = $schueler->getAusbildung();
         $schulbesuche = $registrierung->getSchueler()->getSchulbesuche();
 
         $templateOptions = [
             'registrierung' => $registrierung,
             'kontaktpersonen' => $kontaktpersonen,
-            'betrieb' => $betrieb,
             'fluechtling' => $fluechtling,
             'umschueler' => $umschueler,
             'schulbesuche' => $schulbesuche,
