@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Registrierung;
 use App\Form\AllgemeinType;
+use DateTime;
+use http\Env;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +20,7 @@ class AllgemeinController extends AbstractController
 {
     /**
      * @Route("/", name="allgemein_new")
+     * @throws \Exception
      */
     public function new(Request $request)
     {
@@ -44,9 +49,17 @@ class AllgemeinController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $session->get('registrierung')->setEintrittAm($data['eintrittAm']);
-            $session->get('registrierung')->setWohnheim($data['wohnheim']);
-            $session->get('registrierung')->setMitteilung($data['mitteilung']);
+            /** @var Registrierung $registrierung */
+            $registrierung = $session->get('registrierung');
+            $registrierung->setWohnheim($data['wohnheim']);
+            $registrierung->setMitteilung($data['mitteilung']);
+            $datumErsteHaelfte = new DateTime(getenv('EINTRITTSDATUM_ERSTE_HAELFTE'));
+            $datumZweiteHaelfte = new DateTime(getenv('EINTRITTSDATUM_ZWEITE_HAELFTE'));
+            $heute = new DateTime();
+            if($heute < $datumErsteHaelfte)
+                $registrierung->setEintrittAm($datumErsteHaelfte);
+            else
+                $registrierung->setEintrittAm($datumZweiteHaelfte);
 
             return $this->redirectToRoute('daten_pruefen');
         }
