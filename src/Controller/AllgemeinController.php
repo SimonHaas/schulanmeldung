@@ -44,7 +44,6 @@ class AllgemeinController extends AbstractController
             $data[] = $session->get('registrierung')->getMitteilung();
         }
 
-        //TODO AllgemeinType stylen
         $form = $this->createForm(AllgemeinType::class, $data);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
