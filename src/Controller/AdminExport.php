@@ -35,8 +35,11 @@ class AdminExport extends AbstractController
 
         /** @var Registrierung $registration */
         foreach ($doctrineRegistrations as $registration) {
-            $schueler = $registration->getSchueler();
 
+
+
+            //Schueler-Daten
+            $schueler = $registration->getSchueler();
 
             $registrationData = array(
                 '%mitteilung%' => $registration->getMitteilung(),
@@ -46,12 +49,26 @@ class AdminExport extends AbstractController
                 '%nachname%' => $schueler->getNachname(),
                 '%vorname%' => $schueler->getVorname(),
                 '%rufname%' => $schueler->getRufname(),
+                '%email%' => $schueler->getEmail(),
                 '%geburtsdatum%' => $schueler->getGeburtsdatum()->format('d.m.Y'),
                 '%geschlecht%' => 'm',
                 '%geburtsort%' => $schueler->getGeburtsort(),
+                '%umschueler%' => $schueler->getUmschueler() != null ? 'Y' : 'N'
             );
 
-            /*
+            //Umschueler
+            $umschueler = $schueler->getUmschueler();
+
+            if (isset($umschueler)) {
+                $registrationData['%umschueler%'] = 'J';
+                $registrationData['%umschueler_foerderer_nr%'] = $umschueler->getFoerdererNr();
+                $registrationData['%umschueler_traeger%'] = $umschueler->getTraeger();
+                $registrationData['%umschueler_traeger_sitz%'] = $umschueler->getTraegerSitz();
+            } else {
+                $registrationData['%umschueler%'] = 'N';
+            }
+
+            //Kontaktperson-Daten
             $kontaktPersonen = $schueler->getKontaktpersonen();
 
             if (isset($kontaktPersonen) && sizeof($kontaktPersonen) > 0) {
@@ -59,10 +76,6 @@ class AdminExport extends AbstractController
                     $baseKey = '%kontakt_person_' . ($i + 1);
 
                     $kontaktPerson = $kontaktPersonen[$i];
-
-                    if (!isset($kontaktPerson)) {
-                        continue;
-                    }
 
                     $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
@@ -75,37 +88,51 @@ class AdminExport extends AbstractController
                 }
             }
 
+            //Schulbesuche
             $schulBesuche = $schueler->getSchulbesuche();
 
             if (isset($schulBesuche) && sizeof($schulBesuche) > 0) {
-                for ($i = 0; $i < sizeof($schulBesuche) . ($i + 1); $i++) {
+                for ($i = 0; $i < sizeof($schulBesuche); $i++) {
                     $baseKey = '%schulbesuch_' . ($i + 1);
 
                     $schulBesuch = $schulBesuche[$i];
 
-                    if (!isset($schulBesuch)) {
-                        continue;
-                    }
-
-
                     $registrationData[$baseKey . '_eintritt%'] = $schulBesuch->getEintritt()->format('d.m.Y');
                     $registrationData[$baseKey . '_austritt%'] = $schulBesuch->getAustritt()->format('d.m.Y');
 
-                    if (!isset($schulBesuch)) {
-                        continue;
-                    }
-
                     $schule = $schulBesuch->getSchule();
 
-                    $registrationData[$baseKey . '_schule_art%'] = $schule->getArt();
-                    $registrationData[$baseKey . '_schule_name%'] = $schule->getName();
-                    $registrationData[$baseKey . '_schule_strasse%'] = $schule->getStrasse();
-                    $registrationData[$baseKey . '_schule_hausnummer%'] = $schule->getStrasse();
-                    $registrationData[$baseKey . '_schule_ort%'] = $schule->getOrt();
-                    $registrationData[$baseKey . '_schule_plz%'] = $schule->getPlz();
+                    if (isset($schule)) {
+                        $registrationData[$baseKey . '_schule_art%'] = $schule->getArt();
+                        $registrationData[$baseKey . '_schule_name%'] = $schule->getName();
+                        $registrationData[$baseKey . '_schule_strasse%'] = $schule->getStrasse();
+                        $registrationData[$baseKey . '_schule_ort%'] = $schule->getOrt();
+                        $registrationData[$baseKey . '_schule_plz%'] = $schule->getPlz();
+                    }
                 }
             }
-            */
+
+            //Ausbildung
+            $ausbildung = $schueler->getAusbildung();
+
+            if (isset($ausbildung)) {
+                $registrationData['%ausbildung_beginn%'] = $ausbildung->getBeginn()->format('d.m.Y');
+                $registrationData['%ausbildung_ende%'] = $ausbildung->getEnde()->format('d.m.Y');
+
+                //Beruf
+                $beruf = $ausbildung->getBeruf();
+
+                $registrationData['%beruf_bezeichnung%'] = $beruf->getBezeichnung();
+                $registrationData['%beruf_klasse%'] = $beruf->getKlasse();
+
+                //Betrieb
+                $betrieb = $ausbildung->getBetrieb();
+
+                $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
+
+
+
+            }
 
 
             array_push($assocRegistrations, $registrationData);
