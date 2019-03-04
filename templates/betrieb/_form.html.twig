@@ -2,57 +2,57 @@
 
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Name des Betriebs</label>
         {{  form_widget(form.name, {'attr':{'placeholder': 'Berufsschule I', 'class':'form-control',}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Straße und Hausnummer</label>
         {{  form_widget(form.strasse, {'attr':{'placeholder': 'Kerschensteinerstraße', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Postleitzahl</label>
         {{  form_widget(form.plz, {'attr':{'placeholder': '95448', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Ort</label>
         {{  form_widget(form.ort, {'attr':{'placeholder': 'Bayreuth', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Ansprechpartner</label>
         {{  form_widget(form.ansprPartner, {'attr':{'placeholder': 'Max Mustermann', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Kammer</label>
         {{  form_widget(form.kammer, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Telefonnummer der Zentrale</label>
         {{  form_widget(form.telZentrale, {'attr':{'placeholder': '092150739360', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Durchwahl</label>
         {{  form_widget(form.telDurchwahl, {'attr':{'placeholder': '092150739360', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Fax</label>
         {{  form_widget(form.fax, {'attr':{'placeholder': '0921507393699', 'class':'form-control'}}) }}
     </div>
-    <div class="col-lg-6">
+    <div class="col">
         <label class="labelFont">Email</label>
         {{  form_widget(form.email, {'attr':{'placeholder': 'sekretariat@bs1-bt.de', 'class':'form-control'}}) }}
     </div>
 </div>
 <br>
 <br>
-<input class="btn BayreuthButton buttonFont btn-block blankLinkButton" type="submit" />
+<input class="btn controlButton buttonFont btn-block blankLinkButton" type="submit" />
 {{ form_end(form) }}
 
