@@ -61,3 +61,4 @@ class Beruf
         return $this;
     }
 }
+
