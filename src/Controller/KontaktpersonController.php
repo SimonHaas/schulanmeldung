@@ -76,6 +76,7 @@ class KontaktpersonController extends AbstractController
         return $this->render('kontaktperson/new.html.twig', [
             'kontaktperson' => $kontaktperson,
             'form' => $form->createView(),
+            'buttonPath' => 'kontaktperson_index'
         ]);
     }
     /**
@@ -104,6 +105,7 @@ class KontaktpersonController extends AbstractController
         return $this->render('kontaktperson/new.html.twig', [
             'kontaktperson' => $kontaktperson,
             'form' => $form->createView(),
+            'buttonPath' => 'daten_pruefen'
         ]);
     }
 }
