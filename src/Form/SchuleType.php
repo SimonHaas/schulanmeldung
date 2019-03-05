@@ -28,7 +28,6 @@ class SchuleType extends AbstractType
                 ],
                 'placeholder' => 'Auswählen...'
             ])
-            ->add('nummer')
             ->add('strasse')
             ->add('plz')
             ->add('ort')
