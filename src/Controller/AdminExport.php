@@ -41,7 +41,7 @@ class AdminExport extends AbstractController
 
             $registrationData = array(
                 '%mitteilung%' => $registration->getMitteilung(),
-                '%wohnheim%' => $registration->getWohnheim(),
+                '%wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
                 '%eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
                 '%eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
                 '%nachname%' => $schueler->getNachname(),
@@ -52,6 +52,7 @@ class AdminExport extends AbstractController
                 '%geburtsjahr%' => $schueler->getGeburtsdatum()->format('Y'),
                 '%geschlecht%' => $schueler->getGeschlecht(),
                 '%geburtsort%' => $schueler->getGeburtsort(),
+                '%geburtsland%' => $schueler->getGeburtsland(),
                 '%umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
                 '%schueler_plz%' => $schueler->getPlz(),
                 '%schueler_ort%' => $schueler->getOrt(),
