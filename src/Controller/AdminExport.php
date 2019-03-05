@@ -36,8 +36,6 @@ class AdminExport extends AbstractController
         /** @var Registrierung $registration */
         foreach ($doctrineRegistrations as $registration) {
 
-
-
             //Schueler-Daten
             $schueler = $registration->getSchueler();
 
@@ -45,15 +43,23 @@ class AdminExport extends AbstractController
                 '%mitteilung%' => $registration->getMitteilung(),
                 '%wohnheim%' => $registration->getWohnheim(),
                 '%eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
-                '%eq_massnahme%' => 0,
+                '%eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
                 '%nachname%' => $schueler->getNachname(),
                 '%vorname%' => $schueler->getVorname(),
                 '%rufname%' => $schueler->getRufname(),
                 '%email%' => $schueler->getEmail(),
                 '%geburtsdatum%' => $schueler->getGeburtsdatum()->format('d.m.Y'),
-                '%geschlecht%' => 'm',
+                '%geburtsjahr%' => $schueler->getGeburtsdatum()->format('Y'),
+                '%geschlecht%' => $schueler->getGeschlecht(),
                 '%geburtsort%' => $schueler->getGeburtsort(),
-                '%umschueler%' => $schueler->getUmschueler() != null ? 'Y' : 'N'
+                '%umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
+                '%schueler_plz%' => $schueler->getPlz(),
+                '%schueler_ort%' => $schueler->getOrt(),
+                '%schueler_str%' => $schueler->getStrasse(),
+                '%schueler_hausnr%' => $schueler->getHsnr(),
+                '%schueler_tel%' => $schueler->getTel(),
+                '%schueler_bekenntnis%' => $schueler->getBekenntnis(),
+                '%schueler_familienstand%' => '?'
             );
 
             //Umschueler
@@ -80,6 +86,7 @@ class AdminExport extends AbstractController
                     $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_nachname%'] = $kontaktPerson->getNachname();
+                    $registrationData[$baseKey . '_strasse%'] = $kontaktPerson->getStrasse();
                     $registrationData[$baseKey . '_hausnummer%'] = $kontaktPerson->getHausnummer();
                     $registrationData[$baseKey . '_plz%'] = $kontaktPerson->getPlz();
                     $registrationData[$baseKey . '_ort%'] = $kontaktPerson->getOrt();
