@@ -42,7 +42,7 @@ class SchuelerType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
+                'format' => 'dd.MM.yyyy'
             ])
             ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
