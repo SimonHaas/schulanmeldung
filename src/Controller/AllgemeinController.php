@@ -71,7 +71,20 @@ class AllgemeinController extends AbstractController
      */
     public function update(Request $request)
     {
+        $session = $request->getSession();
+        $registrierung = $session->get('registrierung');
+        $form = $this->createForm(AllgemeinType::class, $registrierung);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $session->set('registrierung', $form->getData());
+            return $this->redirectToRoute('daten_pruefen');
+        }
+
+        return $this->render('allgemein/update.html.twig', [
+            'registrierung' => $registrierung,
+            'form' => $form->createView(),
+        ]);
     }
 
 }
