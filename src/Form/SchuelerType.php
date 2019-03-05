@@ -11,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SchuelerType extends AbstractType
@@ -55,9 +58,40 @@ class SchuelerType extends AbstractType
                 'html5' => false,
                 'input' => 'datetime',
                 'format' => 'mm.yyyy',
-                'required' => false
-            ])
-            ->add('staatsangehoerigkeit', CountryType::class, [
+                'required' => false,
+            ]);
+            /*
+            $formModifier = function (FormInterface $form, $geburtsland) {
+                // checks if the Geburtsland is not German
+                // If the Geburtsland is not German, the zuzug-field is added.
+                if ($geburtsland && $geburtsland != 'DE') {
+                    $form->add('zuzugAm', DateType::class, [
+                        'widget' => 'single_text',
+                        'html5' => false,
+                        'input' => 'datetime',
+                        'format' => 'mm.yyyy',
+                        'required' => true
+                    ]);
+                }
+            };
+
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($formModifier) {
+                $formModifier($event->getForm(), $event->getData()->getGeburtsland());
+            });
+
+            $builder->get('geburtsland')->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) use ($formModifier) {
+                    // It's important here to fetch $event->getForm()->getData(), as
+                    // $event->getData() will get you the client data (that is, the ID)
+                    $geburtsland = $event->getForm()->getData();
+                    // since we've added the listener to the child, we'll have to pass on
+                    // the parent to the callback functions!
+                    $formModifier($event->getForm()->getParent(), $geburtsland);
+                }
+            );
+            */
+            $builder->add('staatsangehoerigkeit', CountryType::class, [
                 'placeholder' => 'Auswählen...',
                 'choice_translation_locale' => 'de'
             ])

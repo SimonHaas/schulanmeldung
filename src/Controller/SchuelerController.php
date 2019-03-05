@@ -8,6 +8,7 @@ use App\Repository\SchuelerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,6 +30,7 @@ class SchuelerController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
         } else {
@@ -42,7 +44,6 @@ class SchuelerController extends AbstractController
         } else {
             $schueler = new Schueler();
         }
-
         $form = $this->createForm(SchuelerType::class, $schueler);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
