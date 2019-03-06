@@ -35,7 +35,7 @@
 "%kontakt_person_1_telefon%",
 "%kontakt_person_1_art%",
 "",
-"",
+"%gastschueler%",
 "",
 "%umschueler%",
 "%umschueler_traeger%",

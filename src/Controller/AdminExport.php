@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Registrierung;
+use App\Entity\Schueler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -138,10 +139,10 @@ class AdminExport extends AbstractController
 
                 $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
 
-
-
             }
 
+            //Gastschueler
+            $registrationData['%gastschueler%'] = $this->istGastSchueler($registration);
 
             array_push($assocRegistrations, $registrationData);
         }
@@ -177,6 +178,68 @@ class AdminExport extends AbstractController
         return preg_replace("/\r|\n/", "",
             file_get_contents(APPLICATION_PATH . '/export-template.txt')
         );
+    }
+
+    private function istGastSchueler(Registrierung $registrierung) {
+        $schueler = $registrierung->getSchueler();
+        $ausbildung = $schueler->getAusbildung();
+
+        $ausbArt = $registrierung->getTyp();
+
+        //Umschueler koennen die Schule frei waehlen, alle anderen sind ohne Ausbildungsbetrieb (Jungarbeiter + BGJs)
+        if ($ausbArt == 'UM' or $ausbArt == 'BGJs' or $ausbArt == 'UAR' or $ausbArt == 'AUPR' or
+            $ausbArt == 'OBA' or $ausbArt == 'TAR' or $ausbArt == 'BVJ' or $ausbArt == 'MF') {
+            return 'N';
+        }
+
+        $neuerBetrieb = $ausbildung->getBetrieb()->getIstVerifiziert();
+
+        if ($neuerBetrieb) {
+            return '?';
+        }
+
+        $gemeindeSchluessel = $ausbildung->getBetrieb()->getGemeindeschluessel();
+
+        $B_GKennz1 = substr($gemeindeSchluessel, 0, 1);  //erste Zahl der Gemeindekennzahl des Betriebes
+        $B_GKennz3 = substr($gemeindeSchluessel, 0, 3);  //ersten drei Zahlen der Gemeindekennzahl des Betriebes
+        $klasse3 = substr($ausbildung->getBeruf()->getKlasse(), 0, 3);
+
+        switch ($klasse3) {
+            case "EIE": 	//ganz Franken 4xxxxx - 6xxxxx
+                if($B_GKennz1=='4' or $B_GKennz1=='5' or $B_GKennz1=='6')
+                    $GASTSCHUELER='S';
+                else $GASTSCHUELER='?';
+                break;
+            case "BFT": 	//ganz Bayern 1xxxxx - 7xxxxx
+                if($B_GKennz1=='1' or $B_GKennz1=='2' or $B_GKennz1=='3' or $B_GKennz1=='4' or
+                    $B_GKennz1=='5' or $B_GKennz1=='6' or $B_GKennz1=='7')
+                    $GASTSCHUELER='S';
+                else $GASTSCHUELER='?';
+                break;
+            case "IIK": case "ITK": case "ITE": case "XFG": //ganz OFR 4xxxxx
+            if($B_GKennz1=='4')
+                $GASTSCHUELER='S';
+            else $GASTSCHUELER='?';
+            break;
+            case "IFI": case "EME":	//OFR-Ost Hof-Landkreis+Stadt, Kulmbach, Wunsiedel
+            if($B_GKennz3=="475" or $B_GKennz3=="464" or $B_GKennz3=="477" or $B_GKennz3=="479")
+                $GASTSCHUELER='S';
+            else $GASTSCHUELER='?';
+            break;
+            case "FML": case "KFR": //Kulmbach
+            if($B_GKennz3=='477')
+                $GASTSCHUELER='S';
+            else $GASTSCHUELER='?';
+            break;
+            case "MKF": case "ETE": case "MFT": case "MIT": case "NBA": case "NFN":
+            $GASTSCHUELER='?';   //falls diese Berufe hier auftauchen, sind sie falsch oder Gastschueler!!
+            break;
+            default:			//alle Klassen, die oben noch nicht aufgefuehrt wurden - sollte nicht zur Anwendung kommen
+                $GASTSCHUELER='X';
+                break;
+        }
+
+        return $GASTSCHUELER;
     }
 
 }
