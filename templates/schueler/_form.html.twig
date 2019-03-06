@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-
+{% use "base.html.twig" %}
 <div class="conatiner">
     <div class="row">
         <div class="col-sm-6">
@@ -67,12 +67,14 @@
             {{ form_widget(form.geburtsland, {'attr': {'placeholder': 'Geburtsland', 'class': 'form-control',}}) }}
         </div>
     </div>
-    <div class="row" id="hide">
+    {% if form.zuzugAm is defined %}
+    <div class="row" id="schueler_hide" style="display: none">
         <div class="col">
             <label class="labelFont">Zuzug am</label>
             {{ form_widget(form.zuzugAm, {'attr': {'placeholder': 'Jahr', 'class': 'form-control',}}) }}
         </div>
     </div>
+    {% endif %}
     <div class="row">
         <div class="col-sm-6">
             <label class="labelFont">Staatsangehörigkeit</label>
@@ -89,3 +91,23 @@
 <br>
 <input class="btn controlButton buttonFont btn-block" type="submit"/>
 {{ form_end(form) }}
+{% block javascripts_footer %}
+{{ parent() }}
+<script>
+    $(document).ready(function () {
+        var $geburtsland = $('#schueler_geburtsland');
+        // When geburtsland gets selected ...
+        $geburtsland.change(function() {
+            if($geburtsland.val() !== "" && $geburtsland.val() !== "DE") {
+                $('#schueler_hide').show();
+                $('#schueler_zuzugAm').prop('required',true);;
+                console.log($geburtsland.val());
+            } else {
+                $('#schueler_hide').hide();
+                $('#schueler_zuzugAm').prop('required',false);;
+            }
+        });
+    });
+
+</script>
+{% endblock %}

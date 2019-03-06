@@ -4,14 +4,18 @@
 
 {% block body %}
     <h1>Kontaktpersonen</h1>
-
+    {% if minderjaehrig and kontaktpeople is empty %}
+        <div class="alert alert-danger" role="alert">Der Schüler ist erst {{ alter }} Jahre alt, es muss mindestens eine Kontaktperson hinzugefügt werden!</div>
+    {% elseif not minderjaehrig%}
+        <div class="alert alert-primary" role="alert">Der Schüler ist {{ alter }} Jahre alt, das Erfassen von Kontaktpersonen ist freiwillig!</div>
+    {% endif %}
 
     {{ include('kontaktperson/_showtable.html.twig', {'kontaktpeople': kontaktpeople}) }}
 
     <div class="row">
         <div class="col-lg-12">
             <a class="btn controlButton buttonFont blankLinkButton pull-left" href="{{ path('kontaktperson_new') }}">Kontaktperson anlegen</a>
-            <a class="btn controlButton buttonFont blankLinkButton float-right" href="{{ path('vorbildung_index') }}">Weiter</a>
+            <a class="btn controlButton buttonFont blankLinkButton float-right{% if minderjaehrig and kontaktpeople is empty %} disabled{% endif %}" {% if minderjaehrig and kontaktpeople is not empty or not minderjaehrig%}href="{{ path('vorbildung_index') }}"{% endif %}>Weiter</a>
         </div>
     </div>
 

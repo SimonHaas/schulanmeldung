@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Table(name="schuldaten")
@@ -150,5 +153,10 @@ class Schule
     public function __toString()
     {
         return $this->getName() . ', ' . $this->getStrasse();
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new Callback('validate'));
     }
 }
