@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="">
         <br>
         <h3 class="headlineFont text-center redHighlight">Bitte prüfen Sie ihre Angaben und schließen Sie die Anmeldung ab.</h3>
         <br>
-    </div>
+
     {% if registrierung.typ != "AUAU" and registrierung.typ != "EQ" %}
         <div class="alert alert-info" role="alert">Sie kommen ohne Vertrag zu uns</div>
     {% endif %}
@@ -53,6 +52,5 @@
     {{ include('anmeldung/_checkButton.html.twig', {'route': 'allgemein_update', 'text': ''}) }}
 
     <br>
-    {# TODO diesen Farblich abheben #}
     <a class="btn confirmButton buttonFont btn-block blankLinkButton" href="{{ path('anmeldung_beenden') }}">Anmeldung abschließen</a>
 {% endblock %}

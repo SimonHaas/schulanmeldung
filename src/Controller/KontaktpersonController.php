@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Kontaktperson;
+use App\Entity\Schueler;
 use App\Form\KontaktpersonType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/kontaktperson")
@@ -27,8 +29,15 @@ class KontaktpersonController extends AbstractController
             }
             return $this->redirectToRoute('anmeldung_start');
         }
+        $schueler = $session->get('registrierung')->getSchueler();
+        $heute = new \DateTime('now');
+        $geburtstag = $schueler->getGeburtsdatum();
+        $alter = $geburtstag->diff($heute)->format('%y');
+        $minderjaehrig = $alter<18?true:false;
         return $this->render('kontaktperson/index.html.twig', [
-            'kontaktpeople' => $session->get('registrierung')->getSchueler()->getKontaktpersonen(),
+            'kontaktpeople' => $schueler->getKontaktpersonen(),
+            'minderjaehrig' => $minderjaehrig,
+            'alter' => $alter
         ]);
     }
 
@@ -67,6 +76,7 @@ class KontaktpersonController extends AbstractController
         return $this->render('kontaktperson/new.html.twig', [
             'kontaktperson' => $kontaktperson,
             'form' => $form->createView(),
+            'buttonPath' => 'kontaktperson_index'
         ]);
     }
     /**
@@ -95,6 +105,7 @@ class KontaktpersonController extends AbstractController
         return $this->render('kontaktperson/new.html.twig', [
             'kontaktperson' => $kontaktperson,
             'form' => $form->createView(),
+            'buttonPath' => 'daten_pruefen'
         ]);
     }
 }

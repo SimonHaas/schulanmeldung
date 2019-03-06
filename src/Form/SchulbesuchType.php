@@ -33,15 +33,11 @@ class SchulbesuchType extends AbstractType
         $builder
             ->add('eintritt', DateType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
             ])
             ->add('austritt', DateType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
             ])
 
         ;

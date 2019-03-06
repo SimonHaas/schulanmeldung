@@ -1,84 +1,86 @@
 {{ form_start(form) }}
-
+{% use "base.html.twig" %}
 <div class="conatiner">
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Alle Vornamen</label>
             {{ form_widget(form.vorname, {'attr': {'placeholder': 'Max', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Nachname</label>
             {{ form_widget(form.nachname, {'attr': {'placeholder': 'Mustermann', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Rufname</label>
             {{ form_widget(form.rufname, {'attr': {'placeholder': 'Max', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Geschlecht</label>
             {{ form_widget(form.geschlecht, {'attr': {'placeholder': 'Geschlecht', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Straße</label>
             {{ form_widget(form.strasse, {'attr': {'placeholder': 'Mustertraße', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Hausnummer</label>
             {{ form_widget(form.hsnr, {'attr': {'placeholder': '15', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Postleitzahl</label>
             {{ form_widget(form.plz, {'attr': {'placeholder': '90000', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Ort</label>
             {{ form_widget(form.ort, {'attr': {'placeholder': 'Musterstadt', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Telefonnummer</label>
             {{ form_widget(form.tel, {'attr': {'placeholder': '0123456789', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Email</label>
             {{ form_widget(form.email, {'attr': {'placeholder': 'm.mustermann@musterfirma.de', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col">
             <label class="labelFont">Geburtsdatum</label>
             {{ form_widget(form.geburtsdatum, {'attr': {'placeholder': '01.01.2000', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Geburtsort</label>
             {{ form_widget(form.geburtsort, {'attr': {'placeholder': 'Musterstadt', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Geburtsland</label>
             {{ form_widget(form.geburtsland, {'attr': {'placeholder': 'Geburtsland', 'class': 'form-control',}}) }}
         </div>
     </div>
-    <div class="row" id="hide">
-        <div class="col-lg-12">
+    {% if form.zuzugAm is defined %}
+    <div class="row" id="schueler_hide" style="display: none">
+        <div class="col">
             <label class="labelFont">Zuzug am</label>
             {{ form_widget(form.zuzugAm, {'attr': {'placeholder': 'Jahr', 'class': 'form-control',}}) }}
         </div>
     </div>
+    {% endif %}
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Staatsangehörigkeit</label>
             {{ form_widget(form.staatsangehoerigkeit, {'attr': {'placeholder': 'Staatsangehörigkeit', 'class': 'form-control',}}) }}
         </div>
-        <div class="col-lg-6">
+        <div class="col-sm-6">
             <label class="labelFont">Bekenntnis</label>
             {{ form_widget(form.bekenntnis, {'attr': {'class': 'form-control',}}) }}
         </div>
@@ -87,5 +89,25 @@
 
 <br>
 <br>
-<input class="btn btn-outline-primary BayreuthButton buttonFont btn-block" type="submit"/>
+<input class="btn controlButton buttonFont btn-block" type="submit"/>
 {{ form_end(form) }}
+{% block javascripts_footer %}
+{{ parent() }}
+<script>
+    $(document).ready(function () {
+        var $geburtsland = $('#schueler_geburtsland');
+        // When geburtsland gets selected ...
+        $geburtsland.change(function() {
+            if($geburtsland.val() !== "" && $geburtsland.val() !== "DE") {
+                $('#schueler_hide').show();
+                $('#schueler_zuzugAm').prop('required',true);;
+                console.log($geburtsland.val());
+            } else {
+                $('#schueler_hide').hide();
+                $('#schueler_zuzugAm').prop('required',false);;
+            }
+        });
+    });
+
+</script>
+{% endblock %}

@@ -56,6 +56,7 @@ class SchulbesuchController extends AbstractController
         return $this->render('schulbesuch/new.html.twig', [
         'schulbesuch' => $schulbesuch,
         'form' => $form->createView(),
+        'buttonPath' => 'vorbildung_index'
         ]);
     }
     /**
@@ -91,6 +92,7 @@ class SchulbesuchController extends AbstractController
         return $this->render('schulbesuch/new.html.twig', [
             'schulbesuch' => $schulbesuch,
             'form' => $form->createView(),
+            'buttonPath' => 'daten_pruefen'
         ]);
     }
 

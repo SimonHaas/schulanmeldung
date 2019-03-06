@@ -50,14 +50,14 @@ body{
     color: #FFFFFF;
 }
 
-.BayreuthButton{
+.controlButton{
     border-color: #00377B!important;
     margin-bottom: 30px;
     color: #00377B!important;
     background-color: white;
 }
 
-.BayreuthButton:hover{
+.controlButton:hover{
     background-color: #00377B!important;
     color: white!important;
 }
@@ -109,10 +109,33 @@ body{
 #copyright{
     font-size: small;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 #copyright a{
     text-decoration: none;
-    color: white;
+    color: #a6a6a6;
+}
+
+.optimizedPicture{
+    background-image: url("/SchulansichtInDenLogofarbenSlideFarbe.png");
+    background-size: cover;
+    height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .hidePictures{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .hideLogo{
+        display: none;
+    }
+}
+
+.copyrightLine{
+    background-color: #a6a6a6;
+    margin-bottom: 10px;
 }
