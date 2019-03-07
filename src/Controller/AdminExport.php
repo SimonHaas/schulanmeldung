@@ -45,9 +45,11 @@ class AdminExport extends AbstractController
                 '%wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
                 '%eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
                 '%eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
+                '%typ%' => $registration->getTyp(),
                 '%nachname%' => $schueler->getNachname(),
                 '%vorname%' => $schueler->getVorname(),
                 '%rufname%' => $schueler->getRufname(),
+                '%anrede%' => $schueler->getGeschlecht() == 'W' ? 'F' : 'H',
                 '%email%' => $schueler->getEmail(),
                 '%geburtsdatum%' => $schueler->getGeburtsdatum()->format('d.m.Y'),
                 '%geburtsjahr%' => $schueler->getGeburtsdatum()->format('Y'),
@@ -85,7 +87,7 @@ class AdminExport extends AbstractController
 
                     $kontaktPerson = $kontaktPersonen[$i];
 
-                    $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getVorname();
+                    $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getAnrede();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_nachname%'] = $kontaktPerson->getNachname();
                     $registrationData[$baseKey . '_strasse%'] = $kontaktPerson->getStrasse();
@@ -127,22 +129,32 @@ class AdminExport extends AbstractController
             if (isset($ausbildung)) {
                 $registrationData['%ausbildung_beginn%'] = $ausbildung->getBeginn()->format('d.m.Y');
                 $registrationData['%ausbildung_ende%'] = $ausbildung->getEnde()->format('d.m.Y');
+                $registrationData['%ausbildung_dauer%'] = $this->getAusbildungDauer($ausbildung->getEnde(), $ausbildung->getBeginn());
 
                 //Beruf
                 $beruf = $ausbildung->getBeruf();
 
                 $registrationData['%beruf_bezeichnung%'] = $beruf->getBezeichnung();
+                $registrationData['%beruf_nummer%'] = '';
                 $registrationData['%beruf_klasse%'] = $beruf->getKlasse();
 
                 //Betrieb
                 $betrieb = $ausbildung->getBetrieb();
 
+                $registrationData['%betrieb_name%'] = $betrieb->getName();
+                $registrationData['%betrieb_nummer%'] = '';
                 $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
 
             }
 
             //Gastschueler
-            $registrationData['%gastschueler%'] = $this->istGastSchueler($registration);
+            $registrationData['%gastschueler%'] = $this->getGastSchueler($registration);
+
+
+            //Vorbildung
+            $registrationData['%von_schulart%'] = $schueler->getLetzteSchulart();
+            $registrationData['%von_schulvorbildung%'] = $schueler->getHoechsterAbschluss();
+            $registrationData['%von_schulnr%'] = $schueler->getSchulbesuche()->get(0)->getSchule()->getNummer();
 
             array_push($assocRegistrations, $registrationData);
         }
@@ -180,7 +192,7 @@ class AdminExport extends AbstractController
         );
     }
 
-    private function istGastSchueler(Registrierung $registrierung) {
+    private function getGastSchueler(Registrierung $registrierung) {
         $schueler = $registrierung->getSchueler();
         $ausbildung = $schueler->getAusbildung();
 
@@ -242,4 +254,22 @@ class AdminExport extends AbstractController
         return $GASTSCHUELER;
     }
 
+    private function getEintrittsDatum(Registrierung $registrierung) {
+
+    }
+
+    private function getSchulPflicht() {
+
+    }
+
+    private function getBekenntnis() {
+        return '';
+    }
+
+    private function getAusbildungDauer(\DateTimeInterface $ende, \DateTimeInterface $beginn) {
+        $dayDiff = $ende->diff($beginn)->days;
+        $jahre = $dayDiff / 365;
+
+        return floor($jahre * 2) / 2;
+    }
 }
