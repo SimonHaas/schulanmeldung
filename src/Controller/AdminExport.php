@@ -10,6 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminExport extends AbstractController
 {
+
+    /**
+     * @Route("/download/{fileName}", name="download")
+     */
+    public function downloadAction($fileName) {
+        $path = $this->getParameter('dir.downloads') . '/' . $fileName;
+        return $this->file($path);
+    }
+
     /**
      * @Route("/admin/export", name="admin_export")
      */
@@ -24,9 +33,18 @@ class AdminExport extends AbstractController
         //build export strings
         $exportStrings = $this->buildRegistrationStrings($assocRegistrations);
 
+        //write file
+        $fileName = $this->buildExportFileName();
+        $tmpFileName = $this->getParameter('dir.downloads') . '/' . $fileName;
+        $handle = fopen($tmpFileName, "w");
+        fwrite($handle, implode(PHP_EOL, $exportStrings));
+        fclose($handle);
+
+        //render template
         return $this->render('admin_export/index.html.twig', [
             'controller_name' => 'AdminCreateImportController',
-            'import_strings' => $exportStrings
+            'import_strings' => $exportStrings,
+            'export_file' => $fileName
         ]);
     }
 
@@ -144,7 +162,6 @@ class AdminExport extends AbstractController
                 $registrationData['%betrieb_name%'] = $betrieb->getName();
                 $registrationData['%betrieb_nummer%'] = '';
                 $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
-
             }
 
             //Gastschueler
@@ -183,6 +200,10 @@ class AdminExport extends AbstractController
         }
 
         return $importStrings;
+    }
+
+    private function buildExportFileName() {
+        return date('Y-m-d') . ' Anmeldungen.txt';
     }
 
     private function getExportTemplate()
@@ -262,14 +283,11 @@ class AdminExport extends AbstractController
 
     }
 
-    private function getBekenntnis() {
-        return '';
-    }
-
     private function getAusbildungDauer(\DateTimeInterface $ende, \DateTimeInterface $beginn) {
         $dayDiff = $ende->diff($beginn)->days;
         $jahre = $dayDiff / 365;
 
+        //runden auf halbe jahre
         return floor($jahre * 2) / 2;
     }
 }
