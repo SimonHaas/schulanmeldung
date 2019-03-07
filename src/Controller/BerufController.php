@@ -12,14 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Security("is_granted('ROLE_ADMIN')
  * @Route("/beruf")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class BerufController extends AbstractController
 {
     /**
      * @Route("/", name="beruf_index", methods={"GET"})
-     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function index(BerufRepository $berufRepository): Response
     {

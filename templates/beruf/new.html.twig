@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Beruf{% endblock %}
+{% block title %}Neuer Beruf{% endblock %}
 
 {% block body %}
-    <h1>Create new Beruf</h1>
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+    <h1>Neuen Beruf anlegen</h1>
 
     {{ include('beruf/_form.html.twig') }}
 
-    <a href="{{ path('beruf_index') }}">back to list</a>
+    <a href="{{ path('beruf_index') }}">zur Liste</a>
 {% endblock %}
