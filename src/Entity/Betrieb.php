@@ -79,6 +79,11 @@ class Betrieb
      */
     private $kammer;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $kuerzel;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -229,6 +234,18 @@ class Betrieb
     public function setKammer(int $kammer): self
     {
         $this->kammer = $kammer;
+
+        return $this;
+    }
+
+    public function getKuerzel(): ?string
+    {
+        return $this->kuerzel;
+    }
+
+    public function setKuerzel(string $kuerzel): self
+    {
+        $this->kuerzel = $kuerzel;
 
         return $this;
     }
