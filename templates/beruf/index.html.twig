@@ -1,0 +1,40 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Berufe anzeigen{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+    <h1>Übersicht über alle Berufe</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bezeichnung</th>
+                <th>Klasse</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for beruf in berufs %}
+            <tr>
+                <td>{{ beruf.id }}</td>
+                <td>{{ beruf.bezeichnung }}</td>
+                <td>{{ beruf.klasse }}</td>
+                <td>
+                    <a href="{{ path('beruf_show', {'id': beruf.id}) }}">anzeigen</a>
+                    <a href="{{ path('beruf_edit', {'id': beruf.id}) }}">bearbeiten</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">keine Berufe gefunden</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('beruf_new') }}">neuen Beruf anlegen</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Eintrittsdatum bearbeiten{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+    <h1>Eintrittsdatum bearbeiten</h1>
+    <p>Füllen Sie immer beide Felder aus!</p>
+
+    {{ include('eintrittsdatum/_form.html.twig', {'button_label': 'Speichern'}) }}
+{% endblock %}
