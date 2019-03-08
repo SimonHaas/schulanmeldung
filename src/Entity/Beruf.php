@@ -29,6 +29,11 @@ class Beruf
      */
     private $klasse;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nummer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +64,18 @@ class Beruf
     public function setKlasse(?string $klasse): self
     {
         $this->klasse = $klasse;
+
+        return $this;
+    }
+
+    public function getNummer(): ?int
+    {
+        return $this->nummer;
+    }
+
+    public function setNummer(int $nummer): self
+    {
+        $this->nummer = $nummer;
 
         return $this;
     }
