@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 
 
 class AdminExport extends AbstractController
@@ -59,29 +58,31 @@ class AdminExport extends AbstractController
             $schueler = $registration->getSchueler();
 
             $registrationData = array(
-                '%mitteilung%' => $registration->getMitteilung(),
-                '%wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
-                '%eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
-                '%eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
-                '%typ%' => $registration->getTyp(),
-                '%nachname%' => $schueler->getNachname(),
-                '%vorname%' => $schueler->getVorname(),
-                '%rufname%' => $schueler->getRufname(),
-                '%anrede%' => $schueler->getGeschlecht() == 'W' ? 'F' : 'H',
-                '%email%' => $schueler->getEmail(),
-                '%geburtsdatum%' => $schueler->getGeburtsdatum()->format('d.m.Y'),
-                '%geburtsjahr%' => $schueler->getGeburtsdatum()->format('Y'),
-                '%geschlecht%' => $schueler->getGeschlecht(),
-                '%geburtsort%' => $schueler->getGeburtsort(),
-                '%geburtsland%' => $schueler->getGeburtsland(),
-                '%umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
+                '%registierung_mitteilung%' => $registration->getMitteilung(),
+                '%registrierung_wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
+                '%registrierung_eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
+                '%registrierung_eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
+                '%registrierung_eintrittsdatum%' => $this->getEintrittsDatum($registration),
+                '%registrierung_typ%' => $registration->getTyp(),
+                '%schueler_nachname%' => $schueler->getNachname(),
+                '%schueler_vorname%' => $schueler->getVorname(),
+                '%schueler_rufname%' => $schueler->getRufname(),
+                '%schueler_anrede%' => $schueler->getGeschlecht() == 'W' ? 'F' : 'H',
+                '%schueler_email%' => $schueler->getEmail(),
+                '%schueler_geburtsdatum%' => $schueler->getGeburtsdatum()->format('d.m.Y'),
+                '%schueler_geburtsjahr%' => $schueler->getGeburtsdatum()->format('Y'),
+                '%schueler_geschlecht%' => $schueler->getGeschlecht(),
+                '%schueler_geburtsort%' => $schueler->getGeburtsort(),
+                '%schueler_geburtsland%' => $schueler->getGeburtsland(),
+                '%schueler_umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
                 '%schueler_plz%' => $schueler->getPlz(),
                 '%schueler_ort%' => $schueler->getOrt(),
                 '%schueler_str%' => $schueler->getStrasse(),
                 '%schueler_hausnr%' => $schueler->getHsnr(),
                 '%schueler_tel%' => $schueler->getTel(),
                 '%schueler_bekenntnis%' => $schueler->getBekenntnis(),
-                '%schueler_familienstand%' => '?'
+                '%schueler_staat%' => $schueler->getStaatsangehoerigkeit(),
+                '%schueler_schulpflicht%' => $this->getSchulPflicht($schueler)
             );
 
             //Umschueler
@@ -203,7 +204,7 @@ class AdminExport extends AbstractController
     }
 
     private function buildExportFileName() {
-        return date('Y-m-d') . ' Anmeldungen.txt';
+        return date('Y-m-d H:i') . ' Anmeldungen.txt';
     }
 
     private function getExportTemplate()
@@ -279,8 +280,16 @@ class AdminExport extends AbstractController
 
     }
 
-    private function getSchulPflicht() {
+    private function getSchulPflicht(Schueler $schueler) {
+        $schulbesuche = $schueler->getSchulbesuche();
+        $jahre = 0;
 
+        foreach ($schulbesuche as $schulbesuch) {
+            $jahre += (intval($schulbesuch->getAustritt()->format('Y'))
+                - intval($schulbesuch->getEintritt()->format('Y')));
+        }
+
+        return $jahre >= 12 ? 'J' : 'N';
     }
 
     private function getAusbildungDauer(\DateTimeInterface $ende, \DateTimeInterface $beginn) {
@@ -290,4 +299,5 @@ class AdminExport extends AbstractController
         //runden auf halbe jahre
         return floor($jahre * 2) / 2;
     }
+
 }
