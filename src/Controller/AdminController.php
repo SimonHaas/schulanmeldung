@@ -37,7 +37,7 @@ class AdminController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('anmeldung/start.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
