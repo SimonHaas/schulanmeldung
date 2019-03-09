@@ -17,7 +17,6 @@ class SchuelerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //TODO am Handy sind die einzelnen Input-Fields ohne Margin-top margin-bottom direkt aneinander, wahrscheinlich ist das bei allen Forms so
         $builder
             ->add('vorname', null, [
                 'label' => 'Vornamen',
@@ -43,7 +42,7 @@ class SchuelerType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
+                'format' => 'dd.MM.yyyy'
             ])
             ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
@@ -56,9 +55,40 @@ class SchuelerType extends AbstractType
                 'html5' => false,
                 'input' => 'datetime',
                 'format' => 'mm.yyyy',
-                'required' => false
-            ])
-            ->add('staatsangehoerigkeit', CountryType::class, [
+                'required' => false,
+            ]);
+            /*
+            $formModifier = function (FormInterface $form, $geburtsland) {
+                // checks if the Geburtsland is not German
+                // If the Geburtsland is not German, the zuzug-field is added.
+                if ($geburtsland && $geburtsland != 'DE') {
+                    $form->add('zuzugAm', DateType::class, [
+                        'widget' => 'single_text',
+                        'html5' => false,
+                        'input' => 'datetime',
+                        'format' => 'mm.yyyy',
+                        'required' => true
+                    ]);
+                }
+            };
+
+            $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($formModifier) {
+                $formModifier($event->getForm(), $event->getData()->getGeburtsland());
+            });
+
+            $builder->get('geburtsland')->addEventListener(
+                FormEvents::POST_SUBMIT,
+                function (FormEvent $event) use ($formModifier) {
+                    // It's important here to fetch $event->getForm()->getData(), as
+                    // $event->getData() will get you the client data (that is, the ID)
+                    $geburtsland = $event->getForm()->getData();
+                    // since we've added the listener to the child, we'll have to pass on
+                    // the parent to the callback functions!
+                    $formModifier($event->getForm()->getParent(), $geburtsland);
+                }
+            );
+            */
+            $builder->add('staatsangehoerigkeit', CountryType::class, [
                 'placeholder' => 'Auswählen...',
                 'choice_translation_locale' => 'de'
             ])

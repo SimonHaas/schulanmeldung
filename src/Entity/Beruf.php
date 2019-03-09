@@ -24,6 +24,16 @@ class Beruf
      */
     private $bezeichnung;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $klasse;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nummer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,5 +54,29 @@ class Beruf
     public function __toString()
     {
         return $this->getBezeichnung();
+    }
+
+    public function getKlasse(): ?string
+    {
+        return $this->klasse;
+    }
+
+    public function setKlasse(?string $klasse): self
+    {
+        $this->klasse = $klasse;
+
+        return $this;
+    }
+
+    public function getNummer(): ?int
+    {
+        return $this->nummer;
+    }
+
+    public function setNummer(int $nummer): self
+    {
+        $this->nummer = $nummer;
+
+        return $this;
     }
 }

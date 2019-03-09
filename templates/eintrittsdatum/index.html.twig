@@ -1,0 +1,13 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Eintrittsdatum{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+
+    <p>Bei Anmeldungen vor dem {{ ersteHaelte }} wird {{ ersteHaelte }} als Eintrittsdatum gespeichert.</p>
+    <p>Danach wird der {{ zweiteHaelfte }} als Eintrittsdatum gespeichert.</p>
+    <a href="{{ path('eintrittsdatum_edit') }}">bearbeiten</a>
+{% endblock %}

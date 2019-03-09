@@ -26,7 +26,7 @@
             {% elseif schueler.geschlecht == 'D' %}
                 Divers
             {% else %}
-                Fehler
+
             {% endif %}
         </td>
     </tr>
@@ -50,6 +50,12 @@
         <th>Geburtsland</th>
         <td>{{ schueler.geburtsland }}</td>
     </tr>
+    {% if schueler.zuzugAm is not null %}
+    <tr>
+        <th>Zuzug nach Deutschland</th>
+        <td>{{ schueler.zuzugAm ? schueler.zuzugAm|localizeddate('full', 'none', 'de' ) : '' }}</td>
+    </tr>
+    {% endif %}
     <tr>
         <th>Staatsangehörigkeit</th>
         <td>{{ schueler.staatsangehoerigkeit }}</td>

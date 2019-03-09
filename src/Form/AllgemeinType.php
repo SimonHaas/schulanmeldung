@@ -15,12 +15,6 @@ class AllgemeinType extends AbstractType
     {
 
         $builder
-            ->add('eintrittAm', DateType::class, [
-                'widget' => 'single_text',
-                'html5' => false,
-                'input' => 'datetime',
-                'format' => 'dd.mm.yyyy'
-            ])
             ->add('wohnheim', CheckboxType::class, [
                 'required' => false
             ])
