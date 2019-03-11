@@ -568,7 +568,8 @@ class Schueler
         $this->hoechsterAbschluss = $hoechsterAbschluss;
 
         $hoechsterAbschlussReadable = array_search($hoechsterAbschluss, self::HOECHSTE_ABSCHLUESSE);
-        if($hoechsterAbschlussReadable == false) $hoechsterAbschlussReadable = 'Fehler';
+        if($hoechsterAbschlussReadable === false) 
+           $hoechsterAbschlussReadable = 'Fehler';
         $this->hoechsterAbschlussReadable = $hoechsterAbschlussReadable;
         return $this;
     }
