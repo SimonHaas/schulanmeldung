@@ -547,7 +547,8 @@ class Schueler
         $this->letzteSchulart = $letzteSchulart;
 
         $letzteSchulartReadable = array_search($letzteSchulart, self::LETZTE_SCHULARTEN);
-        if($letzteSchulartReadable == false) $letzteSchulartReadable = 'Fehler';
+        if($letzteSchulartReadable === false) 
+           $letzteSchulartReadable = 'Fehler';
         $this->letzteSchulartReadable = $letzteSchulartReadable;
         return $this;
     }
