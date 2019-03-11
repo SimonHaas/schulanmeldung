@@ -589,7 +589,8 @@ class Schueler
         $this->hoechAbschlAn = $hoechAbschlAn;
 
         $hoechAbschlAnReadable = array_search($hoechAbschlAn, self::HOECHSTE_ABSCHLUESSE_AN);
-        if($hoechAbschlAnReadable == false) $hoechAbschlAnReadable = 'Fehler';
+        if($hoechAbschlAnReadable === false) 
+           $hoechAbschlAnReadable = 'Fehler';
         $this->hoechAbschlAnReadable = $hoechAbschlAnReadable;
 
         return $this;
