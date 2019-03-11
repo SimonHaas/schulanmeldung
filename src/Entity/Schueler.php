@@ -530,7 +530,8 @@ class Schueler
         $this->bekenntnis = $bekenntnis;
 
         $bekenntnisReadable = array_search($bekenntnis, $this->getBekenntnisse());
-        if($bekenntnisReadable == false) $bekenntnisReadable = 'Fehler';
+        if($bekenntnisReadable === false) 
+           $bekenntnisReadable = 'Fehler';
         $this->bekenntnisReadable = $bekenntnisReadable;
 
         return $this;
