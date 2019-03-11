@@ -54,7 +54,7 @@ class SchuelerType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'input' => 'datetime',
-                'format' => 'mm.yyyy',
+                'format' => 'MM.yyyy',
                 'required' => false,
             ]);
             /*
@@ -94,27 +94,7 @@ class SchuelerType extends AbstractType
             ])
             ->add('bekenntnis', ChoiceType::class, [
                 'placeholder' => 'Bekenntnis...',
-                'choices' => [
-                    'römisch-katholisch' => 'RK',
-                    'evangelisch' => 'RV',
-                    'evang.-meth.' => 'EM',
-                    'freie ev. Gemeinde' => 'EF',
-                    'evang.-freikirchlich' => 'BE',
-                    'evang.-reformiert' => 'ER',
-                    'islamisch' => 'IL',
-                    'russisch-orthodox' => 'RO',
-                    'griechisch-orthodox' => 'GO',
-                    'serbisch-orthodox' => 'SE',
-                    'rumänisch-orthodox' => 'UO',
-                    'syrisch-orthodox' => 'SY',
-                    'Zeugen Jehova' => 'ZJ',
-                    'israelisch' => 'IS',
-                    'neuapostolisch' => 'NA',
-                    'Sieben Tags-Adven.' => 'ST',
-                    'altkatholisch' => 'AK',
-                    'bekenntnislos' => 'BL',
-                    'sonstige' => 'SO'
-                ]
+                'choices' => Schueler::getBekenntnisse()
             ])
         ;
     }

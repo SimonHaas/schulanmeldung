@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\This;
+use Symfony\Component\Intl\Intl;
 
 /**
  * @ORM\Table(name="schueler")
@@ -144,6 +146,67 @@ class Schueler
      */
     private $zuzugAm;
 
+    private $geburtslandReadable;
+    private $staatsangehoerigkeitReadable;
+    private $hoechsterAbschlussReadable;
+    private $letzteSchulartReadable;
+    private $hoechAbschlAnReadable;
+    private $bekenntnisReadable;
+    private const BEKENNTNISSE = [
+            'römisch-katholisch' => 'RK',
+            'evangelisch' => 'RV',
+            'evang.-meth.' => 'EM',
+            'freie ev. Gemeinde' => 'EF',
+            'evang.-freikirchlich' => 'BE',
+            'evang.-reformiert' => 'ER',
+            'islamisch' => 'IL',
+            'russisch-orthodox' => 'RO',
+            'griechisch-orthodox' => 'GO',
+            'serbisch-orthodox' => 'SE',
+            'rumänisch-orthodox' => 'UO',
+            'syrisch-orthodox' => 'SY',
+            'Zeugen Jehova' => 'ZJ',
+            'israelisch' => 'IS',
+            'neuapostolisch' => 'NA',
+            'Sieben Tags-Adven.' => 'ST',
+            'altkatholisch' => 'AK',
+            'bekenntnislos' => 'BL',
+            'sonstige' => 'SO'
+        ];
+    private const LETZTE_SCHULARTEN = [
+        'allgemeinbildende Schule' => 'AL',
+        'Berufsschule' => 'BS',
+        'Wirtschaftsschule' => 'WS',
+        'Fachoberschule' => 'FOS',
+        'BVJ der BS.' => 'BVJ',
+        'Berufsfachschule' => 'BFS',
+        'sonstige Schule' => 'SO',
+        'Maßnahme des Arbeitsamtes' => 'AV',
+        'keine Schule' => '-'
+    ];
+    private const HOECHSTE_ABSCHLUESSE = [
+        'erfüllte Schulpflicht ohne Abschluss' => 'VSo',
+        'erfolgreicher Hauptschulabschluss (ohne Quali)' => 'HSo',
+        'qualifizierter Hauptschulabschluss (mit Quali)' => 'HSq',
+        'mittlerer Bildungsabschluss' => 'M',
+        'Fachhochschulreife' => 'H',
+        'Allgemeine Hochschulreife' => 'AH',
+        'Fachgebundene Hochschulreife' => 'FH',
+        'Abschluss der Schule zur indiv. Lernförderung' => 'SVS',
+        'sonstiger Abschluss' => 'SO'
+    ];
+    private const HOECHSTE_ABSCHLUESSE_AN = [
+        'Hauptschule oder Mittelschule' => 'VS',
+        'Volksschule zur sonderpäd. Förderung' => 'SVS',
+        'Realschule' => 'RS',
+        'Wirtschaftsschule' => 'WS',
+        'Gymnasium' => 'GY',
+        'Berufsschule' => 'BS',
+        'Berufsschule zur sonderpäd. Förderung' => 'SBS',
+        'Fachoberschule' => 'FOS',
+        'sonstige Schule' => 'SO'
+    ];
+
     public function __construct()
     {
         $this->kontaktpersonen = new ArrayCollection();
@@ -176,7 +239,7 @@ class Schueler
     public function setNachname(string $nachname, bool $uppercase = true): self
     {
         if($uppercase)
-            $this->nachname = $nachname;
+            $this->nachname = ucwords($nachname);
 
         return $this;
     }
@@ -189,7 +252,7 @@ class Schueler
     public function setRufname(string $rufname, bool $uppercase = true): self
     {
         if($uppercase)
-            $this->rufname = $rufname;
+            $this->rufname = ucwords($rufname);
 
         return $this;
     }
@@ -425,8 +488,13 @@ class Schueler
     public function setGeburtsland(string $geburtsland): self
     {
         $this->geburtsland = $geburtsland;
-
+        $this->geburtslandReadable = Intl::getRegionBundle()->getCountryName($geburtsland);
         return $this;
+    }
+
+    public function getGeburtslandReadable()
+    {
+        return $this->geburtslandReadable;
     }
 
     public function getStaatsangehoerigkeit(): ?string
@@ -437,8 +505,14 @@ class Schueler
     public function setStaatsangehoerigkeit(string $staatsangehoerigkeit): self
     {
         $this->staatsangehoerigkeit = $staatsangehoerigkeit;
+        $this->staatsangehoerigkeitReadable = Intl::getRegionBundle()->getCountryName($staatsangehoerigkeit);
 
         return $this;
+    }
+
+    public function getStaatsangehoerigkeitReadable(): ?string
+    {
+        return $this->staatsangehoerigkeitReadable;
     }
 
     public function getBekenntnis(): ?string
@@ -446,9 +520,19 @@ class Schueler
         return $this->bekenntnis;
     }
 
+    public function getBekenntnisReadable(): ?string
+    {
+        return $this->bekenntnisReadable;
+
+    }
+
     public function setBekenntnis(string $bekenntnis): self
     {
         $this->bekenntnis = $bekenntnis;
+
+        $bekenntnisReadable = array_search($bekenntnis, $this->getBekenntnisse());
+        if($bekenntnisReadable == false) $bekenntnisReadable = 'Fehler';
+        $this->bekenntnisReadable = $bekenntnisReadable;
 
         return $this;
     }
@@ -462,7 +546,15 @@ class Schueler
     {
         $this->letzteSchulart = $letzteSchulart;
 
+        $letzteSchulartReadable = array_search($letzteSchulart, self::LETZTE_SCHULARTEN);
+        if($letzteSchulartReadable == false) $letzteSchulartReadable = 'Fehler';
+        $this->letzteSchulartReadable = $letzteSchulartReadable;
         return $this;
+    }
+
+    public function getLetzteSchulartReadable(): ?string
+    {
+        return $this->letzteSchulartReadable;
     }
 
     public function getHoechsterAbschluss(): ?string
@@ -474,7 +566,15 @@ class Schueler
     {
         $this->hoechsterAbschluss = $hoechsterAbschluss;
 
+        $hoechsterAbschlussReadable = array_search($hoechsterAbschluss, self::HOECHSTE_ABSCHLUESSE);
+        if($hoechsterAbschlussReadable == false) $hoechsterAbschlussReadable = 'Fehler';
+        $this->hoechsterAbschlussReadable = $hoechsterAbschlussReadable;
         return $this;
+    }
+
+    public function getHoechsterAbschlussReadable(): ?string
+    {
+        return $this->hoechsterAbschlussReadable;
     }
 
     public function getHoechAbschlAn(): ?string
@@ -486,7 +586,16 @@ class Schueler
     {
         $this->hoechAbschlAn = $hoechAbschlAn;
 
+        $hoechAbschlAnReadable = array_search($hoechAbschlAn, self::HOECHSTE_ABSCHLUESSE_AN);
+        if($hoechAbschlAnReadable == false) $hoechAbschlAnReadable = 'Fehler';
+        $this->hoechAbschlAnReadable = $hoechAbschlAnReadable;
+
         return $this;
+    }
+
+    public function getHoechAbschlAnReadable(): ?string
+    {
+        return $this->hoechAbschlAnReadable;
     }
 
 
@@ -508,5 +617,18 @@ class Schueler
         $this->zuzugAm = $zuzugAm;
 
         return $this;
+    }
+
+    public static function getBekenntnisse() {
+        return self::BEKENNTNISSE;
+    }
+    public static function getLetzteSchularten() {
+        return self::LETZTE_SCHULARTEN;
+    }
+    public static function getHoechsteAbschluesse() {
+        return self::HOECHSTE_ABSCHLUESSE;
+    }
+    public static function getHoechsteAbschluesseAn() {
+        return self::HOECHSTE_ABSCHLUESSE_AN;
     }
 }
