@@ -5,7 +5,7 @@
 1. Projekt auf klonen https://git-scm.com: `git clone https://github.com/SimonHaas/schulanmeldung.git`
 2. `cd schulanmeldung`
 3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
-4. .env.dist nach .env kopieren: `mv .env.dist .env`
+4. .env.dist nach .env kopieren: `cp .env.dist .env`
 3. .env Datei bearbeiten:
 	* APP_ENV=prod
 	* DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
@@ -20,8 +20,26 @@
     * Das legt die in der .env Datei konfigurierte Datenbank an.
 5. `php bin/console migrate`
     * Das führt die unter `src/Migrations` liegenden Datenbank-Migrationen aus um die Tabellen zu erstellen.
+6. In der PHP-ini muss die Extension `intl` aktiviert sein um die richtigen Länder bei der Auswahl des Herkunftslandes anzeigen zu können.
 6. Im Browser `/user`aufrufen. 
     * Das legt einen neuen Admin-Account mit den Zugangsdaten aus der .env Datei an.
+    
+    
+## Datenmigration
+### Berufe
+1. Tabelle `berufekennungen` im Format `JSON` exportieren.
+2. Datei `berufekennungen.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/berufe` im Browser aufrufen
+
+### Berufe
+1. Tabelle `betriebedaten` im Format `JSON` exportieren.
+2. Datei `betriebedaten.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/betriebe` im Browser aufrufen
+
+### Schulen
+1. Tabelle `herkunftsschulen` im Format `JSON` exportieren.
+2. Datei `herkunftsschulen.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/schulen` im Browser aufrufen.
 
 ## Apache virtual host config
 
