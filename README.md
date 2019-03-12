@@ -20,6 +20,7 @@
     * Das legt die in der .env Datei konfigurierte Datenbank an.
 5. `php bin/console migrate`
     * Das führt die unter `src/Migrations` liegenden Datenbank-Migrationen aus um die Tabellen zu erstellen.
+6. In der PHP-ini muss die Extension `intl` aktiviert sein um die richtigen Länder bei der Auswahl des Herkunftslandes anzeigen zu können.
 6. Im Browser `/user`aufrufen. 
     * Das legt einen neuen Admin-Account mit den Zugangsdaten aus der .env Datei an.
     
