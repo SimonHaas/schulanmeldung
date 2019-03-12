@@ -11,8 +11,8 @@
 <div class="container">
         <label class="labelFont">Ausbildungsart</label>
         {{form_widget(form.typ, {'attr':{'class':'form-control'}})}}
-    <label>test</label>
-        {{form_widget(form.datenschutz, {'attr':{'class':'form-control'}})}}
+    <label class="labelFont">Ich akzeptiere die Datenschutzbestimmungen.</label>
+        {{form_widget(form.datenschutz )}}
     <br>
     <br>
         <input type="submit" class="btn btn-outline-primary controlButton btn-block buttonFont"/>
