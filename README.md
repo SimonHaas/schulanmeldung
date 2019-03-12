@@ -23,7 +23,22 @@
 6. Im Browser `/user`aufrufen. 
     * Das legt einen neuen Admin-Account mit den Zugangsdaten aus der .env Datei an.
     
-    //TODO Datenmigration mit json Export
+    
+## Datenmigration
+### Berufe
+1. Tabelle `berufekennungen` im Format `JSON` exportieren.
+2. Datei `berufekennungen.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/berufe` im Browser aufrufen
+
+### Berufe
+1. Tabelle `betriebedaten` im Format `JSON` exportieren.
+2. Datei `betriebedaten.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/betriebe` im Browser aufrufen
+
+### Schulen
+1. Tabelle `herkunftsschulen` im Format `JSON` exportieren.
+2. Datei `herkunftsschulen.json` in das Root-Verzeichnis der Schulanmeldung legen.
+3. `/migration/schulen` im Browser aufrufen.
 
 ## Apache virtual host config
 
