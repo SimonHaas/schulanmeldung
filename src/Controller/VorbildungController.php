@@ -26,14 +26,13 @@ class VorbildungController extends AbstractController
             }
             return $this->redirectToRoute('anmeldung_start');
         }
-        $form = $this->createForm(VorbildungType::class);
+        $schueler = $session->get('registrierung')->getSchueler();
+        $form = $this->createForm(VorbildungType::class, $schueler);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $session->get('registrierung')->getSchueler()->setLetzteSchulart($data['letzteSchulart']);
-            $session->get('registrierung')->getSchueler()->setHoechsterAbschluss($data['hoechsterAbschluss']);
-            $session->get('registrierung')->getSchueler()->setHoechAbschlAn($data['hoechAbschlAn']);
+            $session->get('registrierung')->setSchueler($form->getData());
 
             return $this->redirectToRoute('allgemein_new');
         }

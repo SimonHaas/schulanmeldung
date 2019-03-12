@@ -48,21 +48,21 @@
     </tr>
     <tr>
         <th>Geburtsland</th>
-        <td>{{ schueler.geburtsland }}</td>
+        <td>{{ schueler.geburtslandReadable }}</td>
     </tr>
     {% if schueler.zuzugAm is not null %}
     <tr>
         <th>Zuzug nach Deutschland</th>
-        <td>{{ schueler.zuzugAm ? schueler.zuzugAm|localizeddate('full', 'none', 'de' ) : '' }}</td>
+        <td>{{ schueler.zuzugAm ? schueler.zuzugAm|localizeddate('full', 'none', 'de' , null, 'MMMM yyyy') : '' }}</td>
     </tr>
     {% endif %}
     <tr>
         <th>Staatsangehörigkeit</th>
-        <td>{{ schueler.staatsangehoerigkeit }}</td>
+        <td>{{ schueler.staatsangehoerigkeitReadable }}</td>
     </tr>
     <tr>
         <th>Bekenntnis</th>
-        <td>{{ schueler.bekenntnis }}</td>
+        <td>{{ schueler.bekenntnisReadable }}</td>
     </tr>
     </tbody>
 </table>

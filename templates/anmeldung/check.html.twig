@@ -35,13 +35,11 @@
         {% for kontaktperson in kontaktpersonen %}
         {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
         {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
+            <div class="alert alert-info">Keine Kontaktpersonen erfasst</div>
         {% endfor %}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update', 'text': 'Hinzufügen'}) }}
-
-
+    <h2 class="headlineFont">Vorbildung</h2>
+    {{ include('vorbildung/_show.html.twig') }}
     {% if schulbesuche is not null %}
         <h2 class="headlineFont">Schulbesuche</h2>
         {{ include('schulbesuch/_showtable.html.twig', { 'schulbesuche': schulbesuche}) }}
