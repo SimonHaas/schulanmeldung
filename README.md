@@ -2,7 +2,7 @@
 
 ## Install project
 
-1. Projekt auf klonen https://git-scm.com: `git clone https://github.com/SimonHaas/schulanmeldung.git`
+1. Projekt klonen https://git-scm.com: `git clone https://github.com/SimonHaas/schulanmeldung.git`
 2. `cd schulanmeldung`
 3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
 4. .env.dist nach .env kopieren: `cp .env.dist .env`
