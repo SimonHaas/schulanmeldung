@@ -1,0 +1,9 @@
+[
+{"type":"header","version":"4.8.5","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"schulanmeldung_alt"},
+{"type":"table","name":"berufekennungen","database":"schulanmeldung_alt","data":
+[
+{"AB_KURZBEZ":"ab_kurzbez","AB_BEZEICHNG":"ab_berzeichnung","AB_NR":"23","Klasse":"klasse","Raum":"raum","Erster_Schultag":"erster_schultag","AB_GEFUEHRT":"111","Kammer":"kam"}
+]
+}
+]

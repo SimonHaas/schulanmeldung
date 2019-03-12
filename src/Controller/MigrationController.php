@@ -18,17 +18,19 @@ class MigrationController extends AbstractController
      */
     public function berufe()
     {
-        /* `schulanmeldung_alt`.`berufekennungen` */
-        $berufekennungen = array(
-            array('AB_KURZBEZ' => 'ab_kurzbez','AB_BEZEICHNG' => 'ab_berzeichnung','AB_NR' => 'ab_nr','Klasse' => 'klasse','Raum' => 'raum','Erster_Schultag' => 'erster_schultag','AB_GEFUEHRT' => '111','Kammer' => 'kam'),
-            array('AB_KURZBEZ' => 'neu','AB_BEZEICHNG' => 'neu','AB_NR' => 'neu','Klasse' => 'neu','Raum' => 'neu','Erster_Schultag' => '12.09.2005','AB_GEFUEHRT' => '123','Kammer' => '345')
-        );
+        $path = APPLICATION_PATH . '/berufekennungen.json';
+        $json = file_get_contents($path);
+        $array = json_decode($json, true);
+
+        $berufekennungen = $array[2]['data'];
 
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($berufekennungen as $item)
         {
             $beruf = new Beruf();
             $beruf->setBezeichnung($item['AB_BEZEICHNG']);
+            $beruf->setNummer($item['AB_NR']);
+            $beruf->setKlasse($item['Klasse']);
             $entityManager->persist($beruf);
         }
         $entityManager->flush();

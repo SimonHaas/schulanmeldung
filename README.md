@@ -5,7 +5,7 @@
 1. Projekt auf klonen https://git-scm.com: `git clone https://github.com/SimonHaas/schulanmeldung.git`
 2. `cd schulanmeldung`
 3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
-4. .env.dist nach .env kopieren: `mv .env.dist .env`
+4. .env.dist nach .env kopieren: `cp .env.dist .env`
 3. .env Datei bearbeiten:
 	* APP_ENV=prod
 	* DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
@@ -22,6 +22,8 @@
     * Das führt die unter `src/Migrations` liegenden Datenbank-Migrationen aus um die Tabellen zu erstellen.
 6. Im Browser `/user`aufrufen. 
     * Das legt einen neuen Admin-Account mit den Zugangsdaten aus der .env Datei an.
+    
+    //TODO Datenmigration mit json Export
 
 ## Apache virtual host config
 
