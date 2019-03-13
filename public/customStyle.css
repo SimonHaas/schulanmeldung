@@ -139,3 +139,27 @@ body{
     background-color: #a6a6a6;
     margin-bottom: 10px;
 }
+
+.labelFontData{
+    font-size: medium;
+}
+
+.containerData{
+    background-color: #00377B;
+    color: white;
+    border-radius: 5px;
+    padding-top: 1%!important;
+    padding-bottom: 1%!important;
+}
+
+.fixSize{
+    transform: scale(1.2)!important;
+}
+
+.dataLink{
+    color: white;
+}
+
+.dataLink:hover{
+    color: #5eb5e0;
+}

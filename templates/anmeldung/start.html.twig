@@ -5,14 +5,19 @@
 {% block body %}
     {{ form_start(form) }}
 
+    <div class="containerData text-center">
+
+    <a class="labelFontData dataLink" href="https://www.bs1-bt.de/datenschutz">Ich akzeptiere die Datenschutzbestimmungen:</a>
+
+    {{form_widget(form.datenschutz, {'attr':{'class':'fixSize'}})}}
+
+    </div>
     <br>
     <h1 class="headlineFont">Auswahl der Aubildungsart</h1>
 
 <div class="container">
         <label class="labelFont">Ausbildungsart</label>
         {{form_widget(form.typ, {'attr':{'class':'form-control'}})}}
-    <label class="labelFont">Ich akzeptiere die Datenschutzbestimmungen.</label>
-        {{form_widget(form.datenschutz )}}
     <br>
     <br>
         <input type="submit" class="btn btn-outline-primary controlButton btn-block buttonFont"/>
@@ -20,3 +25,4 @@
 
     {{ form_end(form) }}
 {% endblock %}
+
