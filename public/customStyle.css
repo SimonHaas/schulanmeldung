@@ -6,6 +6,7 @@ body{
     background-color: rgba(102, 155, 204, 0.05) !important;
     font-family: "Lato", sans-serif !important;
     font-size: 18px;
+    height: 100%;
 }
 
 .labelFont{
