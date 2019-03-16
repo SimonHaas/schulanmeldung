@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class AdminExport extends AbstractController
