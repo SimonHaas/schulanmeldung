@@ -53,6 +53,11 @@ class Registrierung
      */
     private $schueler;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $datenschutz;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,5 +150,17 @@ class Registrierung
     public function __toString()
     {
         return (string)$this->getId();
+    }
+
+    public function getDatenschutz(): ?bool
+    {
+        return $this->datenschutz;
+    }
+
+    public function setDatenschutz(bool $datenschutz): self
+    {
+        $this->datenschutz = $datenschutz;
+
+        return $this;
     }
 }
