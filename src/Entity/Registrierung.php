@@ -54,7 +54,7 @@ class Registrierung
     private $schueler;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
     private $datenschutz;
 
@@ -152,12 +152,12 @@ class Registrierung
         return (string)$this->getId();
     }
 
-    public function getDatenschutz(): ?int
+    public function getDatenschutz(): ?bool
     {
         return $this->datenschutz;
     }
 
-    public function setDatenschutz(int $datenschutz): self
+    public function setDatenschutz(bool $datenschutz): self
     {
         $this->datenschutz = $datenschutz;
 

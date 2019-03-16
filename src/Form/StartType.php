@@ -33,6 +33,7 @@ class StartType extends AbstractType
             ->add('datenschutz', CheckboxType::class, [
                 'label'    => 'Ich akzeptiere die Datenschutzbestimmungen.',
                 'required' => true,
+                'value' => true,
             ]);
     }
 
