@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Beruf{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+    <h1>Beruf</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ beruf.id }}</td>
+            </tr>
+            <tr>
+                <th>Bezeichnung</th>
+                <td>{{ beruf.bezeichnung }}</td>
+            </tr>
+            <tr>
+                <th>Klasse</th>
+                <td>{{ beruf.klasse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('beruf_index') }}">zur Liste</a>
+
+    <a href="{{ path('beruf_edit', {'id': beruf.id}) }}">bearbeiten</a>
+
+    {{ include('beruf/_delete_form.html.twig') }}
+{% endblock %}

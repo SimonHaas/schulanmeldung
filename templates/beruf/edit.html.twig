@@ -1,0 +1,16 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Beruf bearbeiten{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+    </div>
+    <h1>Beruf bearbeiten</h1>
+
+    {{ include('beruf/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('beruf_index') }}">zur Liste</a>
+
+    {{ include('beruf/_delete_form.html.twig') }}
+{% endblock %}

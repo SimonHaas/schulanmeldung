@@ -4,11 +4,11 @@
         <th>Unterbringung in Wohnheim gewünscht</th>
         <td>{{ registrierung.wohnheim ? 'Ja' : 'Nein'}}</td>
     </tr>
-    {% if registrierung.mitteilung is not null %}
+
     <tr>
         <th>Mitteilung an die Berufsschule I</th>
-        <td>{{ registrierung.mitteilung }}</td>
+        <td{% if registrierung.mitteilung is null %} class="font-weight-light font-italic"{% endif %}>{% if registrierung.mitteilung is not null %}{{ registrierung.mitteilung }}{% else %}Keine Mitteilung{% endif %}</td>
     </tr>
-    {% endif %}
+
     </tbody>
 </table>

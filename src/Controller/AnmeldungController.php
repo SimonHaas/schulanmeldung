@@ -20,7 +20,7 @@ use Exception;
 /**
  * Class AnmeldungController
  * @package App\Controller
- * @Route("/anmeldung")
+ * @Route("/")
  */
 class AnmeldungController extends AbstractController
 {

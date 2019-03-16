@@ -1,17 +1,16 @@
-{{ include('schulbesuche/_show.html.twig') }}
 <table class="table table-hover">
     <tbody>
     <tr>
         <th>letzte Schulart</th>
-        <td>{{ schueler.letzteSchulart }}</td>
+        <td>{{ schueler.letzteSchulartReadable }}</td>
     </tr>
     <tr>
         <th>höchster Abschluss</th>
-        <td>{{ schueler.hoechsterAbschluss }}</td>
+        <td>{{ schueler.hoechsterAbschlussReadable }}</td>
     </tr>
     <tr>
         <th>höchster Abschluss erworben an</th>
-        <td>{{ schueler.hoechsterAbschlussAn }}</td>
+        <td>{{ schueler.hoechAbschlAnReadable }}</td>
     </tr>
     </tbody>
 </table>

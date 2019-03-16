@@ -154,9 +154,10 @@ class Schule
     {
         return $this->getName() . ', ' . $this->getStrasse();
     }
-
+    /*
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addConstraint(new Callback('validate'));
     }
+    */
 }

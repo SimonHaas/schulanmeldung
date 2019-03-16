@@ -34,14 +34,6 @@ class AdminUser implements UserInterface
      */
     private $password;
 
-    /**
-     * AdminUser constructor.
-     * @param $id
-     */
-    public function __construct($id) {
-        $this->id = $id;
-    }
-
     public function getId(): ?int
     {
         return $this->id;

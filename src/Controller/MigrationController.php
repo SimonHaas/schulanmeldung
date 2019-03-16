@@ -18,17 +18,19 @@ class MigrationController extends AbstractController
      */
     public function berufe()
     {
-        /* `schulanmeldung_alt`.`berufekennungen` */
-        $berufekennungen = array(
-            array('AB_KURZBEZ' => 'ab_kurzbez','AB_BEZEICHNG' => 'ab_berzeichnung','AB_NR' => 'ab_nr','Klasse' => 'klasse','Raum' => 'raum','Erster_Schultag' => 'erster_schultag','AB_GEFUEHRT' => '111','Kammer' => 'kam'),
-            array('AB_KURZBEZ' => 'neu','AB_BEZEICHNG' => 'neu','AB_NR' => 'neu','Klasse' => 'neu','Raum' => 'neu','Erster_Schultag' => '12.09.2005','AB_GEFUEHRT' => '123','Kammer' => '345')
-        );
+        $path = APPLICATION_PATH . '/berufekennungen.json';
+        $json = file_get_contents($path);
+        $array = json_decode($json, true);
+
+        $berufekennungen = $array[2]['data'];
 
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($berufekennungen as $item)
         {
             $beruf = new Beruf();
             $beruf->setBezeichnung($item['AB_BEZEICHNG']);
+            $beruf->setNummer($item['AB_NR']);
+            $beruf->setKlasse($item['Klasse']);
             $entityManager->persist($beruf);
         }
         $entityManager->flush();
@@ -43,11 +45,11 @@ class MigrationController extends AbstractController
      */
     public function betriebe()
     {
-        /* `schulanmeldung_alt`.`betriebedaten` */
-        $betriebedaten = array(
-            array('B_SCHLUESSEL' => '','B_NAME1' => 'name1','B_NAME2' => 'name2','B_NAME4' => 'name4','B_PLZ' => 'plz','B_ORT' => 'ort','B_STRASSE' => 'strasse','B_TELEFON1' => 'tel1','B_TELEFON2' => 'tel2','B_TELEFON3' => 'tel3','B_E_MAIL' => 'email','B_GEMEINDEKZ' => 'gkz','B_BBIG' => '123'),
-            array('B_SCHLUESSEL' => '','B_NAME1' => 'name1','B_NAME2' => 'name2','B_NAME4' => 'name4','B_PLZ' => 'plz','B_ORT' => 'ort','B_STRASSE' => 'strasse','B_TELEFON1' => 'tel1','B_TELEFON2' => 'tel2','B_TELEFON3' => 'tel3','B_E_MAIL' => 'email','B_GEMEINDEKZ' => 'gkz','B_BBIG' => '123')
-        );
+        $path = APPLICATION_PATH . '/betriebedaten.json';
+        $json = file_get_contents($path);
+        $array = json_decode($json, true);
+
+        $betriebedaten = $array[2]['data'];
 
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($betriebedaten as $item)
@@ -81,12 +83,11 @@ class MigrationController extends AbstractController
      */
     public function schulen()
     {
-        /* `schulanmeldung_alt`.`herkunftsschulen` */
-        $herkunftsschulen = array(
-            array('HKS_NUMMER' => '34','HKS_NAME' => 'adfa','HKS_STRASSE' => 'asdf','HKS_PLZ' => 'sd','HKS_ORT' => 'asdfa'),
-            array('HKS_NUMMER' => 'sd','HKS_NAME' => 'adf','HKS_STRASSE' => 'adsfa','HKS_PLZ' => 'asd','HKS_ORT' => 'adsf')
-        );
+        $path = APPLICATION_PATH . '/herkunftsschulen.json';
+        $json = file_get_contents($path);
+        $array = json_decode($json, true);
 
+        $herkunftsschulen = $array[2]['data'];
 
         $entityManager = $this->getDoctrine()->getManager();
         foreach ($herkunftsschulen as $item)
