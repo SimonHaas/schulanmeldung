@@ -52,3 +52,5 @@
 # Log und cache
 /var/*
 /public/php_errors.log
+
+/download/*

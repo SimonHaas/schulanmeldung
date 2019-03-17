@@ -40,9 +40,7 @@ class SchuelerType extends AbstractType
             ->add('email', EmailType::class)
             ->add('geburtsdatum', BirthdayType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
                 'input' => 'datetime',
-                'format' => 'dd.MM.yyyy'
             ])
             ->add('geburtsort')
             ->add('geburtsland', CountryType::class, [
