@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Registrierung;
 use App\Entity\Schueler;
+use DateTime;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -13,10 +17,28 @@ class AdminExport extends AbstractController
 
     /**
      * @Route("/download/{fileName}", name="download")
+     * @throws Exception
      */
     public function downloadAction($fileName) {
+        $this->deleteOldExports();
         $path = $this->getParameter('dir.downloads') . '/' . $fileName;
         return $this->file($path);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function deleteOldExports()
+    {
+        $finder = new Finder();
+        $finder->files()->in($this->getParameter('dir.downloads') . '/');
+        $fileSystem = new Filesystem();
+        foreach ($finder as $file) {
+            if($file->getMTime() < time() - 24 * 60 * 60)
+            {
+                $fileSystem->remove($file);
+            }
+        }
     }
 
     /**

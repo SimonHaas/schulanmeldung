@@ -10,6 +10,7 @@
         "symfony/asset": "4.2.*",
         "symfony/console": "*",
         "symfony/expression-language": "*",
+        "symfony/finder": "4.2.*",
         "symfony/flex": "^1.1",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
