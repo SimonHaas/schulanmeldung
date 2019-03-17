@@ -53,6 +53,16 @@ class Registrierung
      */
     private $schueler;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $datenschutz;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $exportedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -145,5 +155,29 @@ class Registrierung
     public function __toString()
     {
         return (string)$this->getId();
+    }
+
+    public function getDatenschutz(): ?bool
+    {
+        return $this->datenschutz;
+    }
+
+    public function setDatenschutz(bool $datenschutz): self
+    {
+        $this->datenschutz = $datenschutz;
+
+        return $this;
+    }
+
+    public function getExportedAt(): ?\DateTimeInterface
+    {
+        return $this->exportedAt;
+    }
+
+    public function setExportedAt(?\DateTimeInterface $exportedAt): self
+    {
+        $this->exportedAt = $exportedAt;
+
+        return $this;
     }
 }
