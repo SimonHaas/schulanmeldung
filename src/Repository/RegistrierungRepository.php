@@ -20,32 +20,14 @@ class RegistrierungRepository extends ServiceEntityRepository
         parent::__construct($registry, Registrierung::class);
     }
 
-//    /**
-//     * @return Beruf[] Returns an array of Beruf objects
-//     */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Registrierung[]
+     */
+    public function findForExport()
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('b.exportedAt IS NULL')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Beruf
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
