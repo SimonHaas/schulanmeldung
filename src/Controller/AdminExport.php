@@ -16,12 +16,36 @@ class AdminExport extends AbstractController
 {
 
     /**
-     * @Route("/download/{fileName}", name="download")
+     * @Route("/download", name="download")
      * @throws Exception
      */
-    public function downloadAction($fileName) {
-        $this->deleteOldExports();
+    public function downloadAction() {
+        //get data from repository
+        $doctrineRegistrations = $this->getDoctrine()->getRepository(Registrierung::class)->findForExport();
+
+        $now = new DateTime();
+        $manager = $this->getDoctrine()->getManager();
+        foreach($doctrineRegistrations as $registration)
+        {
+            $registration->setExportedAt($now);
+            $manager->persist($registration);
+        }
+        $manager->flush();
+
+        //build assoc array
+        $assocRegistrations = $this->buildRegistrationsAsAssocArray($doctrineRegistrations);
+
+        //build export strings
+        $exportStrings = $this->buildRegistrationStrings($assocRegistrations);
+
+        //write file
+        $fileName = $this->buildExportFileName();
         $path = $this->getParameter('dir.downloads') . '/' . $fileName;
+        $handle = fopen($path, "w");
+        fwrite($handle, implode(PHP_EOL, $exportStrings));
+        fclose($handle);
+
+        $this->deleteOldExports();
         return $this->file($path);
     }
 
@@ -43,11 +67,12 @@ class AdminExport extends AbstractController
 
     /**
      * @Route("/admin/export", name="admin_export")
+     * @throws Exception
      */
     public function index()
     {
         //get data from repository
-        $doctrineRegistrations = $this->getDoctrine()->getRepository(Registrierung::class)->findAll();
+        $doctrineRegistrations = $this->getDoctrine()->getRepository(Registrierung::class)->findForExport();
 
         //build assoc array
         $assocRegistrations = $this->buildRegistrationsAsAssocArray($doctrineRegistrations);
@@ -55,18 +80,10 @@ class AdminExport extends AbstractController
         //build export strings
         $exportStrings = $this->buildRegistrationStrings($assocRegistrations);
 
-        //write file
-        $fileName = $this->buildExportFileName();
-        $tmpFileName = $this->getParameter('dir.downloads') . '/' . $fileName;
-        $handle = fopen($tmpFileName, "w");
-        fwrite($handle, implode(PHP_EOL, $exportStrings));
-        fclose($handle);
-
         //render template
         return $this->render('admin_export/index.html.twig', [
             'controller_name' => 'AdminCreateImportController',
             'import_strings' => $exportStrings,
-            'export_file' => $fileName
         ]);
     }
 
