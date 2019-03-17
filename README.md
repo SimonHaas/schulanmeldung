@@ -16,6 +16,7 @@
 	* ADMIN_EMAIL=admin@test.de
 	* ADMIN_PASSWORD=1234
 		- Mit diesen Daten kann ein neuer Admin-Account erstellt werden. Einfach Schritt 8 ausführen und es wird ein neuer User in der Datenbank angelegt. Dann können diese zwei Variablen theoretischer Weise wieder gelöscht werden.
+		- Den Adminbereich erreicht man über `/admin`.
 4. `php bin/console doctrine:database:create`
     * Das legt die in der .env Datei konfigurierte Datenbank an.
 5. `php bin/console migrate`
