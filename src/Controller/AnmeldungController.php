@@ -38,7 +38,6 @@ class AnmeldungController extends AbstractController
 
         if ($session->has('registrierung')) {
             $registrierung = $session->get('registrierung');
-            $schueler = $registrierung->getSchueler();
         } else {
             $schueler = new Schueler();
             $registrierung = new Registrierung();

@@ -6,6 +6,7 @@ body{
     background-color: rgba(102, 155, 204, 0.05) !important;
     font-family: "Lato", sans-serif !important;
     font-size: 18px;
+    height: 100%;
 }
 
 .labelFont{
@@ -138,4 +139,28 @@ body{
 .copyrightLine{
     background-color: #a6a6a6;
     margin-bottom: 10px;
+}
+
+.labelFontData{
+    font-size: medium;
+}
+
+.containerData{
+    background-color: #00377B;
+    color: white;
+    border-radius: 5px;
+    padding-top: 1%!important;
+    padding-bottom: 1%!important;
+}
+
+.fixSize{
+    transform: scale(1.2)!important;
+}
+
+.dataLink{
+    color: white;
+}
+
+.dataLink:hover{
+    color: #5eb5e0;
 }

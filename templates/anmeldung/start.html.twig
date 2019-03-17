@@ -4,17 +4,19 @@
 
 {% block body %}
     {{ form_start(form) }}
-
-    <br>
     <h1 class="headlineFont">Auswahl der Aubildungsart</h1>
-
-<div class="container">
+    <div class="container">
         <label class="labelFont">Ausbildungsart</label>
-        {{form_widget(form.typ, {'attr':{'class':'form-control'}})}}
-    <br>
-    <br>
+        {{ form_widget(form.typ, {'attr':{'class':'form-control'}}) }}
+        <div class="containerData text-center">
+            <br>
+            Ich akzeptiere die <a class="labelFontData dataLink" href="https://www.bs1-bt.de/datenschutz">Datenschutzbestimmungen:</a>
+            {{ form_widget(form.datenschutz, {'attr':{'class':'fixSize'}}) }}
+            <br>
+            <br>
+        </div>
         <input type="submit" class="btn btn-outline-primary controlButton btn-block buttonFont"/>
-</div>
-
+    </div>
     {{ form_end(form) }}
 {% endblock %}
+
