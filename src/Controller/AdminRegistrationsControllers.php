@@ -19,7 +19,7 @@ class AdminRegistrationsControllers extends AbstractController
     public function index()
     {
 
-        $registrations = $this->getDoctrine()->getRepository(Registrierung::class)->findAll();
+        $registrations = $this->getDoctrine()->getRepository(Registrierung::class)->findForExport();
 
         return $this->render('admin_registrations/index.html.twig', [
             'controller_name' => 'AdminRegistrationController',
