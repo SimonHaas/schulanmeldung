@@ -82,7 +82,7 @@ class Betrieb
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $kuerzel;
+    private $kuerzel = '';
 
     public function getId(): ?int
     {

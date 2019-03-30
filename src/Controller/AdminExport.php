@@ -194,14 +194,14 @@ class AdminExport extends AbstractController
                 $beruf = $ausbildung->getBeruf();
 
                 $registrationData['%beruf_bezeichnung%'] = $beruf->getBezeichnung();
-                $registrationData['%beruf_nummer%'] = '';
+                $registrationData['%beruf_nummer%'] = $beruf->getNummer();
                 $registrationData['%beruf_klasse%'] = $beruf->getKlasse();
 
                 //Betrieb
                 $betrieb = $ausbildung->getBetrieb();
 
                 $registrationData['%betrieb_name%'] = $betrieb->getName();
-                $registrationData['%betrieb_nummer%'] = '';
+                $registrationData['%betrieb_nummer%'] = $betrieb->getKuerzel();
                 $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
             }
 
