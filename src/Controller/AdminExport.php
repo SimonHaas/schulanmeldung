@@ -10,13 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminExport extends AbstractController
 {
 
     /**
      * @Route("/download", name="download")
+     * @IsGranted("ROLE_ADMIN")
      * @throws Exception
      */
     public function downloadAction() {
@@ -74,6 +75,7 @@ class AdminExport extends AbstractController
 
     /**
      * @Route("/admin/export", name="admin_export")
+     * @IsGranted("ROLE_ADMIN")
      * @throws Exception
      */
     public function index()
