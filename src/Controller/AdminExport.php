@@ -38,9 +38,16 @@ class AdminExport extends AbstractController
         //build export strings
         $exportStrings = $this->buildRegistrationStrings($assocRegistrations);
 
+        $dir = $this->getParameter('dir.downloads');
+
+        //create folder if not exists
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+
         //write file
         $fileName = $this->buildExportFileName();
-        $path = $this->getParameter('dir.downloads') . '/' . $fileName;
+        $path = $dir . '/' . $fileName;
         $handle = fopen($path, "w");
         fwrite($handle, implode(PHP_EOL, $exportStrings));
         fclose($handle);
@@ -102,7 +109,6 @@ class AdminExport extends AbstractController
                 '%registrierung_wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
                 '%registrierung_eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
                 '%registrierung_eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
-                '%registrierung_eintrittsdatum%' => $this->getEintrittsDatum($registration),
                 '%registrierung_typ%' => $registration->getTyp(),
                 '%schueler_nachname%' => $schueler->getNachname(),
                 '%schueler_vorname%' => $schueler->getVorname(),
@@ -314,10 +320,6 @@ class AdminExport extends AbstractController
         }
 
         return $GASTSCHUELER;
-    }
-
-    private function getEintrittsDatum(Registrierung $registrierung) {
-
     }
 
     private function getSchulPflicht(Schueler $schueler) {

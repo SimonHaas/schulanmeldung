@@ -113,7 +113,7 @@
 "",
 "",
 "",
-"%registrierung_eintrittsdatum%",
+"%registrierung_eintritt_am%",
 "",
 10,
 "",

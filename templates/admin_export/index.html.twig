@@ -10,7 +10,7 @@
                 <a href="{{ path('download') }}">Download</a>
             </div>
             {% if import_strings|length > 0 %}
-                <pre>{% for import_string in import_strings %}{{ import_string }}{% endfor %}</pre>
+                <pre>{% for import_string in import_strings %}{{ import_string }}<br>{% endfor %}</pre>
             {% else %}
                 <p>Es gibt keine Registrierungen die noch nicht exportiert wurden.</p>
             {% endif %}
