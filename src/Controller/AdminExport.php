@@ -46,11 +46,15 @@ class AdminExport extends AbstractController
             mkdir($dir);
         }
 
+        //resultstring
+        $string = implode(PHP_EOL, $exportStrings);
+        $string = iconv(mb_detect_encoding($string), 'Windows-1252//TRANSLIT', $string);
+
         //write file
         $fileName = $this->buildExportFileName();
         $path = $dir . '/' . $fileName;
         $handle = fopen($path, "w");
-        fwrite($handle, implode(PHP_EOL, $exportStrings));
+        fwrite($handle, $string);
         fclose($handle);
 
         $this->deleteOldExports();
@@ -122,6 +126,7 @@ class AdminExport extends AbstractController
                 '%schueler_geschlecht%' => $schueler->getGeschlecht(),
                 '%schueler_geburtsort%' => $schueler->getGeburtsort(),
                 '%schueler_geburtsland%' => $schueler->getGeburtsland(),
+                '%schueler_geburtsland_ohne_de%' => $schueler->getGeburtsland() == 'DE' ? '' : $schueler->getGeburtsland(),
                 '%schueler_umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
                 '%schueler_plz%' => $schueler->getPlz(),
                 '%schueler_ort%' => $schueler->getOrt(),
@@ -155,6 +160,7 @@ class AdminExport extends AbstractController
                     $kontaktPerson = $kontaktPersonen[$i];
 
                     $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getAnrede();
+                    $registrationData[$baseKey . '_art%'] = $kontaktPerson->getArt();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_nachname%'] = $kontaktPerson->getNachname();
                     $registrationData[$baseKey . '_strasse%'] = $kontaktPerson->getStrasse();
