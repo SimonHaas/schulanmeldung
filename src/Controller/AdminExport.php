@@ -10,13 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminExport extends AbstractController
 {
 
     /**
      * @Route("/download", name="download")
+     * @IsGranted("ROLE_ADMIN")
      * @throws Exception
      */
     public function downloadAction() {
@@ -38,11 +39,22 @@ class AdminExport extends AbstractController
         //build export strings
         $exportStrings = $this->buildRegistrationStrings($assocRegistrations);
 
+        $dir = $this->getParameter('dir.downloads');
+
+        //create folder if not exists
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+
+        //resultstring
+        $string = implode(PHP_EOL, $exportStrings);
+        $string = iconv(mb_detect_encoding($string), 'Windows-1252//TRANSLIT', $string);
+
         //write file
         $fileName = $this->buildExportFileName();
-        $path = $this->getParameter('dir.downloads') . '/' . $fileName;
+        $path = $dir . '/' . $fileName;
         $handle = fopen($path, "w");
-        fwrite($handle, implode(PHP_EOL, $exportStrings));
+        fwrite($handle, $string);
         fclose($handle);
 
         $this->deleteOldExports();
@@ -67,6 +79,7 @@ class AdminExport extends AbstractController
 
     /**
      * @Route("/admin/export", name="admin_export")
+     * @IsGranted("ROLE_ADMIN")
      * @throws Exception
      */
     public function index()
@@ -102,7 +115,6 @@ class AdminExport extends AbstractController
                 '%registrierung_wohnheim%' => $registration->getWohnheim() ? 'J' : 'N',
                 '%registrierung_eintritt_am%' => $registration->getEintrittAm()->format('d.m.Y'),
                 '%registrierung_eq_massnahme%' => $registration->getTyp() == 'EQ' ? 'J' : 'N',
-                '%registrierung_eintrittsdatum%' => $this->getEintrittsDatum($registration),
                 '%registrierung_typ%' => $registration->getTyp(),
                 '%schueler_nachname%' => $schueler->getNachname(),
                 '%schueler_vorname%' => $schueler->getVorname(),
@@ -114,6 +126,7 @@ class AdminExport extends AbstractController
                 '%schueler_geschlecht%' => $schueler->getGeschlecht(),
                 '%schueler_geburtsort%' => $schueler->getGeburtsort(),
                 '%schueler_geburtsland%' => $schueler->getGeburtsland(),
+                '%schueler_geburtsland_ohne_de%' => $schueler->getGeburtsland() == 'DE' ? '' : $schueler->getGeburtsland(),
                 '%schueler_umschueler%' => $schueler->getUmschueler() != null ? 'J' : 'N',
                 '%schueler_plz%' => $schueler->getPlz(),
                 '%schueler_ort%' => $schueler->getOrt(),
@@ -147,6 +160,7 @@ class AdminExport extends AbstractController
                     $kontaktPerson = $kontaktPersonen[$i];
 
                     $registrationData[$baseKey . '_anrede%'] = $kontaktPerson->getAnrede();
+                    $registrationData[$baseKey . '_art%'] = $kontaktPerson->getArt();
                     $registrationData[$baseKey . '_vorname%'] = $kontaktPerson->getVorname();
                     $registrationData[$baseKey . '_nachname%'] = $kontaktPerson->getNachname();
                     $registrationData[$baseKey . '_strasse%'] = $kontaktPerson->getStrasse();
@@ -194,14 +208,14 @@ class AdminExport extends AbstractController
                 $beruf = $ausbildung->getBeruf();
 
                 $registrationData['%beruf_bezeichnung%'] = $beruf->getBezeichnung();
-                $registrationData['%beruf_nummer%'] = '';
+                $registrationData['%beruf_nummer%'] = $beruf->getNummer();
                 $registrationData['%beruf_klasse%'] = $beruf->getKlasse();
 
                 //Betrieb
                 $betrieb = $ausbildung->getBetrieb();
 
                 $registrationData['%betrieb_name%'] = $betrieb->getName();
-                $registrationData['%betrieb_nummer%'] = '';
+                $registrationData['%betrieb_nummer%'] = $betrieb->getKuerzel();
                 $registrationData['%betrieb_kammer%'] = $betrieb->getKammer();
             }
 
@@ -316,10 +330,6 @@ class AdminExport extends AbstractController
         return $GASTSCHUELER;
     }
 
-    private function getEintrittsDatum(Registrierung $registrierung) {
-
-    }
-
     private function getSchulPflicht(Schueler $schueler) {
         $schulbesuche = $schueler->getSchulbesuche();
         $jahre = 0;
@@ -341,3 +351,4 @@ class AdminExport extends AbstractController
     }
 
 }
+

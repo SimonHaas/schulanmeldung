@@ -9,11 +9,13 @@
         <label class="labelFont">Ausbildungsart</label>
         {{ form_widget(form.typ, {'attr':{'class':'form-control'}}) }}
         <br>
-        Ich akzeptiere die <a href="https://www.bs1-bt.de/datenschutz">Datenschutzbestimmungen:</a>
+
+
+        <span style="margin-right: 5px">Ich akzeptiere die <a href="https://www.bs1-bt.de/datenschutz">Datenschutzbestimmungen</a>:</span>
         {{ form_widget(form.datenschutz, {'attr':{'class':'fixSize'}}) }}
         <br>
         <br>
-        <input type="submit" class="btn btn-outline-primary controlButton btn-block buttonFont"/>
+        <button type="submit" class="btn btn-outline-primary controlButton btn-block buttonFont">Weiter...</button>
     </div>
     {{ form_end(form) }}
 {% endblock %}

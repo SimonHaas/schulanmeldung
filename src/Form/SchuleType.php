@@ -24,7 +24,8 @@ class SchuleType extends AbstractType
                     'Berufsschule' => 'BS',
                     'Berufsschule zur sonderpäd. Förderung' => 'SBS',
                     'Fachoberschule' => 'FOS',
-                    'sonstige Schule' => 'SO'
+                    'Grundschule' => 'G',
+                    'Sonstige Schule' => 'SO'
                 ],
                 'placeholder' => 'Auswählen...'
             ])

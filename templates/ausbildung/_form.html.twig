@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <label class="labelFont">Betrieb</label>
         {{  form_widget(form.betrieb, {'attr':{'class':'form-control'}}) }}
-        <a class="btn controlButton blankLinkButton btn-sm float-right smallButtonDistance" href="{{ path('betrieb_ausbildung') }}">neuen Betrieb anlegen</a>
+        <a class="btn controlButton blankLinkButton btn-sm float-right smallButtonDistance" href="{{ path('betrieb_ausbildung') }}">Neuen Betrieb anlegen</a>
     </div>
 </div>
 <div class="row">
@@ -26,8 +26,6 @@
         <br>
     </div>
 </div>
-<input class="btn controlButton buttonFont btn-block blankLinkButton" type="submit" />
-
-{# TODO: https://github.com/eter    nicode/bootstrap-datepicker ? #}
+<button type="submit" class="btn controlButton buttonFont btn-block blankLinkButton">Weiter...</button>
 
 {{ form_end(form) }}
