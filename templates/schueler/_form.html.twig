@@ -47,7 +47,7 @@
             {{ form_widget(form.tel, {'attr': {'placeholder': '0123456789', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Email</label>
+            <label class="labelFont">E-Mail</label>
             {{ form_widget(form.email, {'attr': {'placeholder': 'm.mustermann@musterfirma.de', 'class': 'form-control',}}) }}
         </div>
     </div>
@@ -89,7 +89,7 @@
 
 <br>
 <br>
-<input class="btn controlButton buttonFont btn-block" type="submit"/>
+<button type="submit" class="btn controlButton buttonFont btn-block">Weiter...</button>
 {{ form_end(form) }}
 {% block javascripts_footer %}
 {{ parent() }}
@@ -100,11 +100,11 @@
         $geburtsland.change(function() {
             if($geburtsland.val() !== "" && $geburtsland.val() !== "DE") {
                 $('#schueler_hide').show();
-                $('#schueler_zuzugAm').prop('required',true);;
+                $('#schueler_zuzugAm').prop('required',true);
                 console.log($geburtsland.val());
             } else {
                 $('#schueler_hide').hide();
-                $('#schueler_zuzugAm').prop('required',false);;
+                $('#schueler_zuzugAm').prop('required',false);
             }
         });
     });
