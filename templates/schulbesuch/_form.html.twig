@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Schule</label>
+        <label class="labelFont{{ form.schule.vars.required ? ' required' }}">Schule</label>
         {{  form_widget(form.schule, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
@@ -13,11 +13,11 @@
 
 <div class="row">
     <div class="col">
-        <label class="labelFont">Eintritt</label>
+        <label class="labelFont{{ form.eintritt.vars.required ? ' required' }}">Eintritt</label>
         {{  form_widget(form.eintritt, {'attr':{'class':'form-control'}}) }}
     </div>
     <div class="col">
-        <label class="labelFont">Austritt</label>
+        <label class="labelFont{{ form.austritt.vars.required ? ' required' }}">Austritt</label>
         {{  form_widget(form.austritt, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>

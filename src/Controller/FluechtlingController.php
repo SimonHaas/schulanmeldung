@@ -39,7 +39,7 @@ class FluechtlingController extends AbstractController
         }
 
         if(!empty($session->get('registrierung')->getSchueler()->getFluechtling())) {
-            $fluechtling = $session->get('fluechtling');
+            $fluechtling = $session->get('registrierung')->getSchueler()->getFluechtling();
         } else {
             $fluechtling = new Fluechtling();
         }
@@ -69,8 +69,21 @@ class FluechtlingController extends AbstractController
      */
     public function update(Request $request)
     {
-        $session = $request->getSession();
-        $fluechtling = $session->get('registrierung')->getSchueler()->getFluechtling();
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if(!empty($session->get('registrierung')->getSchueler()->getFluechtling())) {
+            $fluechtling = $session->get('registrierung')->getSchueler()->getFluechtling();
+        } else {
+            $request->getSession()->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
         $form = $this->createForm(FluechtlingType::class, $fluechtling);
         $form->handleRequest($request);
 

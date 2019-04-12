@@ -1,23 +1,32 @@
 {{ form_start(form) }}
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Letzte Schulart</label>
+        <label class="labelFont{{ form.letzteSchulart.vars.required ? ' required' }}">Letzte Schulart</label>
+        <div class="form-error">
+            {{ form_errors(form.letzteSchulart) }}
+        </div>
         {{  form_widget(form.letzteSchulart, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Höchster erreichter Abschluss</label>
+        <label class="labelFont{{ form.hoechsterAbschluss.vars.required ? ' required' }}">Höchster erreichter Abschluss</label>
+        <div class="form-error">
+            {{ form_errors(form.hoechsterAbschluss) }}
+        </div>
         {{  form_widget(form.hoechsterAbschluss, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Höchster erreichter Abschluss an</label>
+        <label class="labelFont{{ form.hoechAbschlAn.vars.required ? ' required' }}">Höchster erreichter Abschluss an</label>
+        <div class="form-error">
+            {{ form_errors(form.hoechAbschlAn) }}
+        </div>
         {{  form_widget(form.hoechAbschlAn, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <br>
 <br>
-<button class="btn controlButton buttonFont btn-block blankLinkButton" type="submit">Weiter..</button>
+<button class="btn controlButton buttonFont btn-block blankLinkButton" type="submit">Weiter...</button>
 {{ form_end(form) }}

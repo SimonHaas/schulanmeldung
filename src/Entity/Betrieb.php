@@ -84,6 +84,28 @@ class Betrieb
      */
     private $kuerzel = '';
 
+    private $kammerReadable = '';
+
+    private const KAMMERN = [
+        'HWK Bayreuth' => 102,
+        'IHK Bayreuth' => 153,
+        'IHK Coburg' => 154,
+        'IHK Aschaffenburg' => 151,
+        'HWK Augsburg' => 101,
+        'IHK Augsburg' => 152,
+        'IHK Lindau' => 155,
+        'IHK München' => 156,
+        'HWK Nürnberg' => 105,
+        'IHK Nürnberg' => 157,
+        'HWK Passau' => 106,
+        'IHK Passau' => 158,
+        'HWK Regensburg' => 107,
+        'IHK Regensburg' => 159,
+        'HWK Würzburg' => 108,
+        'IHK Würzburg-Schweinfurt' => 160,
+        'sonstige' => 000,
+    ];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -231,10 +253,28 @@ class Betrieb
         return $this->kammer;
     }
 
+    public function getKammerReadable()
+    {
+        return $this->kammerReadable;
+    }
+
+    public static function getKammern()
+    {
+        return self::KAMMERN;
+    }
+
+    private function setKammerReadable(int $kammer)
+    {
+        $kammerReadable = array_search($kammer, self::KAMMERN);
+        if($kammerReadable === false)
+            $kammerReadable = 'Fehler';
+        $this->kammerReadable = $kammerReadable;
+    }
+
     public function setKammer(int $kammer): self
     {
         $this->kammer = $kammer;
-
+        $this->setKammerReadable($kammer);
         return $this;
     }
 

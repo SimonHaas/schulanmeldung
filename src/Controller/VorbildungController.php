@@ -31,12 +31,43 @@ class VorbildungController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
             $session->get('registrierung')->setSchueler($form->getData());
 
             return $this->redirectToRoute('allgemein_new');
         }
         return $this->render('vorbildung/index.html.twig', [
+            'form' => $form->createView(),
+            'schulbesuche' => $session->get('registrierung')->getSchueler()->getSchulbesuche(),
+        ]);
+    }
+    /**
+     * @Route("/update", name="vorbildung_update", methods={"GET|POST"})
+     */
+    public function update(Request $request): Response
+    {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        if(!empty($session->get('registrierung')->getSchueler())) {
+            $schueler = $session->get('registrierung')->getSchueler();
+        } else {
+            $request->getSession()->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        $form = $this->createForm(VorbildungType::class, $schueler);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $session->get('registrierung')->setSchueler($form->getData());
+
+            return $this->redirectToRoute('daten_pruefen');
+        }
+        return $this->render('vorbildung/update.html.twig', [
             'form' => $form->createView(),
             'schulbesuche' => $session->get('registrierung')->getSchueler()->getSchulbesuche(),
         ]);

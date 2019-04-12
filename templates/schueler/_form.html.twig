@@ -1,87 +1,133 @@
 {{ form_start(form) }}
-{% use "base.html.twig" %}
 <div class="conatiner">
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Alle Vornamen</label>
+            <label class="labelFont{{ form.vorname.vars.required ? ' required' }}">Alle Vornamen</label>
+            <div class="form-error">
+                {{ form_errors(form.vorname) }}
+            </div>
             {{ form_widget(form.vorname, {'attr': {'placeholder': 'Max', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Nachname</label>
+            <label class="labelFont{{ form.nachname.vars.required ? ' required' }}">Nachname</label>
+            <div class="form-error">
+                {{ form_errors(form.nachname) }}
+            </div>
             {{ form_widget(form.nachname, {'attr': {'placeholder': 'Mustermann', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Rufname</label>
+            <label class="labelFont{{ form.rufname.vars.required ? ' required' }}">Rufname</label>
+            <div class="form-error">
+                {{ form_errors(form.rufname) }}
+            </div>
             {{ form_widget(form.rufname, {'attr': {'placeholder': 'Max', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Geschlecht</label>
+            <label class="labelFont{{ form.geschlecht.vars.required ? ' required' }}">Geschlecht</label>
+            <div class="form-error">
+                {{ form_errors(form.geschlecht) }}
+            </div>
             {{ form_widget(form.geschlecht, {'attr': {'placeholder': 'Geschlecht', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Straße</label>
+            <label class="labelFont{{ form.strasse.vars.required ? ' required' }}">Straße</label>
+            <div class="form-error">
+                {{ form_errors(form.strasse) }}
+            </div>
             {{ form_widget(form.strasse, {'attr': {'placeholder': 'Mustertraße', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Hausnummer</label>
+            <label class="labelFont{{ form.hsnr.vars.required ? ' required' }}">Hausnummer</label>
+            <div class="form-error">
+                {{ form_errors(form.hsnr) }}
+            </div>
             {{ form_widget(form.hsnr, {'attr': {'placeholder': '15', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Postleitzahl</label>
-            {{ form_widget(form.plz, {'attr': {'placeholder': '90000', 'class': 'form-control',}}) }}
+            <label class="labelFont{{ form.plz.vars.required ? ' required' }}">Postleitzahl</label>
+            <div class="form-error">
+                {{ form_errors(form.plz) }}
+            </div>
+            {{ form_widget(form.plz, {'attr': {'placeholder': '91234', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Ort</label>
+            <label class="labelFont{{ form.ort.vars.required ? ' required' }}">Ort</label>
+            <div class="form-error">
+                {{ form_errors(form.ort) }}
+            </div>
             {{ form_widget(form.ort, {'attr': {'placeholder': 'Musterstadt', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Telefonnummer</label>
-            {{ form_widget(form.tel, {'attr': {'placeholder': '0123456789', 'class': 'form-control',}}) }}
+            <label class="labelFont{{ form.tel.vars.required ? ' required' }}">Telefonnummer</label>
+            <div class="form-error">
+                {{ form_errors(form.tel) }}
+            </div>
+            {{ form_widget(form.tel, {'attr': {'placeholder': '0123/456789', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">E-Mail</label>
+            <label class="labelFont{{ form.email.vars.required ? ' required' }}">E-Mail</label>
+            <div class="form-error">
+                {{ form_errors(form.email) }}
+            </div>
             {{ form_widget(form.email, {'attr': {'placeholder': 'm.mustermann@musterfirma.de', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <label class="labelFont">Geburtsdatum</label>
+            <label class="labelFont{{ form.geburtsdatum.vars.required ? ' required' }}">Geburtsdatum</label>
+            <div class="form-error">
+                {{ form_errors(form.geburtsdatum) }}
+            </div>
             {{ form_widget(form.geburtsdatum, {'attr': {'placeholder': '01.01.2000', 'class': 'form-control',}}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Geburtsort</label>
+            <label class="labelFont{{ form.geburtsort.vars.required ? ' required' }}">Geburtsort</label><div class="form-error">
+                {{ form_errors(form.geburtsort) }}
+            </div>
             {{ form_widget(form.geburtsort, {'attr': {'placeholder': 'Musterstadt', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Geburtsland</label>
+            <label class="labelFont{{ form.geburtsland.vars.required ? ' required' }}">Geburtsland</label>
+            <div class="form-error">
+                {{ form_errors(form.geburtsland) }}
+            </div>
             {{ form_widget(form.geburtsland, {'attr': {'placeholder': 'Geburtsland', 'class': 'form-control',}}) }}
         </div>
     </div>
     {% if form.zuzugAm is defined %}
     <div class="row" id="schueler_hide" style="display: none">
         <div class="col">
-            <label class="labelFont">Zuzug am</label>
-            {{ form_widget(form.zuzugAm, {'attr': {'placeholder': 'Jahr', 'class': 'form-control',}}) }}
+            <label class="labelFont required">Zuzug am</label>
+            <div class="form-error">
+            {{ form_errors(form.zuzugAm) }}
+            </div>
+            {{ form_widget(form.zuzugAm, {'attr': {'placeholder': '01.2000', 'class': 'form-control',}}) }}
         </div>
     </div>
     {% endif %}
     <div class="row">
         <div class="col-sm-6">
-            <label class="labelFont">Staatsangehörigkeit</label>
+            <label class="labelFont{{ form.staatsangehoerigkeit.vars.required ? ' required' }}">Staatsangehörigkeit</label>
+            <div class="form-error">
+                {{ form_errors(form.staatsangehoerigkeit) }}
+            </div>
             {{ form_widget(form.staatsangehoerigkeit, {'attr': {'placeholder': 'Staatsangehörigkeit', 'class': 'form-control',}}) }}
         </div>
         <div class="col-sm-6">
-            <label class="labelFont">Bekenntnis</label>
+            <label class="labelFont{{ form.bekenntnis.vars.required ? ' required' }}">Bekenntnis</label>
+            <div class="form-error">
+                {{ form_errors(form.bekenntnis) }}
+            </div>
             {{ form_widget(form.bekenntnis, {'attr': {'class': 'form-control',}}) }}
         </div>
     </div>
@@ -91,23 +137,3 @@
 <br>
 <button type="submit" class="btn controlButton buttonFont btn-block">Weiter...</button>
 {{ form_end(form) }}
-{% block javascripts_footer %}
-{{ parent() }}
-<script>
-    $(document).ready(function () {
-        var $geburtsland = $('#schueler_geburtsland');
-        // When geburtsland gets selected ...
-        $geburtsland.change(function() {
-            if($geburtsland.val() !== "" && $geburtsland.val() !== "DE") {
-                $('#schueler_hide').show();
-                $('#schueler_zuzugAm').prop('required',true);
-                console.log($geburtsland.val());
-            } else {
-                $('#schueler_hide').hide();
-                $('#schueler_zuzugAm').prop('required',false);
-            }
-        });
-    });
-
-</script>
-{% endblock %}
