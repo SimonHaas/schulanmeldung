@@ -1,26 +1,36 @@
 {{ form_start(form) }}
-{{ form_errors(form) }}
-
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Betrieb</label>
+        <label class="labelFont{{ form.betrieb.vars.required ? ' required' }}">Betrieb</label>
+        <div class="form-error">
+            {{ form_errors(form.betrieb) }}
+        </div>
         {{  form_widget(form.betrieb, {'attr':{'class':'form-control'}}) }}
         <a class="btn controlButton blankLinkButton btn-sm float-right smallButtonDistance" href="{{ path('betrieb_ausbildung') }}">Neuen Betrieb anlegen</a>
     </div>
 </div>
 <div class="row">
     <div class="col">
-        <label class="labelFont">Beginn</label>
+        <label class="labelFont{{ form.beginn.vars.required ? ' required' }}">Beginn</label>
+        <div class="form-error">
+            {{ form_errors(form.beginn) }}
+        </div>
         {{  form_widget(form.beginn, {'attr':{'class':'form-control',}}) }}
     </div>
     <div class="col">
-        <label class="labelFont">Ende</label>
+        <label class="labelFont{{ form.ende.vars.required ? ' required' }}">Ende</label>
+        <div class="form-error">
+            {{ form_errors(form.ende) }}
+        </div>
         {{  form_widget(form.ende, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Beruf</label>
+        <label class="labelFont{{ form.beruf.vars.required ? ' required' }}">Beruf</label>
+        <div class="form-error">
+            {{ form_errors(form.beruf) }}
+        </div>
         {{  form_widget(form.beruf, {'attr':{'class':'form-control'}}) }}
         <br>
         <br>

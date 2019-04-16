@@ -1,4 +1,21 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Speichern') }}</button>
+<div class="container">
+    <div class="row">
+        <label class="labelFont{{ form.ersteHaelfte.vars.required ? ' required' }}">Eintrittsdatum bei Registrierungen am Jahres Anfang</label>
+        <div class="form-error">
+            {{ form_errors(form.ersteHaelfte) }}
+        </div>
+        {{ form_widget(form.ersteHaelfte, {'attr': {'class': 'form-control',}}) }}
+        <br>
+    </div>
+    <div class="row">
+        <label class="labelFont{{ form.zweiteHaelfte.vars.required ? ' required' }}">Eintrittsdatum bei Registrierungen am Jahres Ende</label>
+        <div class="form-error">
+            {{ form_errors(form.zweiteHaelfte) }}
+        </div>
+        {{ form_widget(form.zweiteHaelfte, {'attr': {'class': 'form-control',}}) }}
+    </div>
+</div>
+<br>
+<button class="btn controlButton buttonFont blankLinkButton pull-left">{{ button_label|default('Speichern') }}</button>
 {{ form_end(form) }}

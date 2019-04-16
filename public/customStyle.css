@@ -164,3 +164,25 @@ body{
 .dataLink:hover{
     color: #5eb5e0;
 }
+
+.required:after {
+    content: "*";
+    color: red;
+}
+.form-error>ul>li {
+    font-size: .8em;
+    color: red;
+    font-weight: bold;
+}
+
+.form-error>ul {
+    list-style-type: none;
+    padding: 0;
+}
+.datenschutz {
+    margin-right: 5px
+}
+
+.importantInfo{
+    color: red;
+}

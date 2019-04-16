@@ -6,12 +6,17 @@
     {{ form_start(form) }}
     <h1 class="headlineFont">Auswahl der Aubildungsart</h1>
     <div class="container">
-        <label class="labelFont">Ausbildungsart</label>
+        <label class="labelFont{{ form.typ.vars.required ? ' required' }}">Ausbildungsart</label>
+        <div class="form-error">
+            {{ form_errors(form.typ) }}
+        </div>
         {{ form_widget(form.typ, {'attr':{'class':'form-control'}}) }}
         <br>
 
-
-        <span style="margin-right: 5px">Ich akzeptiere die <a href="https://www.bs1-bt.de/datenschutz">Datenschutzbestimmungen</a>:</span>
+        <div class="form-error">
+            {{ form_errors(form.datenschutz) }}
+        </div>
+        <span class="datenschutz{{ form.datenschutz.vars.required ? ' required' }}">Ich akzeptiere die <a href="https://www.bs1-bt.de/datenschutz">Datenschutzbestimmungen</a>:</span>
         {{ form_widget(form.datenschutz, {'attr':{'class':'fixSize'}}) }}
         <br>
         <br>

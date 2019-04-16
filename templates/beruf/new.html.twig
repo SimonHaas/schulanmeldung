@@ -4,11 +4,13 @@
 
 {% block body %}
     <div>
-        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+        <a class="btn controlButton blankLinkButton pull-left" href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+        <br>
+        <br>
     </div>
-    <h1>Neuen Beruf anlegen</h1>
+    <h1 class="headlineFont">Neuen Beruf anlegen</h1>
 
     {{ include('beruf/_form.html.twig') }}
 
-    <a href="{{ path('beruf_index') }}">zur Liste</a>
+    <a class="btn controlButton buttonFont blankLinkButton pull-left" href="{{ path('beruf_index') }}">zur Liste</a>
 {% endblock %}
