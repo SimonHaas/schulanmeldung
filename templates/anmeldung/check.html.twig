@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Daten prüfen{% endblock %}
 {% block body %}
-        <br>
+        <br />
         <h3 class="headlineFont text-center redHighlight">Bitte prüfen Sie ihre Angaben und schließen Sie die Anmeldung ab.</h3>
-        <br>
-
+        <br />
     {% if registrierung.typ != "AUAU" and registrierung.typ != "EQ" %}
         <div class="alert alert-info" role="alert">Sie kommen ohne Vertrag zu uns</div>
     {% endif %}
@@ -39,12 +38,13 @@
         {% endfor %}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update', 'text': 'Hinzufügen'}) }}
     <h2 class="headlineFont">Vorbildung</h2>
-    {{ include('vorbildung/_show.html.twig') }}
     {% if schulbesuche is not null %}
-        <h2 class="headlineFont">Schulbesuche</h2>
+        <h3 class="headlineFont">Schulbesuche</h3>
         {{ include('schulbesuch/_showtable.html.twig', { 'schulbesuche': schulbesuche}) }}
         {{ include('anmeldung/_checkButton.html.twig', {'route': 'schulbesuch_update', 'text': 'Hinzufügen'}) }}
     {% endif %}
+    {{ include('vorbildung/_show.html.twig') }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'vorbildung_update', 'text': ''}) }}
     <h2 class="headlineFont">Allgemein</h2>
     {{ include('allgemein/_show.html.twig', { 'registrierung': registrierung}) }}
     {{ include('anmeldung/_checkButton.html.twig', {'route': 'allgemein_update', 'text': ''}) }}

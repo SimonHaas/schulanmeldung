@@ -3,6 +3,10 @@
 <br>
 <div class="row">
     <div class="col-lg-12">
+        <label class="labelFont{{ form.deutschKenntnis.vars.required ? ' required' }}">Deutschkenntnisse</label>
+        <div class="form-error">
+            {{ form_errors(form.deutschKenntnis) }}
+        </div>
         <div class="row text-center">
             <div class="col-lg-2">
                 <label>Keine</label>
@@ -13,7 +17,7 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <label>Sehr Schlecht</label>
+                <label>Sehr schlecht</label>
                 <div class="row">
                     <div class="col-lg-12">
                         {{  form_widget(form.deutschKenntnis.1) }}
@@ -21,7 +25,7 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <label>Eher Schlecht</label>
+                <label>Schlecht</label>
                 <div class="row">
                     <div class="col-lg-12">
                         {{  form_widget(form.deutschKenntnis.2) }}
@@ -29,7 +33,7 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <label>Durchschnitt</label>
+                <label>Durchschnittlich</label>
                 <div class="row">
                     <div class="col-lg-12">
                         {{  form_widget(form.deutschKenntnis.3) }}
@@ -37,7 +41,7 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <label>Eher Gut</label>
+                <label>Gut</label>
                 <div class="row">
                     <div class="col-lg-12">
                         {{  form_widget(form.deutschKenntnis.4) }}
@@ -45,7 +49,7 @@
                 </div>
             </div>
             <div class="col-lg-2">
-                <label>Gut</label>
+                <label>Sehr gut</label>
                 <div class="row">
                     <div class="col-lg-12">
                         {{  form_widget(form.deutschKenntnis.5) }}
@@ -53,34 +57,41 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Anmeldestelle</label>
+        <label class="labelFont{{ form.anmeldeStelle.vars.required ? ' required' }}">Anmeldestelle</label>
+        <div class="form-error">
+            {{ form_errors(form.anmeldeStelle) }}
+        </div>
         {{  form_widget(form.anmeldeStelle, {'attr':{'placeholder': 'Anmeldestelle', 'class':'form-control'}}) }}
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Ansprechpartner</label>
-        {{  form_widget(form.ansprechPartner, {'attr':{'placeholder': 'Ansprechpartner', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.ansprechPartner.vars.required ? ' required' }}">Ansprechpartner</label>
+        <div class="form-error">
+            {{ form_errors(form.ansprechPartner) }}
+        </div>
+        {{  form_widget(form.ansprechPartner, {'attr':{'placeholder': 'Max Mustermann', 'class':'form-control'}}) }}
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-12">
-        <label class="labelFont">Telefonnummer</label>
-        {{  form_widget(form.tel, {'attr':{'placeholder': 'Telefonnummer', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.tel.vars.required ? ' required' }}">Telefonnummer</label>
+        <div class="form-error">
+            {{ form_errors(form.tel) }}
+        </div>
+        {{  form_widget(form.tel, {'attr':{'placeholder': '0123/456789', 'class':'form-control'}}) }}
     </div>
 </div>
 
 <br>
 
-<input class="btn controlButton buttonFont btn-block blankLinkButton" type="submit" />
+<button class="btn controlButton buttonFont btn-block blankLinkButton" type="submit">Weiter...</button>
 {{ form_end(form) }}
 

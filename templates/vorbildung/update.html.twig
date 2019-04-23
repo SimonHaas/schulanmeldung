@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Schulbesuch index{% endblock %}
+
+{% block body %}
+    <h1>Vorbildung erfassen</h1>
+    {# TODO: TBD <div class="alert alert-primary" role="alert">Bitte mindestens eine Schule hinzufügen!</div> #}
+    {{ include('vorbildung/_form.html.twig') }}
+{% endblock %}

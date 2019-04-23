@@ -35,8 +35,8 @@ class UmschuelerController extends AbstractController
             }
             return $this->redirectToRoute('anmeldung_start');
         }
-        if($session->has('umschueler')) {
-            $umschueler = $session->get('umschueler');
+        if(!empty($session->get('registrierung')->getSchueler()->getUmschueler())) {
+            $umschueler = $session->get('registrierung')->getSchueler()->getUmschueler();
         } else {
             $umschueler = new Umschueler();
         }
@@ -58,8 +58,20 @@ class UmschuelerController extends AbstractController
      */
     public function update(Request $request)
     {
-        $session = $request->getSession();
-        $umschueler = $session->get('registrierung')->getSchueler()->getUmschueler();
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+        if(!empty($session->get('registrierung')->getSchueler()->getUmschueler())) {
+            $umschueler = $session->get('registrierung')->getSchueler()->getUmschueler();
+        } else {
+            $request->getSession()->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
         $form = $this->createForm(UmschuelerType::class, $umschueler);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

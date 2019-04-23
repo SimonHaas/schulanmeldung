@@ -63,8 +63,15 @@ class SchulbesuchController extends AbstractController
      * @Route("/update", name="schulbesuch_update", methods={"GET","POST"})
      */
     public function update(Request $request): Response {
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
         $schulbesuch = new Schulbesuch();
-        $session = $request->getSession();
         $session->set('update', true);
         $schulen[] = $this->getVerified();
         if($session->has('schule')) {
