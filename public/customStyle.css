@@ -182,3 +182,7 @@ body{
 .datenschutz {
     margin-right: 5px
 }
+
+.importantInfo{
+    color: red;
+}

@@ -17,20 +17,21 @@
         }
     </style>
 
-    <div class="example-wrapper">
-        <ul>
-            <li>
-                <a href="{{ path('admin_registrations') }}">Offene Registrierungen anzeigen</a>
-            </li>
-            <li>
-                <a href="{{ path('admin_export') }}">Exportstring generieren</a>
-            </li>
-            <li>
-                <a href="{{ path('beruf_index') }}">Berufe verwalten</a>
-            </li>
-            <li>
-                <a href="{{ path('eintrittsdatum') }}">Eintrittsdatum bearbeiten</a>
-            </li>
-        </ul>
+    <div class="conatiner example-wrapper">
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-outline-primary controlButton buttonFont" href="{{ path('admin_registrations') }}">Offene Registrierungen anzeigen</a>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-outline-primary controlButton buttonFont" href="{{ path('admin_export') }}">Exportstring generieren</a>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-outline-primary controlButton buttonFont" href="{{ path('beruf_index') }}">Berufe verwalten</a>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-outline-primary controlButton buttonFont" href="{{ path('eintrittsdatum') }}">Eintrittsdatum bearbeiten</a>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

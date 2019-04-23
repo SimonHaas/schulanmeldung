@@ -4,10 +4,10 @@
 
 {% block body %}
     <div class="example-wrapper">
-        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+        <a class="btn controlButton blankLinkButton pull-left" href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
         <div>
             <div>
-                <a href="{{ path('download') }}">Download</a>
+                <a class="btn controlButton buttonFont blankLinkButton btn-block" href="{{ path('download') }}">Download</a>
             </div>
             {% if import_strings|length > 0 %}
                 <pre>{% for import_string in import_strings %}{{ import_string }}<br>{% endfor %}</pre>
