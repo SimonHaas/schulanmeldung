@@ -1,4 +1,24 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="labelFont{{ form.bezeichnung.vars.required ? ' required' }}">Bezeichnung</label>
+            <div class="form-error">
+                {{ form_errors(form.bezeichnung) }}
+            </div>
+            {{ form_widget(form.bezeichnung, {'attr': {'placeholder': 'Bezeichnung', 'class': 'form-control',}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label class="labelFont{{ form.klasse.vars.required ? ' required' }}">Klasse</label>
+            <div class="form-error">
+                {{ form_errors(form.bezeichnung) }}
+            </div>
+            {{ form_widget(form.klasse, {'attr': {'placeholder': 'Klasse', 'class': 'form-control',}}) }}
+        </div>
+    </div>
+    <br>
+    <button class="btn controlButton buttonFont btn-block">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
+

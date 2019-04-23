@@ -4,10 +4,11 @@
 
 {% block body %}
     <div>
-        <a href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
+        <a class="btn controlButton blankLinkButton pull-left" href="{{ path('admin') }}">Zurück zur Verwaltung...</a>
     </div>
-    <h1>Eintrittsdatum bearbeiten</h1>
-    <p>Füllen Sie immer beide Felder aus!</p>
+    <h1 class="headlineFont">Eintrittsdatum bearbeiten</h1>
+    <p class="importantInfo">Füllen Sie immer beide Felder aus!</p>
 
     {{ include('eintrittsdatum/_form.html.twig', {'button_label': 'Speichern'}) }}
 {% endblock %}
+
