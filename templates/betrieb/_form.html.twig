@@ -3,52 +3,82 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <label class="labelFont">Name des Betriebs</label>
-        {{  form_widget(form.name, {'attr':{'placeholder': 'Berufsschule I', 'class':'form-control',}}) }}
+        <label class="labelFont{{ form.name.vars.required ? ' required' }}">Name des Betriebs</label>
+        <div class="form-error">
+            {{ form_errors(form.name) }}
+        </div>
+        {{  form_widget(form.name, {'attr':{'placeholder': 'Beispielfirma GmbH', 'class':'form-control',}}) }}
     </div>
     <div class="col-sm-6">
-        <label class="labelFont">Straße und Hausnummer</label>
-        {{  form_widget(form.strasse, {'attr':{'placeholder': 'Kerschensteinerstraße', 'class':'form-control'}}) }}
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-6">
-        <label class="labelFont">Postleitzahl</label>
-        {{  form_widget(form.plz, {'attr':{'placeholder': '95448', 'class':'form-control'}}) }}
-    </div>
-    <div class="col-sm-6">
-        <label class="labelFont">Ort</label>
-        {{  form_widget(form.ort, {'attr':{'placeholder': 'Bayreuth', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.strasse.vars.required ? ' required' }}">Straße und Hausnummer</label>
+        <div class="form-error">
+            {{ form_errors(form.strasse) }}
+        </div>
+        {{  form_widget(form.strasse, {'attr':{'placeholder': 'Musterstraße 1a', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        <label class="labelFont">Ansprechpartner</label>
-        {{  form_widget(form.ansprPartner, {'attr':{'placeholder': 'Max Mustermann', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.plz.vars.required ? ' required' }}">Postleitzahl</label>
+        <div class="form-error">
+            {{ form_errors(form.plz) }}
+        </div>
+        {{  form_widget(form.plz, {'attr':{'placeholder': '91234', 'class':'form-control'}}) }}
     </div>
     <div class="col-sm-6">
-        <label class="labelFont">Kammer</label>
+        <label class="labelFont{{ form.ort.vars.required ? ' required' }}">Ort</label>
+        <div class="form-error">
+            {{ form_errors(form.ort) }}
+        </div>
+        {{  form_widget(form.ort, {'attr':{'placeholder': 'Musterstadt', 'class':'form-control'}}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <label class="labelFont{{ form.telZentrale.vars.required ? ' required' }}">Telefonnummer der Zentrale</label>
+        <div class="form-error">
+            {{ form_errors(form.telZentrale) }}
+        </div>
+        {{  form_widget(form.telZentrale, {'attr':{'placeholder': '0124/56789', 'class':'form-control'}}) }}
+    </div>
+    <div class="col-sm-6">
+        <label class="labelFont{{ form.kammer.vars.required ? ' required' }}">Kammer</label>
+        <div class="form-error">
+            {{ form_errors(form.kammer) }}
+        </div>
         {{  form_widget(form.kammer, {'attr':{'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        <label class="labelFont">Telefonnummer der Zentrale</label>
-        {{  form_widget(form.telZentrale, {'attr':{'placeholder': '092150739360', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.ansprPartner.vars.required ? ' required' }}">Ansprechpartner</label>
+        <div class="form-error">
+            {{ form_errors(form.ansprPartner) }}
+        </div>
+        {{  form_widget(form.ansprPartner, {'attr':{'placeholder': 'Max Mustermann', 'class':'form-control'}}) }}
     </div>
     <div class="col-sm-6">
-        <label class="labelFont">Durchwahl</label>
-        {{  form_widget(form.telDurchwahl, {'attr':{'placeholder': '092150739360', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.telDurchwahl.vars.required ? ' required' }}">Durchwahl</label>
+        <div class="form-error">
+            {{ form_errors(form.telDurchwahl) }}
+        </div>
+        {{  form_widget(form.telDurchwahl, {'attr':{'placeholder': '0124/56789', 'class':'form-control'}}) }}
     </div>
 </div>
 <div class="row">
     <div class="col-sm-6">
-        <label class="labelFont">Fax</label>
-        {{  form_widget(form.fax, {'attr':{'placeholder': '0921507393699', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.fax.vars.required ? ' required' }}">Fax</label>
+        <div class="form-error">
+            {{ form_errors(form.fax) }}
+        </div>
+        {{  form_widget(form.fax, {'attr':{'placeholder': '0124/56789', 'class':'form-control'}}) }}
     </div>
     <div class="col-sm-6">
-        <label class="labelFont">E-Mail</label>
-        {{  form_widget(form.email, {'attr':{'placeholder': 'sekretariat@bs1-bt.de', 'class':'form-control'}}) }}
+        <label class="labelFont{{ form.email.vars.required ? ' required' }}">E-Mail</label>
+        <div class="form-error">
+            {{ form_errors(form.email) }}
+        </div>
+        {{  form_widget(form.email, {'attr':{'placeholder': 'm.mustermann@beispielfirma.de', 'class':'form-control'}}) }}
     </div>
 </div>
 <br>

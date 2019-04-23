@@ -77,11 +77,24 @@ class AusbildungController extends AbstractController
      */
     public function update(Request $request)
     {
-        $session = $request->getSession();
+        if($request->hasSession() && $request->getSession()->has('registrierung')) {
+            $session = $request->getSession();
+        } else {
+            if($request->hasSession()) {
+                $request->getSession()->invalidate();
+            }
+            return $this->redirectToRoute('anmeldung_start');
+        }
+
+        if(!empty($session->get('registrierung')->getSchueler()->getAusbildung())) {
+            $ausbildung = $session->get('registrierung')->getSchueler()->getAusbildung();
+        } else {
+            $request->getSession()->invalidate();
+            return $this->redirectToRoute('anmeldung_start');
+        }
 
         $session->set('update', true);
 
-        $ausbildung = $session->get('registrierung')->getSchueler()->getAusbildung();
         $beruf = $this->getDoctrine()->getRepository(Beruf::class)->find($ausbildung->getBeruf()->getId());
         $betriebe[] = $this->getDoctrine()->getRepository(Betrieb::class)->findAllVerified();
         $betrieb = $ausbildung->getBetrieb();

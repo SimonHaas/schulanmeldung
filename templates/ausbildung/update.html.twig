@@ -1,10 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Update Ausbildung{% endblock %}
+{% block title %}Ausbildung aktualisieren{% endblock %}
 
 {% block body %}
     <h1 class="headlineFont">Ausbildung</h1>
-
     {{ include('ausbildung/_form.html.twig', {'button_label': 'Update'}) }}
-
 {% endblock %}
+{%  block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
+{% endblock stylesheets %}
+{% block javascripts_footer %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.de.min.js" integrity="sha256-MRg0FdDDqvQkQ3VIUMZCZ39M6O40kpoIYqCGU2rRyxE=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            var d = new Date();
+            var dateStr = "01.09." + d.getFullYear();
+            $('#ausbildung_beginn').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                calendarWeeks: true,
+                language: 'de',
+                todayHighlight: true,
+                weekStart: 1,
+                startDate: '-5y',
+                endDate: '+5y',
+                defaultViewDate: dateStr
+            });
+            $('#ausbildung_ende').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                calendarWeeks: true,
+                language: 'de',
+                todayHighlight: true,
+                weekStart: 1,
+                startDate: '-5y',
+                endDate: '+5y',
+                defaultViewDate: dateStr,
+                startView: 2
+            });
+        });
+    </script>
+{% endblock javascripts_footer %}

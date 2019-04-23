@@ -1,10 +1,61 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}New Schueler{% endblock %}
-
+{% block title %}Schülerdaten{% endblock %}
 {% block body %}
     <h2 class="headlineFont">Daten des Schülers</h2>
 
     {{ include('schueler/_form.html.twig') }}
 
 {% endblock %}
+{%  block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
+{% endblock stylesheets %}
+{% block javascripts_footer %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.de.min.js" integrity="sha256-MRg0FdDDqvQkQ3VIUMZCZ39M6O40kpoIYqCGU2rRyxE=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('#schueler_geburtsdatum').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                language: 'de',
+                weekStart: 1,
+                startDate: '-100y',
+                endDate: '-13y',
+                startView: 2
+            });
+            $('#schueler_zuzugAm').datepicker({
+                format: 'mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                language: 'de',
+                weekStart: 1,
+                startDate: '-100y',
+                endDate: '+2y',
+                startView: 2,
+                minViewMode: 1
+            });
+        });
+        var $geburtsland = $('#schueler_geburtsland');
+        // When site gets loaded ...
+        hideshow($geburtsland);
+        // When geburtsland gets selected ...
+        $geburtsland.change(function() {
+            hideshow($geburtsland);
+        });
+        function hideshow($geburtsland_p) {
+            var $geburtsland = $geburtsland_p;
+            if($geburtsland.val() !== "" && $geburtsland.val() !== "DE") {
+                $('#schueler_hide').show();
+                $('#schueler_zuzugAm').prop('required',true);
+                console.log($geburtsland.val());
+            } else {
+                $('#schueler_hide').hide();
+                $('#schueler_zuzugAm').prop('required',false);
+                console.log($geburtsland.val());
+            }
+        }
+    </script>
+{% endblock javascripts_footer%}

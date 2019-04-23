@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Schulbesuch{% endblock %}
+{% block title %}Schulbesuch{% endblock %}
 
 {% block body %}
     <h1>Schulbesuch</h1>
@@ -9,3 +9,40 @@
 
     <a class="btn controlButton buttonFont blankLinkButton  float-left" href="{{ path(buttonPath) }}">Zurück zur Übersicht</a>
 {% endblock %}
+{%  block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" integrity="sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=" crossorigin="anonymous" />
+{% endblock stylesheets %}
+{% block javascripts_footer %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js" integrity="sha256-tW5LzEC7QjhG0CiAvxlseMTs2qJS7u3DRPauDjFJ3zo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.de.min.js" integrity="sha256-MRg0FdDDqvQkQ3VIUMZCZ39M6O40kpoIYqCGU2rRyxE=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('#schulbesuch_eintritt').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                calendarWeeks: true,
+                language: 'de',
+                todayHighlight: true,
+                weekStart: 1,
+                startDate: '-100y',
+                endDate: '+2y',
+                startView: 2
+            });
+            $('#schulbesuch_austritt').datepicker({
+                format: 'dd.mm.yyyy',
+                autoclose: true,
+                assumeNearbyYear: true,
+                calendarWeeks: true,
+                language: 'de',
+                todayHighlight: true,
+                weekStart: 1,
+                startDate: '-100y',
+                endDate: '+2y',
+                startView: 2
+            });
+        });
+    </script>
+{% endblock javascripts_footer %}
