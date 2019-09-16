@@ -27,6 +27,9 @@
     
     
 ## Datenmigration
+
+In den JSON-Export dürfen keine Kommentare sein. In der Ersten Zeile muss es gleich mit dem Inhalt losgehen. 
+
 ### Berufe
 1. Tabelle `berufekennungen` im Format `JSON` exportieren.
 2. Datei `berufekennungen.json` in das Root-Verzeichnis der Schulanmeldung legen.

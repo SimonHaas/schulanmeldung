@@ -54,3 +54,7 @@
 /public/php_errors.log
 
 /download/*
+
+berufekennungen.json
+betriebedaten.json
+herkunftsschulen.json

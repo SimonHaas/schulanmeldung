@@ -19,24 +19,28 @@ class MigrationController extends AbstractController
     public function berufe()
     {
         $path = APPLICATION_PATH . '/berufekennungen.json';
-        $json = file_get_contents($path);
-        $array = json_decode($json, true);
-
-        $berufekennungen = $array[2]['data'];
+        
+        $entries = self::parseFile($path);
 
         $entityManager = $this->getDoctrine()->getManager();
-        foreach ($berufekennungen as $item)
+        $migrationCount = 0;
+        foreach ($entries as $entry)
         {
+            $item = json_decode($entry, true);
+
             $beruf = new Beruf();
             $beruf->setBezeichnung($item['AB_BEZEICHNG']);
             $beruf->setNummer($item['AB_NR']);
             $beruf->setKlasse($item['Klasse']);
             $entityManager->persist($beruf);
+
+            $migrationCount++;
         }
         $entityManager->flush();
 
         return $this->render('migration/index.html.twig', [
             'tabelle' => 'berufe',
+            'count' => $migrationCount
         ]);
     }
 
@@ -46,14 +50,15 @@ class MigrationController extends AbstractController
     public function betriebe()
     {
         $path = APPLICATION_PATH . '/betriebedaten.json';
-        $json = file_get_contents($path);
-        $array = json_decode($json, true);
 
-        $betriebedaten = $array[2]['data'];
+        $entries = self::parseFile($path);
 
         $entityManager = $this->getDoctrine()->getManager();
-        foreach ($betriebedaten as $item)
+        $migrationCount = 0;
+        foreach ($entries as $entry)
         {
+            $item = json_decode($entry, true);
+
             $betrieb = new Betrieb();
             $betrieb
                 ->setName($item['B_NAME1'] . ' ' . $item['B_NAME2'])
@@ -70,11 +75,14 @@ class MigrationController extends AbstractController
                 ->setIstVerifiziert(true);
 
             $entityManager->persist($betrieb);
+
+            $migrationCount++;
         }
         $entityManager->flush();
 
         return $this->render('migration/index.html.twig', [
             'tabelle' => 'betriebe',
+            'count' => $migrationCount
         ]);
     }
 
@@ -84,14 +92,15 @@ class MigrationController extends AbstractController
     public function schulen()
     {
         $path = APPLICATION_PATH . '/herkunftsschulen.json';
-        $json = file_get_contents($path);
-        $array = json_decode($json, true);
-
-        $herkunftsschulen = $array[2]['data'];
+        
+        $entries = self::parseFile($path);
 
         $entityManager = $this->getDoctrine()->getManager();
-        foreach ($herkunftsschulen as $item)
+        $migrationCount = 0;
+        foreach ($entries as $entry)
         {
+            $item = json_decode($entry, true);
+
             $schule = new Schule();
             $schule
                 ->setNummer($item['HKS_NUMMER'])
@@ -103,11 +112,36 @@ class MigrationController extends AbstractController
                 ->setIstVerifiziert(true);
 
             $entityManager->persist($schule);
+            $migrationCount++;
         }
         $entityManager->flush();
 
         return $this->render('migration/index.html.twig', [
             'tabelle' => 'schulen',
+            'count' => $migrationCount
         ]);
+    }
+
+    private static function parseFile($path)
+    {
+        $content = file_get_contents($path);
+        
+        // Der Export ist kein valides JSON, deshalb das komplizierte Parsing.
+        $entries = explode('}', $content);
+
+        // 1. entry
+        $entries[0] = $entries[0] . '}';
+        $entries[0] = substr($entries[0], 1);
+
+        // other entries
+        for($i = 1; $i < sizeof($entries); $i++) {
+            $entries[$i] = substr($entries[$i], 1);
+            $entries[$i] = $entries[$i] . '}';
+        }
+        
+        // last element is only a square bracket
+        array_pop($entries);
+
+        return $entries;
     }
 }
