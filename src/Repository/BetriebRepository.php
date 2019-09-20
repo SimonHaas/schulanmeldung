@@ -27,6 +27,7 @@ class BetriebRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('b')
             ->andWhere('b.istVerifiziert = :val')
             ->setParameter('val', true)
+            ->orderBy('b.name', 'ASC')
             ->getQuery()
             ->getResult();
     }
