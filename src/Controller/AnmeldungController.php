@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Exception;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class AnmeldungController
@@ -114,7 +115,7 @@ class AnmeldungController extends AbstractController
      * @param Request $request
      * @return string
      */
-    public function beenden(Request $request)
+    public function beenden(Request $request, LoggerInterface $logger)
     {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
@@ -169,7 +170,11 @@ class AnmeldungController extends AbstractController
         $em->persist($registrierung);
         $em->flush();
 
-        self::sendConfirmationEmail($schueler->getEmail());
+        try {
+            self::sendConfirmationEmail($schueler->getEmail());
+        } catch (Exception $e) {
+            $logger->error('Die Bestätigungs-Email konnte nicht verschickt werden.');
+        }
 
         $session->invalidate();
 
