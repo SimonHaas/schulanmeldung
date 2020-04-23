@@ -19,7 +19,7 @@
 4. docker-compose.yml.dist nach docker-compose.yml kopieren: `cp docker-compose.yml.dist docker-compose.yml`
 5. Datenbank-Zugangsdaten in der docker-compose.yml anpassen
 5. Anwendung starten `sudo docker-compose up -d`
-5. Terminal im php-container öffnen `sudo docker-compose exec php-fpm /bin/bash`
+5. Terminal im php-container öffnen `sudo docker-compose exec php /bin/bash`
 3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
 4. Datenbank anlegen `php bin/console doctrine:database:create`
     * Das legt die in der .env Datei konfigurierte Datenbank an.
