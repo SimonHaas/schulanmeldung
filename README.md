@@ -4,7 +4,6 @@
 
 1. Projekt klonen https://git-scm.com: `git clone https://github.com/SimonHaas/schulanmeldung.git`
 2. `cd schulanmeldung`
-3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
 4. .env.dist nach .env kopieren: `cp .env.dist .env`
 3. .env Datei bearbeiten:
 	* APP_ENV=prod
@@ -17,9 +16,14 @@
 	* ADMIN_PASSWORD=1234
 		- Mit diesen Daten kann ein neuer Admin-Account erstellt werden. Einfach Schritt 8 ausführen und es wird ein neuer User in der Datenbank angelegt. Dann können diese zwei Variablen theoretischer Weise wieder gelöscht werden.
 		- Den Adminbereich erreicht man über `/admin`.
-4. `php bin/console doctrine:database:create`
+4. docker-compose.yml.dist nach docker-compose.yml kopieren: `cp docker-compose.yml.dist docker-compose.yml`
+5. Datenbank-Zugangsdaten in der docker-compose.yml anpassen
+5. Anwendung starten `sudo docker-compose up -d`
+5. Terminal im php-container öffnen `sudo docker-compose exec php-fpm /bin/bash`
+3. PHP-Fremdbibliotheken installieren mit Hilfe von https://getcomposer.org `composer install`
+4. Datenbank anlegen `php bin/console doctrine:database:create`
     * Das legt die in der .env Datei konfigurierte Datenbank an.
-5. `php bin/console migrate`
+5. Migrationen ausführen `php bin/console doctrine:migrations:migrate`
     * Das führt die unter `src/Migrations` liegenden Datenbank-Migrationen aus um die Tabellen zu erstellen.
 6. In der PHP-ini muss die Extension `intl` aktiviert sein um die richtigen Länder bei der Auswahl des Herkunftslandes anzeigen zu können.
 6. Im Browser `/user`aufrufen. 

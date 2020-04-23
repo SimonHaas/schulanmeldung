@@ -54,6 +54,9 @@
 /public/php_errors.log
 
 /download/*
+/data/
+
+docker-compose.yml
 
 berufekennungen.json
 betriebedaten.json
