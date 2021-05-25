@@ -23,6 +23,9 @@
     "doctrine/dbal": {
         "version": "v2.8.0"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "1.6",
         "recipe": {
@@ -182,6 +185,9 @@
     "symfony/dependency-injection": {
         "version": "v4.1.4"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.4.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.1.4"
     },
@@ -278,6 +284,9 @@
     "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.22.1"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.9.0"
     },
@@ -295,6 +304,9 @@
     },
     "symfony/property-info": {
         "version": "v4.1.4"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v4.2.12"
     },
     "symfony/routing": {
         "version": "4.0",

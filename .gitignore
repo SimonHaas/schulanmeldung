@@ -56,8 +56,6 @@
 /download/*
 /data/
 
-docker-compose.yml
-
 berufekennungen.json
 betriebedaten.json
 herkunftsschulen.json
