@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Bestätigung Ihrer Anmeldung bei der Berufsschule 1 Bayreuth{% endblock %}
+{% block body %}
+    {% if registrierung.typ != "AUAU" and registrierung.typ != "EQ" %}
+        <div class="alert alert-info" role="alert">Sie kommen ohne Vertrag zu uns</div>
+    {% endif %}
+    <h2 class="headlineFont">Schüler</h2>
+    {{ include('schueler/_show.html.twig', { 'schueler': schueler}) }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'schueler_update', 'text': ''}) }}
+    {% if schueler.fluechtling %}
+        <h2 class="headlineFont">Informationen zu Flüchtling</h2>
+        {{ include('fluechtling/_show.html.twig', { 'fluechtling': fluechtling}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'fluechtling_update', 'text': ''}) }}
+    {% endif %}
+    {% if schueler.umschueler %}
+        <h2 class="headlineFont">Informationen zu Umschüler</h2>
+        {{ include('umschueler/_show.html.twig', { 'umschueler': umschueler}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'umschueler_update', 'text': ''}) }}
+    {% endif %}
+    {% if ausbildung is not null %}
+        <h2 class="headlineFont">Ausbildung</h2>
+        {{ include('ausbildung/_show.html.twig', { 'ausbildung': ausbildung}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'ausbildung_update', 'text': ''}) }}
+        {% if ausbildung.betrieb.id is null %}
+            <h2 class="headlineFont">Betrieb</h2>
+            {{ include('betrieb/_show.html.twig', { 'betrieb': ausbildung.betrieb }) }}
+            {{ include('anmeldung/_checkButton.html.twig', {'route': 'betrieb_update', 'text': ''}) }}
+        {% endif %}
+    {% endif %}
+        <h2 class="headlineFont">Kontaktpersonen</h2>
+        {% for kontaktperson in kontaktpersonen %}
+        {{ include('kontaktperson/_show.html.twig', { 'kontaktperson': kontaktperson}) }}
+        {% else %}
+            <div class="alert alert-info">Keine Kontaktpersonen erfasst</div>
+        {% endfor %}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'kontaktperson_update', 'text': 'Hinzufügen'}) }}
+    <h2 class="headlineFont">Vorbildung</h2>
+    {% if schulbesuche is not null %}
+        <h3 class="headlineFont">Schulbesuche</h3>
+        {{ include('schulbesuch/_showtable.html.twig', { 'schulbesuche': schulbesuche}) }}
+        {{ include('anmeldung/_checkButton.html.twig', {'route': 'schulbesuch_update', 'text': 'Hinzufügen'}) }}
+    {% endif %}
+    {{ include('vorbildung/_show.html.twig') }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'vorbildung_update', 'text': ''}) }}
+    <h2 class="headlineFont">Allgemein</h2>
+    {{ include('allgemein/_show.html.twig', { 'registrierung': registrierung}) }}
+    {{ include('anmeldung/_checkButton.html.twig', {'route': 'allgemein_update', 'text': ''}) }}
+{% endblock %}

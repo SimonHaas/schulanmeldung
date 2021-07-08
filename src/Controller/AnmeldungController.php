@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Exception;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class AnmeldungController
@@ -103,6 +104,9 @@ class AnmeldungController extends AbstractController
             'schueler' => $schueler,
             'ausbildung' => $ausbildung,
         ];
+
+        $session->set('templateOptions', $templateOptions);
+
         return $this->render('anmeldung/check.html.twig', $templateOptions);
     }
 
@@ -111,7 +115,7 @@ class AnmeldungController extends AbstractController
      * @param Request $request
      * @return string
      */
-    public function beenden(Request $request)
+    public function beenden(Request $request, LoggerInterface $logger)
     {
         if($request->hasSession() && $request->getSession()->has('registrierung')) {
             $session = $request->getSession();
@@ -166,8 +170,33 @@ class AnmeldungController extends AbstractController
         $em->persist($registrierung);
         $em->flush();
 
+        try {
+            self::sendConfirmationEmail($schueler->getEmail());
+        } catch (Exception $e) {
+            $logger->error('Die Bestätigungs-Email konnte nicht verschickt werden.');
+        }
+
         $session->invalidate();
 
         return $this->render('anmeldung/beendet.html.twig');
+    }
+
+    private function sendConfirmationEmail($emailTo, \Swift_Mailer $mailer)
+    {
+        $templateOptions = $session->get('templateOptions');
+
+        $message = (new \Swift_Message('Bestätigung Ihrer Anmeldung bei der Berufsschule 1 Bayreuth'))
+        ->setFrom(getenv('EMAIL_FROM'))
+        ->setTo($emailTo)
+        ->setBody(
+            $this->renderView(
+                'emails/confirmation.html.twig',
+                ['templateOptions' => $templateOptions]
+            ),
+            'text/html'
+            )
+        ;
+
+        $mailer->send($message);
     }
 }
